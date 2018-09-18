@@ -6,12 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.1985401" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="4.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FitnessTracker.Application.Common\FitnessTracker.Application.Common.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Application.Model.Workout\FitnessTracker.Application.Model.Workout.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Application.Workout\FitnessTracker.Application.Workout.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Common\FitnessTracker.Common.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Persistance.Workout\FitnessTracker.Persistance.Workout.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,4 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FitnessTracker.Application.Common\FitnessTracker.Application.Common.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Application.Model.Workout\FitnessTracker.Application.Model.Workout.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Common\FitnessTracker.Common.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Domain.Workout\FitnessTracker.Domain.Workout.csproj" />
+  </ItemGroup>
+
 </Project>
