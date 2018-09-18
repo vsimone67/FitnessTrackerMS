@@ -1,0 +1,19 @@
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
+WORKDIR /app
+EXPOSE 80
+
+FROM microsoft/dotnet:2.1-sdk AS build
+WORKDIR /src
+COPY ["FitnessTracker.Workout.Service/FitnessTracker.Workout.Service.csproj", "FitnessTracker.Workout.Service/"]
+RUN dotnet restore "FitnessTracker.Workout.Service/FitnessTracker.Workout.Service.csproj"
+COPY . .
+WORKDIR "/src/FitnessTracker.Workout.Service"
+RUN dotnet build "FitnessTracker.Workout.Service.csproj" -c Release -o /app
+
+FROM build AS publish
+RUN dotnet publish "FitnessTracker.Workout.Service.csproj" -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "FitnessTracker.Workout.Service.dll"]
