@@ -33,6 +33,7 @@ namespace FitnessTracker.Workout.Service
 
                  //config.SetBasePath("/appsettings");  // set path to docker volume for common files
                  config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                 config.AddJsonFile("appsettings.secrets.json", optional: true, reloadOnChange: true);
                  config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
                  config.AddEnvironmentVariables();
