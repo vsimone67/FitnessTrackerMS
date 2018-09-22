@@ -55,7 +55,7 @@ namespace FitnessTracker.Workout.Service.StartupConfig
                                          TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
                                         );
 
-                checks.AddSqlCheck("vsazure", configuration.GetConnectionString("WorkoutConnection"), TimeSpan.FromMinutes(1));
+                checks.AddSqlCheck("vsazure", configuration.GetConnectionString("FitnessTrackerConnection"), TimeSpan.FromMinutes(1));
             });
 
             return services;
@@ -94,12 +94,6 @@ namespace FitnessTracker.Workout.Service.StartupConfig
 
         public static IServiceCollection ConfigureDIContainer(this IServiceCollection services, Container container)
         {
-            //bootstrapper.Container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-            //services.EnableSimpleInjectorCrossWiring(bootstrapper.Container);
-            //bootstrapper.AutoRegisterFitnessTrackerDependencies("FitnessTracker");
-            //bootstrapper.RegisterCommandAndQueryHandlers("FitnessTracker");
-            //bootstrapper.RegisterMappingEngine();
-
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             services.EnableSimpleInjectorCrossWiring(container);
 
@@ -112,12 +106,13 @@ namespace FitnessTracker.Workout.Service.StartupConfig
 
             // Look in all assemblies and register all implementations of ICommandHandler<in TCommand>
             container.Register(typeof(ICommandHandler<,>), fitnessTrackerAssemblies);
-
             // Look in all assemblies and register all implementations of IQueryHandler<in TQuery, TResult>
             container.Register(typeof(IQueryHandler<,>), fitnessTrackerAssemblies);
 
+            //TODO: NOTE:  No idea why we have to use services.addsingleton instead of container.Register.  container.register does not work
             services.AddSingleton<ICommandProcessor>((p) => new CommandProcessor(container.GetInstance));
             services.AddSingleton<IQueryProcessor>((p) => new QueryProcessor(container.GetInstance));
+
             return services;
         }
 
@@ -145,10 +140,28 @@ namespace FitnessTracker.Workout.Service.StartupConfig
             return services;
         }
 
-        public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterEventHandlers(this IServiceCollection services, Container container)
         {
+            //var fitnessTrackerAssemblies = LibraryManager.GetReferencingAssemblies("FitnessTracker");
+
+            //// Look in all assemblies and register all implementations of ICommandHandler<in TCommand>
+            //container.Register(typeof(ICommandHandler<,>), fitnessTrackerAssemblies);
+            //// Look in all assemblies and register all implementations of IQueryHandler<in TQuery, TResult>
+            //container.Register(typeof(IQueryHandler<,>), fitnessTrackerAssemblies);
+
+            ////TODO: NOTE:  No idea why we have to use services.addsingleton instead of container.Register.  container.register does not work
+            //services.AddSingleton<ICommandProcessor>((p) => new CommandProcessor(container.GetInstance));
+            //services.AddSingleton<IQueryProcessor>((p) => new QueryProcessor(container.GetInstance));
+
+            // Add Event Handlers here
+
             //services.AddSingleton<IIntegrationEventHandler<AddNewWorkoutEvent>, AddNewWorkoutEventHandler>();
 
+            return services;
+        }
+
+        public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
+        {
             var settings = new FitnessTracker.ApplicationSettings.ApplicationSettings(configuration);
 
             services.AddSingleton<IApplicationSettings>((p) => settings);
@@ -160,7 +173,7 @@ namespace FitnessTracker.Workout.Service.StartupConfig
         {
             IMapper mapperConfig = GetMapperConfiguration();
             container.Register<IMapper>(() => mapperConfig, Lifestyle.Singleton);  // Register automapper config and mappings
-            //services.AddSingleton<IMapper>(mapperConfig);
+
             return services;
         }
 

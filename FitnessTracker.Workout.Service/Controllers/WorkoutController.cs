@@ -3,6 +3,7 @@ using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Queries;
 using FitnetssTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,17 +16,20 @@ namespace FitnessTracker.Service.Controllers
     {
         private readonly IQueryProcessor _queryProcessor;
         private readonly ICommandProcessor _commandProcessor;
+        private readonly ILogger<WorkoutController> _logger;
 
-        public WorkoutController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor)
+        public WorkoutController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor, ILogger<WorkoutController> logger)
         {
             _queryProcessor = queryProcessor;
             _commandProcessor = commandProcessor;
+            _logger = logger;
         }
 
         [HttpGet]
         [Route("GetWorkouts")]
         public async Task<IActionResult> GetWorkouts()
         {
+            _logger.LogWarning("Getting Workouts.....");
             List<Application.Model.Workout.WorkoutDTO> workout = await _queryProcessor.ProcessAsync(new GetAllWorkoutsQuery());
             return Ok(workout);
         }

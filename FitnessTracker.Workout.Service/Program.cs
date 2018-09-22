@@ -15,6 +15,7 @@ namespace FitnessTracker.Workout.Service
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
          WebHost.CreateDefaultBuilder(args)
+
              .UseHealthChecks("/hc")    // ADD LINK TO HEALTHCHECKS
              .ConfigureLogging((hostingContext, logging) =>
              {
@@ -24,7 +25,7 @@ namespace FitnessTracker.Workout.Service
                  logging.AddConsole();
                  logging.AddDebug();
              })
-             .UseNLog()
+             //.UseNLog()
              .UseStartup<Startup>();
     }
 }

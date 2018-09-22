@@ -15,7 +15,7 @@ namespace FitnessTracker.Persistance.Workout
 
         public WorkoutDB(IApplicationSettings settings)
         {
-            _dbContext = new WorkoutContext(settings.GetConnectionString("FitnessTrackerConnection"));
+            _dbContext = new WorkoutContext(settings.GetConnectionString("WorkoutConnection"));
         }
 
         public List<FitnessTracker.Domain.Workout.Workout> GetAllWorkouts()

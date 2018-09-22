@@ -4,13 +4,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using SimpleInjector;
 
 namespace FitnessTracker.Workout.Service
 {
     public class Startup
     {
-        private Container _container = new Container();
+        private readonly Container _container = new Container();
 
         public Startup(IConfiguration configuration)
         {
@@ -30,7 +31,8 @@ namespace FitnessTracker.Workout.Service
               .RegisterCommandAndQueryHandlers(_container)
               .RegisterMappingEngine(_container)
               .AddDependencies(Configuration)
-              .AddEventBus(Configuration, _container);
+              .AddEventBus(Configuration, _container)
+              .RegisterEventHandlers(_container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
