@@ -1,5 +1,4 @@
-﻿using FitnessTracker.Application.Processor;
-using FitnetssTracker.Common.Helpers;
+﻿using FitnetssTracker.Common.Helpers;
 using System.Threading.Tasks;
 
 namespace FitnetssTracker.Application.Common.Processor
@@ -23,7 +22,7 @@ namespace FitnetssTracker.Application.Common.Processor
 
         public async Task<TResult> ProcessAsync<TResult>(IQuery<TResult> query)
         {
-            Check.Require(query != null, Messages.exception_query_cannot_be_null);
+            Check.Require(query != null, "Query Handler Cannot be NULL!");
 
             var queryHandlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TResult));
 

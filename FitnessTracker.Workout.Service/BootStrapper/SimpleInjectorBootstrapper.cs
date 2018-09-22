@@ -3,11 +3,11 @@ using FitnessTracker.Application.MappingProfile;
 using FitnessTracker.Common.Attributes;
 using FitnetssTracker.Application.Common;
 using FitnetssTracker.Application.Common.Processor;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 
-//using SimpleInjector.Integration.AspNetCore.Mvc;
 using System.Linq;
 
 namespace FitnessTracker.Workout.Service.IOC
@@ -15,6 +15,8 @@ namespace FitnessTracker.Workout.Service.IOC
     public class SimpleInjectorBootstrapper
     {
         private Container _container;
+
+        public Container Container { get { return _container; } }
 
         public SimpleInjectorBootstrapper()
         {
@@ -31,30 +33,12 @@ namespace FitnessTracker.Workout.Service.IOC
         }
 
         /// <summary>
-        /// Intializes the Web API specific dependencies. This includes registering the controllers, logger,
-        /// global exception logging, and a per web api request logger.
-        /// </summary>
-        /// <param name="httpConfiguration">The http configuration.</param>
-        /// <returns></returns>
-        public SimpleInjectorBootstrapper ForNETCore(IServiceCollection services)
-        {
-            //services.AddSingleton<IControllerActivator>(
-            //  new SimpleInjectorControllerActivator(_container));
-            //services.AddSingleton<IViewComponentActivator>(
-            //    new SimpleInjectorViewComponentActivator(_container));
-            //services.UseSimpleInjectorAspNetRequestScoping(_container);
-
-            return this;
-        }
-
-        /// <summary>
         /// Automatically registers any dependencies in Eeverest assemblies that have the AutoRegister attribute on the class.
         /// </summary>
         /// <returns></returns>
-        public SimpleInjectorBootstrapper AutoRegisterFitnessTrackerDependencies()
+        public SimpleInjectorBootstrapper AutoRegisterFitnessTrackerDependencies(string nameSpace)
         {
-            // Get all the defined types in the Everest assemblies
-            var fitnessTrackerAssemblyDefinedTypes = LibraryManager.GetReferencingAssemblies("FitnessTracker")
+            var fitnessTrackerAssemblyDefinedTypes = LibraryManager.GetReferencingAssemblies(nameSpace)
                 .SelectMany(an => an.DefinedTypes);
 
             // Get types with AutoRegisterAttribute in assemblies
@@ -76,14 +60,6 @@ namespace FitnessTracker.Workout.Service.IOC
             return this;
         }
 
-        public SimpleInjectorBootstrapper RegisterApplicationSettings(IConfigurationRoot configuration)
-        {
-            //var settings = new FitnessTracker.ApplicationSettings.ApplicationSettings(configuration);
-            //_container.Register<IApplicationSettings>(() => settings);
-
-            return this;
-        }
-
         /// <summary>
         /// Registers the mapping engine.
         /// </summary>
@@ -100,10 +76,10 @@ namespace FitnessTracker.Workout.Service.IOC
         /// Registers the command and query handlers.
         /// </summary>
         /// <returns></returns>
-        public SimpleInjectorBootstrapper RegisterCommandAndQueryHandlers()
+        public SimpleInjectorBootstrapper RegisterCommandAndQueryHandlers(string nameSpace)
         {
             // Get all the fitnesstracker assemblies
-            var fitnessTrackerAssemblies = LibraryManager.GetReferencingAssemblies("FitnessTracker");
+            var fitnessTrackerAssemblies = LibraryManager.GetReferencingAssemblies(nameSpace);
 
             // Look in all assemblies and register all implementations of ICommandHandler<in TCommand>
             _container.Register(typeof(ICommandHandler<,>), fitnessTrackerAssemblies);

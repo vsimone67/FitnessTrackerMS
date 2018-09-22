@@ -1,5 +1,4 @@
-﻿using FitnessTracker.Application.Processor;
-using FitnetssTracker.Common.Helpers;
+﻿using FitnetssTracker.Common.Helpers;
 using System.Threading.Tasks;
 
 namespace FitnetssTracker.Application.Common.Processor
@@ -24,7 +23,7 @@ namespace FitnetssTracker.Application.Common.Processor
         /// <inheritdoc />
         public async Task<TResult> ProcessAsync<TResult>(ICommand command)
         {
-            Check.Require(command != null, Messages.exception_command_cannot_be_null);
+            Check.Require(command != null, "Command Handler Cannot be NULL!");
 
             var commandHandlerType = typeof(ICommandHandler<,>).MakeGenericType(command.GetType(), typeof(TResult));
 

@@ -51,7 +51,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Presentation
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Presentation.SignalRHub", "FitnessTracker.Presentation.SignalRHub\FitnessTracker.Presentation.SignalRHub.csproj", "{3D9A7EA5-EDD6-425E-8B7B-B8E75C609C31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessTracker.Application.Common", "FitnessTracker.Application.Common\FitnessTracker.Application.Common.csproj", "{0AFF07DA-B8AF-4194-8767-5AE9CD7661C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Application.Common", "FitnessTracker.Application.Common\FitnessTracker.Application.Common.csproj", "{0AFF07DA-B8AF-4194-8767-5AE9CD7661C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessTracker.Common.Web", "FitnessTracker.Common.Web\FitnessTracker.Common.Web.csproj", "{51E86783-D91B-4FA4-B7AF-333ED7860A5F}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FEA0C318-FFED-4D39-8781-265718CA43DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,6 +137,14 @@ Global
 		{0AFF07DA-B8AF-4194-8767-5AE9CD7661C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AFF07DA-B8AF-4194-8767-5AE9CD7661C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AFF07DA-B8AF-4194-8767-5AE9CD7661C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51E86783-D91B-4FA4-B7AF-333ED7860A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51E86783-D91B-4FA4-B7AF-333ED7860A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51E86783-D91B-4FA4-B7AF-333ED7860A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51E86783-D91B-4FA4-B7AF-333ED7860A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEA0C318-FFED-4D39-8781-265718CA43DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEA0C318-FFED-4D39-8781-265718CA43DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEA0C318-FFED-4D39-8781-265718CA43DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEA0C318-FFED-4D39-8781-265718CA43DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -158,6 +170,7 @@ Global
 		{802DBB52-5806-49F6-A8C2-B2019CEE14B0} = {1AD91F5E-8686-46E6-8B16-AE7E754D0B5F}
 		{3D9A7EA5-EDD6-425E-8B7B-B8E75C609C31} = {1AD91F5E-8686-46E6-8B16-AE7E754D0B5F}
 		{0AFF07DA-B8AF-4194-8767-5AE9CD7661C8} = {1A4BC22E-0D37-4464-BA08-A469BC7763CC}
+		{51E86783-D91B-4FA4-B7AF-333ED7860A5F} = {1A4BC22E-0D37-4464-BA08-A469BC7763CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B31FBB-2426-426F-8B0D-31281FB70198}
