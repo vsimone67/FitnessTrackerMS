@@ -1,8 +1,12 @@
 ﻿using AutoMapper;
+using EventBus;
+using EventBus.Abstractions;
 using FitnessTracker.Application.Common.Interfaces;
 using FitnessTracker.Application.MappingProfile;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Common.Web.Filters;
+using FitnessTracker.Workout.Service.EventBus.Connection;
+using FitnessTracker.Workout.Service.EventBus.Mock;
 using FitnessTracker.Workout.Service.IOC;
 using FitnetssTracker.Application.Common;
 using FitnetssTracker.Application.Common.Processor;
@@ -12,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 using Newtonsoft.Json.Serialization;
+using RabbitMQEventBus;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
@@ -55,7 +60,7 @@ namespace FitnessTracker.Workout.Service.StartupConfig
                                          TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
                                         );
 
-                checks.AddSqlCheck("vsazure", configuration.GetConnectionString("FitnessTrackerConnection"), TimeSpan.FromMinutes(1));
+                checks.AddSqlCheck("vsazure", configuration.GetConnectionString("WorkoutConnection"), TimeSpan.FromMinutes(1));
             });
 
             return services;
@@ -80,15 +85,24 @@ namespace FitnessTracker.Workout.Service.StartupConfig
 
         public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration, Container container)
         {
-            //services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
-            //{
-            //    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-            //    var eventBus = new EventBusRabbitMQIOC(EventBusConnection.GetEventConnection(configuration), eventBusSubcriptionsManager, container);
-            //    eventBus.TurnOnRecieveQueue();
-            //    return eventBus;
-            //});
+            var useEventBus = configuration.GetValue<bool>("useEventBus");
 
-            //services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+            if (useEventBus)
+            {
+                services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
+                {
+                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                    var eventBus = new EventBusRabbitMQIOC(EventBusConnection.GetEventConnection(configuration), eventBusSubcriptionsManager, container);
+                    eventBus.TurnOnRecieveQueue();
+                    return eventBus;
+                });
+
+                services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+            }
+            else  // mock event bus
+            {
+                services.AddSingleton<IEventBus, EventBusBlank>();
+            }
             return services;
         }
 

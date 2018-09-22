@@ -7,4 +7,5 @@ services:
       - "4300:80"
     volumes:
       - ./dockerlogs:/logs 
+      - ./sharedsettings:/appsettings
 

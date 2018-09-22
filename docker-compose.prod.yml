@@ -5,6 +5,8 @@ services:
   workoutservice:
     ports:
       - "4300:80"
-    volumes:
+     volumes:
       - ./dockerlogs:/logs 
+      - ./sharedsettings:/appsettings
+ 
 

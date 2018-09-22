@@ -1,7 +1,8 @@
-﻿using FitnessTracker.Application.Command;
-using FitnessTracker.Application.Common.Interfaces;
+﻿using EventBus.Abstractions;
+using FitnessTracker.Application.Command;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Queries;
+using FitnessTracker.Workout.Service.Events;
 using FitnetssTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,20 +12,19 @@ using System.Threading.Tasks;
 namespace FitnessTracker.Service.Controllers
 {
     [Route("api/v1/[controller]")]
-    //[CustomExceptionFilterAttribute]
-
     public class WorkoutController : Controller
     {
         private readonly IQueryProcessor _queryProcessor;
         private readonly ICommandProcessor _commandProcessor;
         private readonly ILogger<WorkoutController> _logger;
-        private readonly IApplicationSettings _applicationSettings;
+        private readonly IEventBus _eventBus;
 
-        public WorkoutController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor, ILogger<WorkoutController> logger)
+        public WorkoutController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor, ILogger<WorkoutController> logger, IEventBus eventBus)
         {
             _queryProcessor = queryProcessor;
             _commandProcessor = commandProcessor;
             _logger = logger;
+            _eventBus = eventBus;
         }
 
         [HttpGet]
@@ -90,6 +90,12 @@ namespace FitnessTracker.Service.Controllers
         public async Task<IActionResult> SaveBodyInfo([FromBody] BodyInfoDTO item)
         {
             BodyInfoDTO savedBodyInfo = await _commandProcessor.ProcessAsync<BodyInfoDTO>(new SaveBodyInfoCommand() { BodyInfo = item });
+
+            // write to event bus that a bodyinfo was saved
+            var evt = new BodyInfoSavedEvent();
+            evt.SavedBodyInfo = savedBodyInfo;
+            _eventBus.Publish(evt);
+
             return Ok(savedBodyInfo);
         }
 
@@ -98,6 +104,12 @@ namespace FitnessTracker.Service.Controllers
         public async Task<IActionResult> SaveDailyWorkout([FromBody] WorkoutDisplayDTO item)
         {
             DailyWorkoutDTO savedWorkout = await _commandProcessor.ProcessAsync<DailyWorkoutDTO>(new SaveDailyWorkoutCommand() { Workout = item });
+
+            // write to event bus a  workout as been completed
+            var evt = new WorkoutCompletedEvent();
+            evt.CompletedWorkout = savedWorkout;
+            _eventBus.Publish(evt);
+
             return Ok(savedWorkout);
         }
 
@@ -106,6 +118,12 @@ namespace FitnessTracker.Service.Controllers
         public async Task<IActionResult> SaveWorkout([FromBody] WorkoutDTO item)
         {
             WorkoutDTO savedWorkout = await _commandProcessor.ProcessAsync<WorkoutDTO>(new SaveWorkoutCommand() { Workout = item });
+
+            // write to event bus a new workout as been added
+            var evt = new AddNewWorkoutEvent();
+            evt.AddedWorkout = savedWorkout;
+            _eventBus.Publish(evt);
+
             return Ok(savedWorkout);
         }
     }

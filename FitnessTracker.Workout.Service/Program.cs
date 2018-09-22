@@ -20,7 +20,8 @@ namespace FitnessTracker.Workout.Service
              .UseHealthChecks("/hc")    // ADD LINK TO HEALTHCHECKS
              .ConfigureLogging((hostingContext, logging) =>
              {
-                 hostingContext.HostingEnvironment.ConfigureNLog("NLog.Config");
+                 //hostingContext.HostingEnvironment.ConfigureNLog("/appsettings/NLog.Config"); // common settings are in the /appsettings folder
+                 hostingContext.HostingEnvironment.ConfigureNLog("NLog.Config"); // common settings are in the /appsettings folder
                  logging.AddProvider(new NLogLoggerProvider());
                  logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                  logging.AddConsole();
@@ -30,7 +31,7 @@ namespace FitnessTracker.Workout.Service
              {
                  var env = builderContext.HostingEnvironment;
 
-                 //config.SetBasePath("/appsettings);
+                 //config.SetBasePath("/appsettings");  // set path to docker volume for common files
                  config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                  config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
