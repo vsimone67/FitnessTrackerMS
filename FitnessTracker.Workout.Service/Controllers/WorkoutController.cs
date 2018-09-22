@@ -1,4 +1,5 @@
 ﻿using FitnessTracker.Application.Command;
+using FitnessTracker.Application.Common.Interfaces;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Queries;
 using FitnetssTracker.Application.Common.Processor;
@@ -17,6 +18,7 @@ namespace FitnessTracker.Service.Controllers
         private readonly IQueryProcessor _queryProcessor;
         private readonly ICommandProcessor _commandProcessor;
         private readonly ILogger<WorkoutController> _logger;
+        private readonly IApplicationSettings _applicationSettings;
 
         public WorkoutController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor, ILogger<WorkoutController> logger)
         {
@@ -30,6 +32,7 @@ namespace FitnessTracker.Service.Controllers
         public async Task<IActionResult> GetWorkouts()
         {
             _logger.LogWarning("Getting Workouts.....");
+
             List<Application.Model.Workout.WorkoutDTO> workout = await _queryProcessor.ProcessAsync(new GetAllWorkoutsQuery());
             return Ok(workout);
         }

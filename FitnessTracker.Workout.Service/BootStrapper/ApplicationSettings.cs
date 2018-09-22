@@ -1,6 +1,7 @@
 ﻿using FitnessTracker.Application.Common.Interfaces;
 using FitnessTracker.Common.Attributes;
 using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
 
 namespace FitnessTracker.ApplicationSettings
 {
@@ -21,6 +22,11 @@ namespace FitnessTracker.ApplicationSettings
         public string GetConfigValue(string key)
         {
             return _config.GetSection(key).Value;
+        }
+
+        public List<string> GetSectionAsList(string section)
+        {
+            return _config.GetSection(section).Get<List<string>>();
         }
     }
 }
