@@ -1,12 +1,14 @@
 version: '3.4'
-
 services:
-  
-  workoutservice:
-    ports:
-      - "4300:80"
-     volumes:
-      - ./dockerlogs:/logs 
-      - ./sharedsettings:/appsettings
- 
-
+    workoutservice:
+        ports:
+            - '4300:80'
+        volumes:
+            - './dockerlogs:/logs'
+            - './sharedsettings:/appsettings'
+    dietservice:
+        ports:
+            - '4301:80'
+        volumes:
+            - './dockerlogs:/logs'
+            - './sharedsettings:/appsettings'

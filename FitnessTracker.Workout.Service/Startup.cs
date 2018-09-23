@@ -1,10 +1,8 @@
-﻿using FitnessTracker.Workout.Service.IOC;
-using FitnessTracker.Workout.Service.StartupConfig;
+﻿using FitnessTracker.Workout.Service.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using SimpleInjector;
 
 namespace FitnessTracker.Workout.Service

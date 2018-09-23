@@ -1,7 +1,7 @@
 ﻿using EventBus.Events;
 using FitnessTracker.Application.Model.Workout;
 
-namespace FitnessTracker.Workout.Service.Events
+namespace FitnessTracker.Application.Workout.Events
 {
     public class AddNewWorkoutEvent : IntegrationEvent
     {

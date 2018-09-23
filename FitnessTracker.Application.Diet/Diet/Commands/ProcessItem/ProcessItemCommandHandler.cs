@@ -1,19 +1,19 @@
-﻿using FitnessTracker.Application.Interfaces;
-using FitnetssTracker.Application.Common;
-using FitnessTracker.Domain.Diet;
-using System;
-using System.Collections.Generic;
-using FitnessTracker.Application.Model.Diet;
-using AutoMapper;
-using System.Threading.Tasks;
+﻿using AutoMapper;
 using FitnessTracker.Application.Common;
+using FitnessTracker.Application.Interfaces;
+using FitnessTracker.Application.Model.Diet;
+using FitnessTracker.Domain.Diet;
+using FitnetssTracker.Application.Common;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Command
 {
     public class ProcessItemCommandHandler : HandlerBase<IDietService>, ICommandHandler<ProcessItemCommand, FoodInfoDTO>
     {
-        public ProcessItemCommandHandler(IDietService service, IMapper mapper) : base(service, mapper) { }
-       
+        public ProcessItemCommandHandler(IDietService service, IMapper mapper) : base(service, mapper)
+        {
+        }
+
         public FoodInfoDTO Handle(ProcessItemCommand command)
         {
             FoodInfo newItem;
@@ -25,7 +25,7 @@ namespace FitnessTracker.Application.Command
             else
                 newItem = _service.EditFood(foodInfoCommandInput);
 
-            return _mapper.Map <FoodInfoDTO>(newItem);
+            return _mapper.Map<FoodInfoDTO>(newItem);
         }
 
         public async Task<FoodInfoDTO> HandleAsync(ProcessItemCommand command)

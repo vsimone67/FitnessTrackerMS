@@ -2,7 +2,7 @@
 using FitnessTracker.Application.Command;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Queries;
-using FitnessTracker.Workout.Service.Events;
+using FitnessTracker.Application.Workout.Events;
 using FitnetssTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

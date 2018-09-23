@@ -1,4 +1,5 @@
-﻿using FitnessTracker.Application.Interfaces;
+﻿using FitnessTracker.Application.Common.Interfaces;
+using FitnessTracker.Application.Interfaces;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Domain.Diet;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ namespace FitnessTracker.Persistance.Diet
 
         public DietDB(IApplicationSettings settings)
         {
-            _dbContext = new DietContext(settings.GetConnectionString("FitnessTrackerConnection"));
+            _dbContext = new DietContext(settings.GetConnectionString("DietConnection"));
         }
 
         public List<FoodInfo> GetAllFoodData()
@@ -29,7 +30,7 @@ namespace FitnessTracker.Persistance.Diet
                 .Include(sm => sm.SavedMenu)
                 .ThenInclude(fi => fi.MealInfo)
                 .ToList();
-        }       
+        }
 
         public List<MealInfo> GetColumns()
         {
@@ -38,7 +39,6 @@ namespace FitnessTracker.Persistance.Diet
 
         public FoodInfo AddFood(FoodInfo item)
         {
-
             _dbContext.FoodInfo.Add(item);
             SaveChanges();
 
@@ -46,8 +46,7 @@ namespace FitnessTracker.Persistance.Diet
         }
 
         public FoodInfo EditFood(FoodInfo item)
-        {          
-
+        {
             _dbContext.Entry<FoodInfo>(item).State = EntityState.Modified;
 
             SaveChanges();  // save for main FoodInfo object
@@ -80,8 +79,8 @@ namespace FitnessTracker.Persistance.Diet
         {
             // clear old menu
             _dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE SavedMenu");
-
         }
+
         public void SaveMenu(NutritionInfo meal)
         {
             // save new menu
@@ -89,7 +88,6 @@ namespace FitnessTracker.Persistance.Diet
             {
                 foreach (var food in meal.item)
                 {
-
                     if (meal.id > 0)
                     {
                         SavedMenu menuItem = new SavedMenu()

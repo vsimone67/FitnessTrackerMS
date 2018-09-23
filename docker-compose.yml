@@ -1,12 +1,12 @@
 version: '3.4'
-
 services:
-  
-  workoutservice:
-    image: workoutservice:${TAG:-latest}
-    build:
-      context: .
-      dockerfile: FitnessTracker.Workout.Service/Dockerfile
-   
-  
-    
+    workoutservice:
+        image: 'workoutservice:${TAG:-latest}'
+        build:
+            context: .
+            dockerfile: FitnessTracker.Workout.Service/Dockerfile
+    dietservice:
+        image: 'dietservice:${TAG:-latest}'
+        build:
+            context: .
+            dockerfile: FitnessTracker.Diet.Service/Dockerfile
