@@ -15,3 +15,9 @@ services:
         build:
             context: .
             dockerfile: FitnessTracker.Presentation.SignalRHub/Dockerfile
+
+    webstatus:
+        image: 'webstatus:${TAG:-latest}'
+        build:
+            context: .
+            dockerfile: FitnessTracker.Presentation.WebStatus/Dockerfile

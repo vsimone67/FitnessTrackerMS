@@ -18,3 +18,9 @@ services:
         volumes:
             - './dockerlogs:/logs'
             - './sharedsettings:/appsettings'
+    webstatus:
+        ports:
+            - '4303:80'
+        volumes:
+            - './dockerlogs:/logs'
+            - './sharedsettings:/appsettings'
