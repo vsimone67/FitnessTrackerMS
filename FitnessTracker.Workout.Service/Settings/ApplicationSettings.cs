@@ -1,9 +1,8 @@
 ﻿using FitnessTracker.Application.Common.Interfaces;
-using FitnessTracker.Common.Attributes;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 
-namespace FitnessTracker.ApplicationSettings
+namespace FitnessTracker.Workout.ApplicationSettings
 {
     public class ApplicationSettings : IApplicationSettings
     {

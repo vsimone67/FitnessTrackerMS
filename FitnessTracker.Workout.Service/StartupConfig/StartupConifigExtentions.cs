@@ -176,7 +176,7 @@ namespace FitnessTracker.Workout.Service.StartupConfig
 
         public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            var settings = new FitnessTracker.ApplicationSettings.ApplicationSettings(configuration);
+            var settings = new FitnessTracker.Workout.ApplicationSettings.ApplicationSettings(configuration);
 
             services.AddSingleton<IApplicationSettings>((p) => settings);
 
