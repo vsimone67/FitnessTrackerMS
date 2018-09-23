@@ -1,37 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using FitnessTracker.Presentation.WebStatus.Models;
 using Microsoft.AspNetCore.Mvc;
-using FitnessTracker.Presentation.WebStatus.Models;
+using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Presentation.WebStatus.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IHealthCheckService _healthCheckSvc;
+        private readonly ILogger _logger;
+
+        public HomeController(IHealthCheckService checkSvc, ILogger<HomeController> logger)
         {
-            return View();
+            _healthCheckSvc = checkSvc;
+            _logger = logger;
         }
 
-        public IActionResult About()
+        public async Task<IActionResult> Index()
         {
-            ViewData["Message"] = "Your application description page.";
+            _logger.LogInformation("Checking Health Status.....");
 
-            return View();
-        }
+            var result = await _healthCheckSvc.CheckHealthAsync();
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
+            var data = new HealthStatusViewModel(result.CheckStatus);
 
-            return View();
-        }
+            foreach (var checkResult in result.Results)
+            {
+                data.AddResult(checkResult.Key, checkResult.Value);
+            }
 
-        public IActionResult Privacy()
-        {
-            return View();
+            ViewBag.RefreshSeconds = 60;
+
+            return View(data);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

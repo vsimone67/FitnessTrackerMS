@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace FitnessTracker.Presentation.WebStatus
 {
@@ -30,6 +27,17 @@ namespace FitnessTracker.Presentation.WebStatus
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddHealthChecks(checks =>
+            {
+                var minutes = 1;
+                if (int.TryParse(Configuration["HealthCheck:Timeout"], out var minutesParsed))
+                {
+                    minutes = minutesParsed;
+                }
+                checks.AddUrlCheckIfNotNull(Configuration["WorkoutURL"], TimeSpan.FromMinutes(minutes));
+                checks.AddUrlCheckIfNotNull(Configuration["DietURL"], TimeSpan.FromMinutes(minutes));
+                checks.AddUrlCheckIfNotNull(Configuration["SignalRHubURL"], TimeSpan.FromMinutes(minutes));
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
