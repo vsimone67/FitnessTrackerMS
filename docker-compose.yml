@@ -10,3 +10,8 @@ services:
         build:
             context: .
             dockerfile: FitnessTracker.Diet.Service/Dockerfile
+    signalrhub:
+        image: 'signalrhub:${TAG:-latest}'
+        build:
+            context: .
+            dockerfile: FitnessTracker.Presentation.SignalRHub/Dockerfile

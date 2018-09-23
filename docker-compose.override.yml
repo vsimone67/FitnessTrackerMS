@@ -12,3 +12,9 @@ services:
         volumes:
             - './dockerlogs:/logs'
             - './sharedsettings:/appsettings'
+    signalrhub:
+        ports:
+            - '4302:80'
+        volumes:
+            - './dockerlogs:/logs'
+            - './sharedsettings:/appsettings'

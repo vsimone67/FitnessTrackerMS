@@ -6,6 +6,7 @@ using FitnessTracker.Application.Workout.Events;
 using FitnetssTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,10 +22,10 @@ namespace FitnessTracker.Service.Controllers
 
         public WorkoutController(IQueryProcessor queryProcessor, ICommandProcessor commandProcessor, ILogger<WorkoutController> logger, IEventBus eventBus)
         {
-            _queryProcessor = queryProcessor;
-            _commandProcessor = commandProcessor;
-            _logger = logger;
-            _eventBus = eventBus;
+            _queryProcessor = queryProcessor ?? throw new ArgumentNullException(nameof(queryProcessor));
+            _commandProcessor = commandProcessor ?? throw new ArgumentNullException(nameof(commandProcessor));
+            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]

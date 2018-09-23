@@ -29,8 +29,7 @@ namespace FitnessTracker.Workout.Service
               .RegisterCommandAndQueryHandlers(_container)
               .RegisterMappingEngine(_container)
               .AddDependencies(Configuration)
-              .AddEventBus(Configuration, _container)
-              .RegisterEventHandlers(_container);
+              .AddEventBus(Configuration, _container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,8 +38,7 @@ namespace FitnessTracker.Workout.Service
             app.AddCorsConfiguration()
                 .AddMFCConfiguration()
                 .AddSwaggerConfiguration()
-                .InitialzieDIContainer(_container)
-                .ConfigureEventBus();
+                .InitialzieDIContainer(_container);
         }
     }
 }
