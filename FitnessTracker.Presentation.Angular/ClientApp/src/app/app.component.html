@@ -1,10 +1,27 @@
-<div class='container-fluid'>
-  <div class='row'>
-    <div class='col-sm-3'>
-      <app-nav-menu></app-nav-menu>
-    </div>
-    <div class='col-sm-9 body-content'>
-      <router-outlet></router-outlet>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div class="mdl-layout__header mdl-layout__header--waterfall">
+    <div class="mdl-layout__header-row">
+      <span class="android-title mdl-layout-title">Fitness Tracker</span>
+      <!-- Add spacer, to align navigation to the right in desktop -->
+      <div class="android-header-spacer mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <div class="android-navigation-container">
+        <nav class="android-navigation mdl-navigation">
+          <app-navagation></app-navagation>
+        </nav>
+      </div>
     </div>
   </div>
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Fitness Tracker</span>
+    <nav class="mdl-navigation">
+      <app-navagation></app-navagation>
+    </nav>
+  </div>
+  <toast></toast>
+  <div class="android-content mdl-layout__content">
+    <!-- Routed views go here -->
+    <router-outlet></router-outlet>
+  </div>
 </div>
+

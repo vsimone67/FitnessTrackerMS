@@ -6,11 +6,11 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "wwwroot",
       "assets": [
-
+               
         {
-          "glob": "Mi40 Calendar.pdf",
+          "glob":"Mi40 Calendar.pdf",
           "input": "./content/schedules/",
           "output": "./"
         },
@@ -31,12 +31,11 @@
         "../node_modules/ag-grid/dist/styles/ag-grid.css",
         "../node_modules/ag-grid/dist/styles/theme-blue.css",
         "./content/css/styles.css"
-
+        
       ],
-      "scripts": [
-        "../node_modules/ag-grid/dist/ag-grid.js",
-        "../node_modules/redux/dist/redux.js"
-      ],
+      "scripts": [ "../node_modules/ag-grid/dist/ag-grid.js",
+                    "../node_modules/redux/dist/redux.js"
+                 ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -71,5 +70,6 @@
     "build": {
       "showCircularDependencies": false
     }
+
   }
 }

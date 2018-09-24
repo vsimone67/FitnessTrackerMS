@@ -1,34 +1,31 @@
+﻿import { NgModule, NgZone } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { createStore, Store, StoreEnhancer } from 'redux';
 
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import { NavagationComponent } from '../layout';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from '../shared/shared.module';
+import { WorkoutModule } from '../workout/workout.module';
+import { DietModule } from '../diet/diet.module';
 
+import { AppState, AppStore, rootReducer, AppComponent } from '../app';
+
+
+let devtools: StoreEnhancer<AppState> =
+  window['devToolsExtension'] ?
+  window['devToolsExtension']() : f => f;
+
+let store: Store<AppState> = createStore<AppState>(rootReducer, devtools);
+
+export function _ngReduxFactory() {
+  return store;
+}
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-    ])
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, AppRoutingModule, SharedModule, WorkoutModule, DietModule],  
+  
+
+  declarations: [AppComponent, NavagationComponent],
+  bootstrap: [AppComponent],
+  providers: [{ provide: AppStore, useFactory: _ngReduxFactory}]  
 })
 export class AppModule { }
