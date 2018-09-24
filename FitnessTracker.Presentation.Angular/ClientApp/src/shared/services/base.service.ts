@@ -1,0 +1,67 @@
+import { Observable } from 'rxjs/Rx';
+import { Http, Response } from '@angular/http';
+import { EventService } from '../services';
+import { Toast, events } from '../models';
+
+export class BaseService {
+    protected errorColor: string = 'mdl-color--red';
+
+    constructor(public _http: Http, public _eventService: EventService) { }
+
+    getData(url: string) {
+
+        return this._http.get(url)
+            .map((response: Response) => response.json())
+            .catch(this._handlerError);
+    }
+    putData(url: string, payload: any) {
+
+        return this._http.post(url, payload)
+            .map((response: Response) => response.json())
+            .catch(this._handlerError);
+    }
+    _handlerError(error: Response | any) {
+        let errMsg: string;
+        if (error instanceof Response) {
+            const body = error.json() || '';
+            const err = body.error || JSON.stringify(body);
+            errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+        } else {
+            errMsg = error.message ? error.message : error.toString();
+        }
+
+        return Observable.throw(errMsg);
+    }
+    getDataWithSpinner(url: string, callback: any) {
+        this.spinnerOn();
+
+        this.getData(url).subscribe((data) => { callback(data); },
+            (err) => this.showError(err),
+            () => this.spinnerOff()
+        );
+    }
+    putDataWithSpinner(url: string, payload: any, callback: any) {
+        this.spinnerOn();
+        // this._http.post(url, payload)
+        //   .map((response: Response) => response.json())
+        //   .catch(this._handlerError);
+
+        this.putData(url, payload).subscribe((data) => { callback(data); },
+            (err) => this.showError(err),
+            () => this.spinnerOff()
+        );
+    }
+    spinnerOn() {
+        this._eventService.sendEvent(events.spinnerEvent, 'is-active');
+    }
+    spinnerOff() {
+        this._eventService.sendEvent(events.spinnerEvent, '');
+    }
+    showError(message: string) {
+        this.spinnerOff();
+        // TODO:  for some reason you have to call the event twice when changing the color, fix this
+        this._eventService.sendEvent(events.toastEvent, new Toast(message, 10, this.errorColor));
+        this._eventService.sendEvent(events.toastEvent, new Toast(message, 8000, this.errorColor));
+    }
+
+}

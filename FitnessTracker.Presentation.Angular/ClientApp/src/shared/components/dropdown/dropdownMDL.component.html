@@ -1,0 +1,14 @@
+<style>
+	.mdl-textfield__input {
+		border: 1px solid rgba(0, 0, 0, 0.12);
+		/* override border and draw one */
+	}
+</style>
+<div class="mdl-textfield mdl-js-textfield">
+
+	<select (change)="onItemSelected($event.target.selectedIndex)" [(ngModel)]="model" class="mdl-textfield__input" id="vsdrop">
+        <option *ngFor="let item of items" [ngValue]="item">{{getItem(item)}}</option>
+    </select>
+
+	<label class="mdl-textfield__label" for="vsdrop">{{defaultText}}</label>
+</div>

@@ -1,0 +1,128 @@
+<dialog class="mdl-dialog addWorkout-dialog">
+	<div class="mdl-dialog__content" style="height:88%">
+		<table class="mdl-data-table ">
+			<tbody>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric">
+						<label>Weight</label>
+					</td>
+					<td class="mdl-data-table__cell--non-numeric">
+						<input type="text" style="border:none" [(ngModel)]="weight" (change)="reCalcMacro($event)">
+					</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric ">
+						<label>Activity Level</label>
+					</td>
+					<td class="mdl-data-table__cell--non-numeric">
+						{{activityLevel}}
+					</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric ">
+						<label>BMR</label>
+					</td>
+					<td class="mdl-data-table__cell--non-numeric">
+						{{bmr}}
+					</td>
+				</tr>
+				<tr>
+					<td class="mdl-data-table__cell--non-numeric ">
+						<label>Daily Calorie Requirement (DCR)</label>
+					</td>
+					<td class="mdl-data-table__cell--non-numeric">
+						<input type="text" style="border:none" [(ngModel)]="dcr" (change)="reCalcMacro($event)">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="mdl-data-table">
+							<thead>
+								<th class="mdl-data-table__cell--non-numeric"></th>
+								<th class="mdl-data-table__cell--non-numeric">Low Carb</th>
+								<th class="mdl-data-table__cell--non-numeric">High Carb</th>
+								<th class="mdl-data-table__cell--non-numeric">Gain</th>
+							</thead>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric">Calorie Deficit/Surplus %</td>
+								<td class="mdl-data-table__cell--non-numeric"><input type="text" style="border:none" [(ngModel)]="calorieDeficitPerCut" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric"><input type="text" style="border:none" [(ngModel)]="calorieDeficitPerMaintain" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric"><input type="text" style="border:none" [(ngModel)]="calorieDeficitPerGain" (change)="reCalcMacro($event)"></td>
+							</tr>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric">Calorie Deficit/Surplus</td>
+								<td class="mdl-data-table__cell--non-numeric">{{calorieDeficitCut}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{calorieDeficitMaintain}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{calorieDeficitGain}}</td>
+							</tr>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric">New Caloric Goal For Fat Loss/Gain</td>
+								<td class="mdl-data-table__cell--non-numeric">{{newCalorieCut}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{newCalorieMaintain}}</td>
+								<td class="mdl-data-table__cell--non-numeric">{{newCalorieGain}}</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table class="mdl-data-table">
+							<thead>
+								<th class="mdl-data-table__cell--non-numeric ">Macro</th>
+								<th class="mdl-data-table__cell--non-numeric ">%<br><b>Low Carb</b></th>
+								<th class="mdl-data-table__cell--non-numeric ">Calories</th>
+								<th class="mdl-data-table__cell--non-numeric ">Grams</th>
+								<th class="mdl-data-table__cell--non-numeric ">%<br><b>High Carb</b></th>
+								<th class="mdl-data-table__cell--non-numeric ">Calories</th>
+								<th class="mdl-data-table__cell--non-numeric ">Grams</th>
+								<th class="mdl-data-table__cell--non-numeric ">%<br><b>Gain</b></th>
+								<th class="mdl-data-table__cell--non-numeric ">Calories</th>
+								<th class="mdl-data-table__cell--non-numeric ">Grams</th>
+							</thead>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric ">Protein</td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="proteinPerCut" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{proteinCaloriesCut}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{proteinGramsCut}}</b></td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="proteinPerMaintain" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{proteinCaloriesMaintain}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{proteinGramsMaintain}}</b></td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="proteinPerGain" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{proteinCaloriesGain}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{proteinGramsGain}}</b></td>
+							</tr>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric ">Carbs</td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="carbsPerCut" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{carbsCaloriesCut}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{carbsGramsCut}}</b></td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="carbsPerMaintain" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{carbsCaloriesMaintain}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{carbsGramsMaintain}}</b></td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="carbsPerGain" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{carbsCaloriesGain}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{carbsGramsGain}}</b></td>
+							</tr>
+							<tr>
+								<td class="mdl-data-table__cell--non-numeric ">Fat</td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="fatPerCut" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{fatCaloriesCut}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{fatGramsCut}}</b></td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="fatPerMaintain" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{fatCaloriesMaintain}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{fatGramsMaintain}}</b></td>
+								<td class="mdl-data-table__cell--non-numeric "><input type="text" style="border:none" [(ngModel)]="fatPerGain" (change)="reCalcMacro($event)"></td>
+								<td class="mdl-data-table__cell--non-numeric ">{{fatCaloriesGain}}</td>
+								<td class="mdl-data-table__cell--non-numeric "><b>{{fatGramsGain}}</b></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="mdl-dialog__actions">
+		<button type="button" class="mdl-button" (click)="onSave()">Save</button>
+		<button type="button" class="mdl-button close" (click)="onClose()">Close</button>
+	</div>
+</dialog>

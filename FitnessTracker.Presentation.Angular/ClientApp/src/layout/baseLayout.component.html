@@ -1,0 +1,12 @@
+<!-- The mdl directive will allow material design ui to rendern dymanic delemets -->
+<div mdl class="mdl-grid mdl-layoutCenterCard">
+  <spinner></spinner>
+  <div class="mdl-cell {{cardcellwidth}} mdl-shadow--8dp">
+    <div class="mdl-card__title mdl-color--primary mdl-color-text--white ">
+      <ng-content select="[title]"></ng-content>
+    </div>
+    <ng-content select="[supportingtext]"></ng-content>
+    <ng-content select="[actions]"></ng-content>
+    <ng-content select="[menu]"></ng-content>
+  </div>
+</div>

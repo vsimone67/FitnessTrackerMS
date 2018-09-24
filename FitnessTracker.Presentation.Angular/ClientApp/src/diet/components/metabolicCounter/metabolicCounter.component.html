@@ -1,0 +1,33 @@
+<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-metabolicInfo ">
+   
+    <thead>
+        <tr>
+            <th style="width: 125px;"><dropdown displayField="displayName" [items]="modes" (itemSelected)="metabolicInfoSelected($event)" [model]="mode"></dropdown></th>
+            <th *ngFor="let meal of meals ">
+                {{meal.meal}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">Calories</td>
+            <td *ngFor="let meal of meals " [style.color]="meal.calories < 0 ? 'red' : ''">
+                {{meal.calories}}
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">Protein</td>
+            <td *ngFor="let meal of meals" [style.color]="meal.protein < 0 ? 'red' : ''">
+                {{meal.protein}}
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">Carbs</td>
+            <td *ngFor="let meal of meals" [style.color]="meal.carbs < 0 ? 'red' : ''">
+                {{meal.carbs}}
+        </tr>
+        <tr>
+            <td class="mdl-data-table__cell--non-numeric">Fat</td>
+            <td *ngFor="let meal of meals" [style.color]="meal.fat < 0 ? 'red' : ''">
+                {{meal.fat}}
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,86 @@
+<baseLayout cardcellwidth='mdl-cell--8-col'>
+
+    <div title class="full-width">
+
+        <div class="mdl-grid">
+            <div class="mdl-card__title-text mdl-cell mdl-cell--3-col">Add Body Info</div>
+            <div class="mdl-cell mdl-cell--9-col">
+                <button (click)="addBodyInfo()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored align-right" id="addbodyinfo">
+                  <i class="material-icons">add</i>
+               </button>
+               <div class="mdl-tooltip" data-mdl-for="addbodyinfo">Add Body Info</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div supportingtext>
+        
+        <section class="mdl-grid" >
+
+            <div class="mdl-cell mdl-cell--12-col addBody-gridheight" >
+                 <ag-grid-angular class="ag-blue ag-table-addBody" [gridOptions]="gridOptions" ></ag-grid-angular>
+            </div>
+            <div class="mdl-layout-spacer"></div>
+        </section>
+        
+    </div>
+
+</baseLayout>
+
+<dialog class="mdl-dialog bodyInfo-dialog">
+
+    <div class="mdl-dialog__content">
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="phase" [(ngModel)]="bodyInfo.Phase">
+            <label class="mdl-textfield__label" for="phase">Phase...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="date" [(ngModel)]="bodyInfo.Date">
+            <label class="mdl-textfield__label" for="date">Date...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="weight" [(ngModel)]="bodyInfo.Weight">
+            <label class="mdl-textfield__label" for="weight">Weight...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="bodyFat" [(ngModel)]="bodyInfo.BodyFat">
+            <label class="mdl-textfield__label" for="bodyFat">Body Fat %...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="calories" [(ngModel)]="bodyInfo.Calories">
+            <label class="mdl-textfield__label" for="calories">Calories...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="carbs" [(ngModel)]="bodyInfo.Protein">
+            <label class="mdl-textfield__label" for="carbs">Protein...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="carbs" [(ngModel)]="bodyInfo.Carbs">
+            <label class="mdl-textfield__label" for="carbs">Carbs...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="number" id="fat" [(ngModel)]="bodyInfo.Fat">
+            <label class="mdl-textfield__label" for="fat">Fat...</label>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+            <textarea class="mdl-textfield__input" type="text" rows="3" id="note" [(ngModel)]="bodyInfo.Note"></textarea>
+            <label class="mdl-textfield__label" for="note">Note...</label>
+        </div>
+
+
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions">
+        <button type="button" class="mdl-button" (click)="onSave()">Save</button>
+        <button type="button" class="mdl-button close" (click)="onClose()">Close</button>
+    </div>
+</dialog>
