@@ -115,3 +115,7 @@
 2018-09-25 22:36:42.8026|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {776260b0-5b92-4ecb-9f17-626f14fa5c1e} may be persisted to storage in unencrypted form.
 2018-09-25 22:36:42.8138|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {f59305eb-1426-47e6-8e41-06159c7b8f4f} may be persisted to storage in unencrypted form.
 2018-09-25 22:36:42.8138|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {f59305eb-1426-47e6-8e41-06159c7b8f4f} may be persisted to storage in unencrypted form.
+2018-09-25 23:17:59.8223|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {b1ff275e-2adc-4413-8e53-809a0246cb1d} may be persisted to storage in unencrypted form.
+2018-09-25 23:17:59.8223|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {b1ff275e-2adc-4413-8e53-809a0246cb1d} may be persisted to storage in unencrypted form.
+2018-09-25 23:17:59.9702|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {52e7cffc-8d38-4354-a589-33993e2da629} may be persisted to storage in unencrypted form.
+2018-09-25 23:17:59.9702|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {52e7cffc-8d38-4354-a589-33993e2da629} may be persisted to storage in unencrypted form.

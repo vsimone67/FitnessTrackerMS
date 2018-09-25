@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.HealthChecks;
+using System;
+using System.Threading.Tasks;
 
 namespace FitnessTracker.Presentation.Angular
 {
@@ -25,6 +27,13 @@ namespace FitnessTracker.Presentation.Angular
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "dist";
+            });
+
+            services.AddHealthChecks(checks =>
+            {
+                checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")),
+                                         TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
+                                         );
             });
         }
 

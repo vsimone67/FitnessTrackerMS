@@ -37,6 +37,7 @@ namespace FitnessTracker.Presentation.WebStatus
                 checks.AddUrlCheckIfNotNull(Configuration["WorkoutURL"], TimeSpan.FromMinutes(minutes));
                 checks.AddUrlCheckIfNotNull(Configuration["DietURL"], TimeSpan.FromMinutes(minutes));
                 checks.AddUrlCheckIfNotNull(Configuration["SignalRHubURL"], TimeSpan.FromMinutes(minutes));
+                checks.AddUrlCheckIfNotNull(Configuration["FitnessTrackerURL"], TimeSpan.FromMinutes(minutes));
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
