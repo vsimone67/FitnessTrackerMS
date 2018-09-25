@@ -21,3 +21,12 @@ services:
         build:
             context: .
             dockerfile: FitnessTracker.Presentation.WebStatus/Dockerfile
+
+    fitnesstracker:
+        image: 'fitnesstracker:${TAG:-latest}'
+        build:
+            context: .
+            dockerfile: FitnessTracker.Presentation.Angular/Dockerfile
+        depends_on:
+            - workoutservice
+            - dietservice

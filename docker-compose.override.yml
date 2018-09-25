@@ -24,3 +24,9 @@ services:
         volumes:
             - './dockerlogs:/logs'
             - './sharedsettings:/appsettings'
+    fitnesstracker:       
+        ports:
+            - '4304:80'
+        volumes:
+            - './dockerlogs:/logs'
+            - './sharedsettings:/appsettings'
