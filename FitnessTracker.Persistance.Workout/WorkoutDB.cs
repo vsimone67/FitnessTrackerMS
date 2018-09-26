@@ -1,8 +1,10 @@
 ﻿using FitnessTracker.Application.Common.Interfaces;
 using FitnessTracker.Application.Workout.Interfaces;
+using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Domain.Workout;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,9 +15,9 @@ namespace FitnessTracker.Persistance.Workout
     {
         private WorkoutContext _dbContext;
 
-        public WorkoutDB(IApplicationSettings settings)
+        public WorkoutDB(IOptions<FitnessTrackerSettings> settings)
         {
-            _dbContext = new WorkoutContext(settings.GetConnectionString("WorkoutConnection"));
+            _dbContext = new WorkoutContext(settings.Value.ConnectionString);
         }
 
         public List<FitnessTracker.Domain.Workout.Workout> GetAllWorkouts()

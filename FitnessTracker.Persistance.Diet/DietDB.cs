@@ -1,8 +1,10 @@
 ﻿using FitnessTracker.Application.Common.Interfaces;
 using FitnessTracker.Application.Interfaces;
+using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Domain.Diet;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,9 +15,9 @@ namespace FitnessTracker.Persistance.Diet
     {
         private DietContext _dbContext;
 
-        public DietDB(IApplicationSettings settings)
+        public DietDB(IOptions<FitnessTrackerSettings> settings)
         {
-            _dbContext = new DietContext(settings.GetConnectionString("DietConnection"));
+            _dbContext = new DietContext(settings.Value.ConnectionString);
         }
 
         public List<FoodInfo> GetAllFoodData()

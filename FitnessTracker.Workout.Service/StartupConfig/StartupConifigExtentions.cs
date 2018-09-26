@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using EventBus;
 using EventBus.Abstractions;
-using FitnessTracker.Application.Common.Interfaces;
 using FitnessTracker.Application.MappingProfile;
+using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
-using FitnessTracker.Common.EventBus;
 using FitnessTracker.Common.Web.Filters;
 using FitnessTracker.Workout.Service.EventBus.Mock;
 using FitnessTracker.Workout.Service.IOC;
@@ -15,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using RabbitMQEventBus;
 using SimpleInjector;
@@ -56,11 +56,13 @@ namespace FitnessTracker.Workout.Service.StartupConfig
         {
             services.AddHealthChecks(checks =>
             {
+                IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
+
                 checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")),
                                          TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
                                         );
 
-                checks.AddSqlCheck("vsazure", configuration.GetConnectionString("WorkoutConnection"), TimeSpan.FromMinutes(1));
+                checks.AddSqlCheck("vsazure", appSettings.Value.ConnectionString, TimeSpan.FromMinutes(1));
             });
 
             return services;
@@ -85,14 +87,15 @@ namespace FitnessTracker.Workout.Service.StartupConfig
 
         public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration, Container container)
         {
-            var useEventBus = configuration.GetValue<bool>("useEventBus");
+            IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
-            if (useEventBus)
+            if (appSettings.Value.UseRabbitMQEventBus)
             {
                 services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
                 {
                     var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-                    var eventBus = new EventBusRabbitMQIOC(EventBusConnection.GetEventConnection(configuration), eventBusSubcriptionsManager, container);
+
+                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAtributes, eventBusSubcriptionsManager, container);
                     eventBus.TurnOnRecieveQueue();
                     return eventBus;
                 });
@@ -154,12 +157,15 @@ namespace FitnessTracker.Workout.Service.StartupConfig
             return services;
         }
 
+        public static IServiceCollection RegiserAppSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<FitnessTrackerSettings>(configuration);
+
+            return services;
+        }
+
         public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            var settings = new FitnessTracker.Workout.ApplicationSettings.ApplicationSettings(configuration);
-
-            services.AddSingleton<IApplicationSettings>((p) => settings);
-
             return services;
         }
 

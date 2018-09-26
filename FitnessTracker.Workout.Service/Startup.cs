@@ -22,13 +22,14 @@ namespace FitnessTracker.Workout.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc()
-              .AddHealthChecks(Configuration)
               .AddCustomSwagger()
               .ConfigureDIContainer(_container)
               .RegisterFitnessTrackerDependencies(_container)
               .RegisterCommandAndQueryHandlers(_container)
               .RegisterMappingEngine(_container)
               .AddDependencies(Configuration)
+              .RegiserAppSettings(Configuration)
+              .AddHealthChecks(Configuration)
               .AddEventBus(Configuration, _container);
         }
 

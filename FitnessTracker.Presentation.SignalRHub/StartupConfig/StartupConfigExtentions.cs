@@ -2,7 +2,7 @@
 using EventBus.Abstractions;
 using FitnessTracker.Application.Model.Diet.Events;
 using FitnessTracker.Application.Workout.Events;
-using FitnessTracker.Common.EventBus;
+using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet;
 using FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout;
 using FitnessTracker.Presentation.SignalRHub.Hubs;
@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Options;
 using RabbitMQEventBus;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
@@ -53,12 +54,14 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
             services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
             {
                 var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
-                var eventBus = new EventBusRabbitMQIOC(EventBusConnection.GetEventConnection(configuration), eventBusSubcriptionsManager, container);
+                var appSettings = sp.GetRequiredService<IOptions<FitnessTrackerSettings>>();
+                var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAtributes, eventBusSubcriptionsManager, container);
                 eventBus.TurnOnRecieveQueue();
                 return eventBus;
             });
 
             services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+
             return services;
         }
 
@@ -89,6 +92,13 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
             services.AddSingleton<IIntegrationEventHandler<DeleteFoodItemEvent>, DeleteFoodItemEventHandler>();
             services.AddSingleton<IIntegrationEventHandler<EditMetabolicInfo>, EditMetabolicInfoEventHandler>();
             services.AddSingleton<IIntegrationEventHandler<SaveMenuEvent>, SavedMenuEventHandler>();
+
+            return services;
+        }
+
+        public static IServiceCollection RegiserAppSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<FitnessTrackerSettings>(configuration);
 
             return services;
         }
