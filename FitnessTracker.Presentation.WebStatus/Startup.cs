@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+﻿using FitnessTracker.Presentation.WebStatus.BackgroundProcesses;
+using Microsoft.AspNetCore.Builder;
+
+//using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
 
 namespace FitnessTracker.Presentation.WebStatus
@@ -41,6 +44,9 @@ namespace FitnessTracker.Presentation.WebStatus
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Add background service
+            services.AddSingleton<IHostedService, WebStatusHostedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

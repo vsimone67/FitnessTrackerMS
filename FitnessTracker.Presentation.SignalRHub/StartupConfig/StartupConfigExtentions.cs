@@ -1,6 +1,7 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Model.Diet.Events;
 using FitnessTracker.Application.Workout.Events;
+using FitnessTracker.Common.Web;
 using FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet;
 using FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout;
 using FitnessTracker.Presentation.SignalRHub.Hubs;
@@ -22,35 +23,25 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
         public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
             // Workout
-            services.AddSingleton<IIntegrationEventHandler<AddNewWorkoutEvent>, AddNewWorkoutEventHandler>();
-            services.AddSingleton<IIntegrationEventHandler<BodyInfoSavedEvent>, BodyInfoSavedEventHandler>();
-            services.AddSingleton<IIntegrationEventHandler<WorkoutCompletedEvent>, WorkoutCompletedEventHanlder>();
+            //services.AddSingleton<IIntegrationEventHandler<AddNewWorkoutEvent>, AddNewWorkoutEventHandler>();
+            //services.AddSingleton<IIntegrationEventHandler<BodyInfoSavedEvent>, BodyInfoSavedEventHandler>();
+            //services.AddSingleton<IIntegrationEventHandler<WorkoutCompletedEvent>, WorkoutCompletedEventHanlder>();
 
             // Diet
-            services.AddSingleton<IIntegrationEventHandler<AddNewFoodEvent>, AddNewFoodEventHandler>();
-            services.AddSingleton<IIntegrationEventHandler<DeleteFoodItemEvent>, DeleteFoodItemEventHandler>();
-            services.AddSingleton<IIntegrationEventHandler<EditMetabolicInfo>, EditMetabolicInfoEventHandler>();
-            services.AddSingleton<IIntegrationEventHandler<SaveMenuEvent>, SavedMenuEventHandler>();
+            //services.AddSingleton<IIntegrationEventHandler<AddNewFoodEvent>, AddNewFoodEventHandler>();
+            //services.AddSingleton<IIntegrationEventHandler<DeleteFoodItemEvent>, DeleteFoodItemEventHandler>();
+            //services.AddSingleton<IIntegrationEventHandler<EditMetabolicInfo>, EditMetabolicInfoEventHandler>();
+            //services.AddSingleton<IIntegrationEventHandler<SaveMenuEvent>, SavedMenuEventHandler>();
 
             return services;
         }
 
         public static IServiceCollection RegisterEventHandlers(this IServiceCollection services, Container container)
         {
-            //var fitnessTrackerAssemblies = LibraryManager.GetReferencingAssemblies("FitnessTracker");
+            var fitnessTrackerAssemblies = LibraryManager.GetReferencingAssemblies("FitnessTracker");
 
-            //// Look in all assemblies and register all implementations of ICommandHandler<in TCommand>
-            //container.Register(typeof(ICommandHandler<,>), fitnessTrackerAssemblies);
-            //// Look in all assemblies and register all implementations of IQueryHandler<in TQuery, TResult>
-            //container.Register(typeof(IQueryHandler<,>), fitnessTrackerAssemblies);
-
-            ////TODO: NOTE:  No idea why we have to use services.addsingleton instead of container.Register.  container.register does not work
-            //services.AddSingleton<ICommandProcessor>((p) => new CommandProcessor(container.GetInstance));
-            //services.AddSingleton<IQueryProcessor>((p) => new QueryProcessor(container.GetInstance));
-
-            // Add Event Handlers here
-
-            //services.AddSingleton<IIntegrationEventHandler<AddNewWorkoutEvent>, AddNewWorkoutEventHandler>();
+            // Auto Register All Event Handlers
+            container.Register(typeof(IIntegrationEventHandler<>), fitnessTrackerAssemblies);
 
             return services;
         }

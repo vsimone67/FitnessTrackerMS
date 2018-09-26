@@ -213,3 +213,29 @@
 2018-09-26 15:31:13.7407|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
 2018-09-26 15:31:27.2294|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
 2018-09-26 15:31:27.2294|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
+2018-09-26 15:38:57.9354|WARN|FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout.AddNewWorkoutEventHandler|Workout Event Handled, SignalR Hub
+2018-09-26 15:38:57.9354|WARN|FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout.AddNewWorkoutEventHandler|Workout Event Handled, SignalR Hub
+2018-09-26 15:43:04.9873|WARN|FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout.AddNewWorkoutEventHandler|Workout Event Handled, SignalR Hub
+2018-09-26 15:43:04.9873|WARN|FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout.AddNewWorkoutEventHandler|Workout Event Handled, SignalR Hub
+2018-09-26 15:46:11.1970|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:46:11.1970|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:46:11.1970|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:46:11.1970|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:49:48.7193|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {0eab797d-2799-43bb-bca6-ec5c22fdf5b6} may be persisted to storage in unencrypted form.
+2018-09-26 15:49:48.7193|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {0eab797d-2799-43bb-bca6-ec5c22fdf5b6} may be persisted to storage in unencrypted form.
+2018-09-26 15:49:48.9123|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {b9e4e21f-dd4c-464d-a2a3-aa4908480bae} may be persisted to storage in unencrypted form.
+2018-09-26 15:49:48.9123|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {b9e4e21f-dd4c-464d-a2a3-aa4908480bae} may be persisted to storage in unencrypted form.
+2018-09-26 15:49:49.0165|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:49:49.0165|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:49:49.0165|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:49:49.0165|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 15:49:49.0090|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {7b5c0b76-95a6-4821-a596-dffccde9d99a} may be persisted to storage in unencrypted form.
+2018-09-26 15:49:49.0090|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {7b5c0b76-95a6-4821-a596-dffccde9d99a} may be persisted to storage in unencrypted form.
+2018-09-26 15:52:07.4025|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
+2018-09-26 15:52:07.4025|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
+2018-09-26 15:52:22.9558|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
+2018-09-26 15:52:22.9558|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
+2018-09-26 16:01:01.3593|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 16:01:01.3593|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 16:01:01.3593|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 16:01:01.3593|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
