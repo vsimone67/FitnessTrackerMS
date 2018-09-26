@@ -3,51 +3,60 @@ import { Http } from '@angular/http';
 
 import { BaseService, EventService } from '../../shared/services';
 import { NutritionInfo } from '../models';
-import { SiteConstants } from '../../shared/models';
 
-const URL_SITE_DIET = SiteConstants.apiServer + '/api/Diet/';
+import { AppsettingsService } from '../../shared/services'
 
 @Injectable()
 export class DietService extends BaseService {
-
   protected nutritionInfo: Array<NutritionInfo>;
+  protected serviceURL: string;
 
-  constructor(public _http: Http, public _eventService: EventService) {
-    super(_http, _eventService);
+  constructor(http: Http, eventService: EventService, appSettings: AppsettingsService) {
+    super(http, eventService, appSettings);
 
     this.nutritionInfo = new Array<NutritionInfo>();
+    this.isSettingsLoaded = false;
   }
 
-  getDietItems(callback: any) {
-    return this.getDataWithSpinner(URL_SITE_DIET + 'GetSavedMenuItems', callback);
+  async getDietItems(callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.getDataWithSpinner(this.serviceURL + 'GetSavedMenuItems', callback);
   }
-  getColumns(callback: any) {
-    return this.getDataWithSpinner(URL_SITE_DIET + 'GetColumns', callback);
+  async getColumns(callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.getDataWithSpinner(this.serviceURL + 'GetColumns', callback);
   }
-  saveMenu(payload: any, callback: any) {
-    return this.putDataWithSpinner(URL_SITE_DIET + 'SaveMenu', payload, callback);
+  async saveMenu(payload: any, callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.putDataWithSpinner(this.serviceURL + 'SaveMenu', payload, callback);
   }
-  getMetabolicInfo(callback: any) {
-    return this.getDataWithSpinner(URL_SITE_DIET + 'GetMetabolicInfo', callback);
+  async getMetabolicInfo(callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.getDataWithSpinner(this.serviceURL + 'GetMetabolicInfo', callback);
   }
-  saveMetabolicInfo(payload: any, callback: any) {
-    return this.putDataWithSpinner(URL_SITE_DIET + 'EditMetabolicInfo', payload, callback);
+  async saveMetabolicInfo(payload: any, callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.putDataWithSpinner(this.serviceURL + 'EditMetabolicInfo', payload, callback);
   }
-  getcurrentMacro(mode: string, callback: any) {
-    return this.getDataWithSpinner(URL_SITE_DIET + 'GetMetabolicInfoCalcType/' + mode, callback);
+  async getcurrentMacro(mode: string, callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.getDataWithSpinner(this.serviceURL + 'GetMetabolicInfoCalcType/' + mode, callback);
   }
-  processItem(payload: any, callback: any) {
-    return this.putDataWithSpinner(URL_SITE_DIET + 'ProcessItem', payload, callback);
+  async processItem(payload: any, callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.putDataWithSpinner(this.serviceURL + 'ProcessItem', payload, callback);
+  }
+  async deleteItem(payload: any, callback: any) {
+    await this.loadConfiguration('dietServiceURL');
+    return this.putDataWithSpinner(this.serviceURL + 'DeleteFoodItem', payload, callback);
+  }
 
-  }
-  deleteItem(payload: any, callback: any) {
-    return this.putDataWithSpinner(URL_SITE_DIET + 'DeleteFoodItem', payload, callback);
-
-  }
   getNutritionInfo(): Array<NutritionInfo> {
+    this.loadConfiguration('dietServiceURL');
     return this.nutritionInfo;
   }
-  setNutritionInfo(nutritionInfo: Array<NutritionInfo>) {
+  async setNutritionInfo(nutritionInfo: Array<NutritionInfo>) {
+    await this.loadConfiguration('dietServiceURL');
     this.nutritionInfo = nutritionInfo;
   }
 }

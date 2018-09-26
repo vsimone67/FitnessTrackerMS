@@ -18,6 +18,11 @@
           "glob": "favicon.png",
           "input": "./content/images/",
           "output": "./"
+        },
+        {
+          "glob": "appsettings.json",
+          "input": "./content/appsettings/",
+          "output": "./"
         }
       ],
       "index": "index.html",

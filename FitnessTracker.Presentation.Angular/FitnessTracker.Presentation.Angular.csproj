@@ -27,7 +27,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\shared\services\appsettings.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FitnessTracker.Common.Web\FitnessTracker.Common.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\shared\services\appsettings.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
