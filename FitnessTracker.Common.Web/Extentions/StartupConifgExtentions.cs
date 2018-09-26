@@ -1,135 +1,211 @@
-﻿//using Microsoft.AspNetCore.Builder;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Extensions.DependencyInjection;
-//using Newtonsoft.Json.Serialization;
-//using System;
-//using System.Collections.Generic;
-//using System.Text;
+﻿using AutoMapper;
+using EventBus;
+using EventBus.Abstractions;
+using FitnessTracker.Common.AppSettings;
+using FitnessTracker.Common.Attributes;
+using FitnessTracker.Common.EventBus;
+using FitnessTracker.Common.Web.Extentions;
+using FitnessTracker.Common.Web.Filters;
+using FitnetssTracker.Application.Common;
+using FitnetssTracker.Application.Common.Processor;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
+using RabbitMQEventBus;
+using SimpleInjector;
+using SimpleInjector.Lifestyles;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
-//namespace DockerPOC.Common.Web.Extentions
-//{
-//    public static class StartupConifigExtentions
-//    {
-//        #region Services
+namespace FitnessTracker.Common.Web.StartupConfig
+{
+    public static class CommonStartupConifigExtentions
+    {
+        #region Services
 
-//        public static IServiceCollection AddCustomMvc(this IServiceCollection services)
-//        {
-//            services.AddMvc(options =>
-//            {
-//                options.Filters.Add(typeof(Filters.HttpGlobalExceptionFilter));
-//            }).AddControllersAsServices().AddJsonOptions(options =>
-//            {
-//                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-//            }).AddControllersAsServices()  //Injecting Controllers themselves thru DI
-//              .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+        public static IServiceCollection AddCustomMvc(this IServiceCollection services)
+        {
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+            }).AddControllersAsServices().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            }).AddControllersAsServices()  //Injecting Controllers themselves thru DI
+              .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
-//            services.AddCors(options =>
-//            {
-//                options.AddPolicy("CorsPolicy",
-//                    builder => builder.AllowAnyOrigin()
-//                    .AllowAnyMethod()
-//                    .AllowAnyHeader()
-//                    .AllowCredentials());
-//            });
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
 
-//            return services;
-//        }
+            return services;
+        }
 
-//        //public static IServiceCollection AddHealthChecks(this IServiceCollection services, IConfiguration configuration)
-//        //{
-//        //    services.AddHealthChecks(checks =>
-//        //    {
-//        //        checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")),
-//        //                                 TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
-//        //                                );
+        public static IServiceCollection AddHealthChecks(this IServiceCollection services, IConfiguration configuration, bool AddDBCheck = true)
+        {
+            IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
-//        //        checks.AddSqlCheck("vsazure", configuration.GetConnectionString("WorkoutConnection"), TimeSpan.FromMinutes(1));
-//        //    });
+            services.AddHealthChecks(checks =>
+            {
+                checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")),
+                                         TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
+                                        );
 
-//        //    return services;
-//        //}
+                if (AddDBCheck)
+                    checks.AddSqlCheck("vsazure", appSettings.Value.ConnectionString, TimeSpan.FromMinutes(1));
+            });
 
-//        public static IServiceCollection AddCustomSwagger(this IServiceCollection services)
-//        {
-//            services.AddSwaggerGen(options =>
-//            {
-//                options.DescribeAllEnumsAsStrings();
-//                options.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
-//                {
-//                    Title = "Workout Micro Service",
-//                    Version = "v1.0",
-//                    Description = "Application to track workouts and learn new technologies",
-//                    TermsOfService = "Terms Of Service"
-//                });
-//            });
+            return services;
+        }
 
-//            return services;
-//        }
+        public static IServiceCollection AddCustomSwagger(this IServiceCollection services, SwaggerInfo swaggerInfo)
+        {
+            services.AddSwaggerGen(options =>
+            {
+                options.DescribeAllEnumsAsStrings();
+                options.SwaggerDoc(swaggerInfo.Version, new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = swaggerInfo.Title,
+                    Version = swaggerInfo.Version,
+                    Description = swaggerInfo.Description,
+                    TermsOfService = swaggerInfo.TermsOfService
+                });
+            });
 
-//        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration, Container container)
-//        {
-//            services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
-//            {
-//                var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+            return services;
+        }
 
-//                return new EventBusRabbitMQIOC(EventBusConnection.GetEventConnection(configuration), eventBusSubcriptionsManager, container);
-//            });
+        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration, Container container)
+        {
+            IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
-//            services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-//            return services;
-//        }
+            if (appSettings.Value.UseRabbitMQEventBus)
+            {
+                services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
+                {
+                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-//        public static IServiceCollection ConfigureDIContainer(this IServiceCollection services, Container container)
-//        {
-//            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-//            services.EnableSimpleInjectorCrossWiring(container);
+                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAtributes, eventBusSubcriptionsManager, container);
+                    eventBus.TurnOnRecieveQueue();
+                    return eventBus;
+                });
 
-//            return services;
-//        }
+                services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
+            }
+            else  // mock event bus
+            {
+                services.AddSingleton<IEventBus, EventBusBlank>();
+            }
+            return services;
+        }
 
-//        #endregion Services
+        public static IServiceCollection ConfigureDIContainer(this IServiceCollection services, Container container)
+        {
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            services.EnableSimpleInjectorCrossWiring(container);
 
-//        #region App
+            return services;
+        }
 
-//        public static IApplicationBuilder AddCorsConfiguration(this IApplicationBuilder app)
-//        {
-//            app.UseCors("CorsPolicy");
+        public static IServiceCollection RegisterCommandAndQueryHandlers(this IServiceCollection services, Container container)
+        {
+            var fitnessTrackerAssemblies = LibraryManager.GetReferencingAssemblies("FitnessTracker");
 
-//            return app;
-//        }
+            // Look in all assemblies and register all implementations of ICommandHandler<in TCommand>
+            container.Register(typeof(ICommandHandler<,>), fitnessTrackerAssemblies);
+            // Look in all assemblies and register all implementations of IQueryHandler<in TQuery, TResult>
+            container.Register(typeof(IQueryHandler<,>), fitnessTrackerAssemblies);
 
-//        public static IApplicationBuilder AddMFCConfiguration(this IApplicationBuilder app)
-//        {
-//            app.UseMvcWithDefaultRoute();
-//            return app;
-//        }
+            //TODO: NOTE:  No idea why we have to use services.addsingleton instead of container.Register.  container.register does not work
+            services.AddSingleton<ICommandProcessor>((p) => new CommandProcessor(container.GetInstance));
+            services.AddSingleton<IQueryProcessor>((p) => new QueryProcessor(container.GetInstance));
 
-//        public static IApplicationBuilder AddSwaggerConfiguration(this IApplicationBuilder app)
-//        {
-//            app.UseSwagger()
-//              .UseSwaggerUI(c =>
-//              {
-//                  c.SwaggerEndpoint("/swagger/v1/swagger.json", "Workout Micro Service V1");
-//              });
+            return services;
+        }
 
-//            return app;
-//        }
+        public static IServiceCollection RegisterFitnessTrackerDependencies(this IServiceCollection services, Container container)
+        {
+            var fitnessTrackerAssemblyDefinedTypes = LibraryManager.GetReferencingAssemblies("FitnessTracker")
+                            .SelectMany(an => an.DefinedTypes);
 
-//        public static IApplicationBuilder ConfigureEventBus(this IApplicationBuilder app)
-//        {
-//            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-//            eventBus.Subscribe<AddNewWorkoutEvent, AddNewWorkoutEventHandler>();
+            // Get types with AutoRegisterAttribute in assemblies
+            var typesWithAutoRegisterAttribute =
+                from t in fitnessTrackerAssemblyDefinedTypes
+                let attributes = t.GetCustomAttributes(typeof(AutoRegisterAttribute), true)
+                where attributes != null && attributes.Any()
+                select new { Type = t, Attributes = attributes.Cast<AutoRegisterAttribute>() };
 
-//            return app;
-//        }
+            // Loop through types to register with IoC
+            foreach (var typeToRegister in typesWithAutoRegisterAttribute)
+            {
+                foreach (var attribute in typeToRegister.Attributes)
+                {
+                    container.Register(attribute.RegisterAsType, typeToRegister.Type.AsType());
+                }
+            }
 
-//        public static IApplicationBuilder InitialzieDIContainer(this IApplicationBuilder app, Container container)
-//        {
-//            container.AutoCrossWireAspNetComponents(app);
-//            container.Verify();
-//            return app;
-//        }
+            return services;
+        }
 
-//        #endregion App
-//    }
-//}
+        public static IServiceCollection RegiserAppSettings(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<FitnessTrackerSettings>(configuration);
+
+            return services;
+        }
+
+        public static IServiceCollection RegisterMappingEngine(this IServiceCollection services, Container container, IMapper mapperConfig)
+        {
+            container.Register<IMapper>(() => mapperConfig, Lifestyle.Singleton);  // Register automapper config and mappings
+
+            return services;
+        }
+
+        #endregion Services
+
+        #region App
+
+        public static IApplicationBuilder AddCorsConfiguration(this IApplicationBuilder app)
+        {
+            app.UseCors("CorsPolicy");
+
+            return app;
+        }
+
+        public static IApplicationBuilder AddMFCConfiguration(this IApplicationBuilder app)
+        {
+            app.UseMvcWithDefaultRoute();
+            return app;
+        }
+
+        public static IApplicationBuilder AddSwaggerConfiguration(this IApplicationBuilder app, SwaggerInfo swaggerInfo)
+        {
+            app.UseSwagger()
+              .UseSwaggerUI(c =>
+              {
+                  c.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerInfo.EndPointDescription);
+              });
+
+            return app;
+        }
+
+        public static IApplicationBuilder InitialzieDIContainer(this IApplicationBuilder app, Container container)
+        {
+            container.AutoCrossWireAspNetComponents(app);
+            container.Verify();
+            return app;
+        }
+
+        #endregion App
+    }
+}

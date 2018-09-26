@@ -1,4 +1,5 @@
-﻿using FitnessTracker.Presentation.SignalRHub.StartupConfig;
+﻿using FitnessTracker.Common.Web.StartupConfig;
+using FitnessTracker.Presentation.SignalRHub.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,13 +22,13 @@ namespace FitnessTracker.Presentation.SignalRHub
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc()
-              .AddHealthChecks(Configuration)
-              .AddEventBus(Configuration, _container)
+              .AddHealthChecks(Configuration, false)
               .ConfigureDIContainer(_container)
-              .AddSignalRServices()
-              .RegisterEventHandlers(_container)
               .RegiserAppSettings(Configuration)
-              .AddDependencies();
+              .AddDependencies()
+              .AddEventBus(Configuration, _container)
+              .AddSignalRServices()
+              .RegisterEventHandlers(_container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

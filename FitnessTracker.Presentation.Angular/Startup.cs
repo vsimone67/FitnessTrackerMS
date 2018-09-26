@@ -1,11 +1,9 @@
+using FitnessTracker.Common.Web.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.HealthChecks;
-using System;
-using System.Threading.Tasks;
 
 namespace FitnessTracker.Presentation.Angular
 {
@@ -29,12 +27,7 @@ namespace FitnessTracker.Presentation.Angular
                 configuration.RootPath = "dist";
             });
 
-            services.AddHealthChecks(checks =>
-            {
-                checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")),
-                                         TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
-                                         );
-            });
+            services.AddHealthChecks(Configuration, false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,24 +45,9 @@ namespace FitnessTracker.Presentation.Angular
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller}/{action=Index}/{id?}");
-            //});
-
             app.UseSpa(spa =>
             {
-                // To learn more about options for serving an Angular SPA from ASP.NET Core,
-                // see https://go.microsoft.com/fwlink/?linkid=864501
-
                 spa.Options.SourcePath = "dist";
-
-                //if (env.IsDevelopment())
-                //{
-                //    spa.UseAngularCliServer(npmScript: "start");
-                //}
             });
         }
     }

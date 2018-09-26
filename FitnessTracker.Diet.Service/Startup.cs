@@ -1,4 +1,7 @@
-﻿using FitnessTracker.Diet.Service.StartupConfig;
+﻿using FitnessTracker.Common.Web.Extentions;
+using FitnessTracker.Common.Web.StartupConfig;
+using FitnessTracker.Diet.Service.AutoMapper;
+using FitnessTracker.Diet.Service.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,10 +13,20 @@ namespace FitnessTracker.Diet.Service
     public class Startup
     {
         private readonly Container _container = new Container();
+        private readonly SwaggerInfo _swaggerInfo;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            _swaggerInfo = new SwaggerInfo()
+            {
+                Title = "Diet Micro Service",
+                Version = "v1",
+                Description = "Application to track my deit and learn new technologies",
+                TermsOfService = "Terms of Service",
+                EndPointDescription = "Diet Micro Service V1"
+            };
         }
 
         public IConfiguration Configuration { get; }
@@ -22,13 +35,13 @@ namespace FitnessTracker.Diet.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc()
-              .AddCustomSwagger()
+              .AddCustomSwagger(_swaggerInfo)
               .ConfigureDIContainer(_container)
+              .RegiserAppSettings(Configuration)
+              .AddDependencies(Configuration)
               .RegisterFitnessTrackerDependencies(_container)
               .RegisterCommandAndQueryHandlers(_container)
-              .RegisterMappingEngine(_container)
-              .AddDependencies(Configuration)
-              .RegiserAppSettings(Configuration)
+              .RegisterMappingEngine(_container, DietMapperConfig.GetDietMapperConfig())
               .AddHealthChecks(Configuration)
               .AddEventBus(Configuration, _container);
         }
@@ -38,7 +51,7 @@ namespace FitnessTracker.Diet.Service
         {
             app.AddCorsConfiguration()
                 .AddMFCConfiguration()
-                .AddSwaggerConfiguration()
+                .AddSwaggerConfiguration(_swaggerInfo)
                 .InitialzieDIContainer(_container);
         }
     }

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace FitnessTracker.Service.IOC
+namespace FitnessTracker.Common.Web
 {
     public static class LibraryManager
     {
-
         public static IEnumerable<System.Reflection.Assembly> GetReferencingAssemblies(string assemblyName)
         {
             var assemblies = new List<Assembly>();
@@ -29,5 +28,4 @@ namespace FitnessTracker.Service.IOC
                 || library.Dependencies.Any(d => d.Name.StartsWith(assemblyName));
         }
     }
-
 }

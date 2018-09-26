@@ -137,3 +137,79 @@
 2018-09-26 00:22:22.7528|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
 2018-09-26 00:22:39.0220|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
 2018-09-26 00:22:39.0220|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
+2018-09-26 14:22:24.5364|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {1120b503-3245-498b-baee-f5096512f17a} may be persisted to storage in unencrypted form.
+2018-09-26 14:22:24.5364|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {1120b503-3245-498b-baee-f5096512f17a} may be persisted to storage in unencrypted form.
+2018-09-26 14:22:24.5527|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {3c5fa98f-6a09-4e57-9783-aa8df40890f2} may be persisted to storage in unencrypted form.
+2018-09-26 14:22:24.5527|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {3c5fa98f-6a09-4e57-9783-aa8df40890f2} may be persisted to storage in unencrypted form.
+2018-09-26 14:22:27.0836|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NDU1K9RT", Request id "0HLH3NDU1K9RT:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:22:27.0836|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NDU1K9RT", Request id "0HLH3NDU1K9RT:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:22:27.0836|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NDU1K9RT", Request id "0HLH3NDU1K9RT:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:22:45.2313|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:22:45.2313|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:22:45.2313|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:22:45.2313|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:24:32.8159|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NDU1K9S0", Request id "0HLH3NDU1K9S0:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:24:32.8159|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NDU1K9S0", Request id "0HLH3NDU1K9S0:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:24:32.8159|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NDU1K9S0", Request id "0HLH3NDU1K9S0:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:27:29.6359|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NGO5RGFC", Request id "0HLH3NGO5RGFC:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:27:29.6359|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NGO5RGFC", Request id "0HLH3NGO5RGFC:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:27:29.6359|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NGO5RGFC", Request id "0HLH3NGO5RGFC:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:30:46.7408|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:30:46.7408|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:30:46.7408|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:30:46.7408|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:31:00.7827|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NIN3QTTB", Request id "0HLH3NIN3QTTB:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:31:00.7827|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NIN3QTTB", Request id "0HLH3NIN3QTTB:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:31:00.7827|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NIN3QTTB", Request id "0HLH3NIN3QTTB:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:32:15.6279|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NJDENBGQ", Request id "0HLH3NJDENBGQ:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:32:15.6279|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NJDENBGQ", Request id "0HLH3NJDENBGQ:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:32:15.6279|ERROR|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HLH3NJDENBGQ", Request id "0HLH3NJDENBGQ:00000002": An unhandled exception was thrown by the application.
+2018-09-26 14:32:34.3195|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:32:34.3195|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:32:34.3195|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:32:34.3195|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:33:39.7763|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:33:39.7763|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:33:39.7763|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:33:39.7763|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:33:52.0066|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:33:52.0066|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:33:52.0066|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:36:02.2819|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:36:02.2819|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:36:02.2819|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:36:02.2819|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:36:30.8225|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:36:30.8225|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:36:30.8225|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:38:02.9269|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:38:02.9269|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:38:02.9269|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:38:02.9269|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:38:57.8009|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:38:57.8009|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:38:57.8009|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:40:59.5258|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:40:59.5258|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:40:59.5258|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:40:59.5258|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:41:13.3608|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:41:13.3608|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:41:13.3608|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:45:58.5185|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:45:58.5185|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:45:58.5185|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:45:58.5185|FATAL|Microsoft.AspNetCore.Hosting.Internal.WebHost|Application startup exception
+2018-09-26 14:46:07.0446|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:46:07.0446|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:46:07.0446|ERROR|FitnessTracker.Common.Web.Filters.HttpGlobalExceptionFilter|None of the specified endpoints were reachable
+2018-09-26 14:50:42.3503|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
+2018-09-26 14:50:42.3503|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
+2018-09-26 14:59:26.2140|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
+2018-09-26 14:59:26.2140|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
+2018-09-26 15:25:16.0573|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {1d232b7d-6a5f-4187-ad98-092ef2fda37e} may be persisted to storage in unencrypted form.
+2018-09-26 15:25:16.0573|WARN|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|No XML encryptor configured. Key {1d232b7d-6a5f-4187-ad98-092ef2fda37e} may be persisted to storage in unencrypted form.
+2018-09-26 15:31:13.7407|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
+2018-09-26 15:31:13.7407|WARN|FitnessTracker.Service.Controllers.WorkoutController|Getting Workouts.....
+2018-09-26 15:31:27.2294|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....
+2018-09-26 15:31:27.2294|WARN|FitnessTracker.Service.Controllers.DietController|Getting Saved Menu Items.....

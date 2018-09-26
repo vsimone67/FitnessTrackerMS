@@ -1,7 +1,10 @@
 ﻿using EventBus.Abstractions;
 using EventBus.Events;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace FitnessTracker.Workout.Service.EventBus.Mock
+namespace FitnessTracker.Common.EventBus
 {
     public class EventBusBlank : IEventBus
     {
