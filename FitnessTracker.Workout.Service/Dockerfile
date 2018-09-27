@@ -10,6 +10,8 @@ COPY ["FitnessTracker.Workout.Service/FitnessTracker.Workout.Service.csproj", "F
 COPY ["FitnessTracker.Workout.Service/nuget.config","FitnessTracker.Workout.Service/"] #Copy the Nuget file to the container
 # Copy the local nuget packages to the container this is needed to resolve the ones on my server.  The nuget.config has a reference to this folder below
 copy ["./ng/*.*","FitnessTracker.Workout.Service/"] #Copy all the local nuget packges to the container so they can resolve. 
+#COPY ["FitnessTracker.Workout.Service/NLog.config","FitnessTracker.Workout.Service/"] #Copy the Nuget file to the container
+
 
 RUN dotnet restore "FitnessTracker.Workout.Service/FitnessTracker.Workout.Service.csproj"
 COPY . .
