@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<d:BaseView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FitnessTracker.Mobile.Views.SystemSettings"
+             xmlns:d="clr-namespace:FitnessTracker.Mobile.Views;assembly=FitnessTracker.Mobile.Views"
+             xmlns:viewModelBase="clr-namespace:FitnessTracker.Mobile.ViewModels;assembly=FitnessTracker.Presentation.Mobile"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Version 2.3" />
+
+            <StackLayout Orientation="Horizontal">
+                <Label VerticalOptions="Center"
+                   Text="# Workouts To Increase Weight: " />
+                <Picker Title="Workouts" SelectedIndex="{Binding IntervalIndex}" ItemsSource="{Binding WorkoutIntervals}"  VerticalOptions="Center" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Increase Weight Notification: " ></Label>
+                <Switch  IsToggled="{Binding IsNotify}" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label VerticalOptions="Center" Text="Service URL: " ></Label>
+                <Entry  VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding ServiceURL}" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</d:BaseView>

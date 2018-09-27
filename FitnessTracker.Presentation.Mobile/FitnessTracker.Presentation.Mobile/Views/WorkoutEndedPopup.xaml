@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModelBase="clr-namespace:FitnessTracker.Mobile.ViewModels;assembly=FitnessTracker.Presentation.Mobile"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             viewModelBase:ViewModelLocator.AutoWireViewModel="true"
+             x:Class="FitnessTracker.Mobile.Views.WorkoutEndedPopup">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <Frame BackgroundColor="Silver">
+                <StackLayout>
+                    <ActivityIndicator
+                           IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           Color="Black" />
+                    <Label Text="{Binding WorkoutDurationText}" FontSize="16"></Label>
+                    <Button HorizontalOptions="Center" Text="Save Workout" Clicked="SaveWorkout_Clicked" />
+                    <Button HorizontalOptions="Center" Text="Close" Clicked="CloseDialog_Clicked" />
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>
