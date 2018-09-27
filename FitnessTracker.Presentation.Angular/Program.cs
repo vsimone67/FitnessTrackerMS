@@ -13,6 +13,6 @@ namespace FitnessTracker.Presentation.Angular
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
              .UseHealthChecks("/hc")    // ADD LINK TO HEALTHCHECKS
-                .UseStartup<Startup>();
+             .UseStartup<Startup>();
     }
 }

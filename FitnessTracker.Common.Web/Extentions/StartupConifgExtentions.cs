@@ -9,6 +9,7 @@ using FitnessTracker.Common.Web.Filters;
 using FitnetssTracker.Application.Common;
 using FitnetssTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,9 @@ using SimpleInjector.Lifestyles;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog.Extensions.Logging;
+using NLog.Web;
+using Microsoft.Extensions.Logging;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
@@ -207,5 +211,43 @@ namespace FitnessTracker.Common.Web.StartupConfig
         }
 
         #endregion App
+
+        #region WebHostBuilder
+
+        public static IWebHostBuilder ConfigureNLog(this IWebHostBuilder builder)
+        {
+            builder.ConfigureLogging((hostingContext, logging) =>
+            {
+                //hostingContext.HostingEnvironment.ConfigureNLog("/appsettings/NLog.Config"); // common settings are in the /appsettings folder
+                hostingContext.HostingEnvironment.ConfigureNLog("NLog.config"); // common settings are in the /appsettings folder
+                logging.AddProvider(new NLogLoggerProvider());
+                logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
+                logging.AddConsole();
+                logging.AddDebug();
+            });
+
+            return builder;
+        }
+
+        public static IWebHostBuilder ConfigAppConfiguration(this IWebHostBuilder builder, string basePath = "")
+        {
+            builder.ConfigureAppConfiguration((builderContext, config) =>
+            {
+                var env = builderContext.HostingEnvironment;
+
+                if (basePath != string.Empty)
+                    config.SetBasePath("/appsettings");  // set path to docker volume for common files
+
+                config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                config.AddJsonFile("appsettings.secrets.json", optional: true, reloadOnChange: true);
+                config.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+                config.AddEnvironmentVariables();
+            });
+
+            return builder;
+        }
+
+        #endregion WebHostBuilder
     }
 }
