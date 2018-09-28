@@ -236,7 +236,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
                 var env = builderContext.HostingEnvironment;
 
                 if (basePath != string.Empty)
-                    config.SetBasePath("/appsettings");  // set path to docker volume for common files
+                    config.SetBasePath(basePath);  // set path to docker volume for common files
 
                 config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
                 config.AddJsonFile("appsettings.secrets.json", optional: true, reloadOnChange: true);
