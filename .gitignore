@@ -263,4 +263,6 @@ __pycache__/
 @ Secrets
 appsettings.secrets.json
 
+dockerlogs/
 workoutservicelogs.txt
+fitnesstrackerlogs.txt
