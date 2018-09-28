@@ -55,7 +55,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Common.Web",
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{FEA0C318-FFED-4D39-8781-265718CA43DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessTracker.Presentation.Angular", "FitnessTracker.Presentation.Angular\FitnessTracker.Presentation.Angular.csproj", "{1EA2B1EC-D239-4463-B79F-D03562738066}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Presentation.Angular", "FitnessTracker.Presentation.Angular\FitnessTracker.Presentation.Angular.csproj", "{1EA2B1EC-D239-4463-B79F-D03562738066}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitlessTracker.Presentation.SignalRMessageClient", "FitlessTracker.Presentation.SignalRMessageClient\FitlessTracker.Presentation.SignalRMessageClient.csproj", "{5B3FFBB3-0CB8-45A6-9D6D-BB7642CA0855}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,6 +147,10 @@ Global
 		{1EA2B1EC-D239-4463-B79F-D03562738066}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EA2B1EC-D239-4463-B79F-D03562738066}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EA2B1EC-D239-4463-B79F-D03562738066}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B3FFBB3-0CB8-45A6-9D6D-BB7642CA0855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B3FFBB3-0CB8-45A6-9D6D-BB7642CA0855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B3FFBB3-0CB8-45A6-9D6D-BB7642CA0855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B3FFBB3-0CB8-45A6-9D6D-BB7642CA0855}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +177,7 @@ Global
 		{0AFF07DA-B8AF-4194-8767-5AE9CD7661C8} = {1A4BC22E-0D37-4464-BA08-A469BC7763CC}
 		{51E86783-D91B-4FA4-B7AF-333ED7860A5F} = {1A4BC22E-0D37-4464-BA08-A469BC7763CC}
 		{1EA2B1EC-D239-4463-B79F-D03562738066} = {1AD91F5E-8686-46E6-8B16-AE7E754D0B5F}
+		{5B3FFBB3-0CB8-45A6-9D6D-BB7642CA0855} = {1AD91F5E-8686-46E6-8B16-AE7E754D0B5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6B31FBB-2426-426F-8B0D-31281FB70198}
