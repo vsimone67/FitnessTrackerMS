@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using FitnessTracker.Common.Web.StartupConfig;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace FitnessTracker.Presentation.WebStatus
@@ -12,6 +13,8 @@ namespace FitnessTracker.Presentation.WebStatus
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+             .ConfigureNLog("/settings/")
+             .ConfigAppConfiguration("/settings/")
+             .UseStartup<Startup>();
     }
 }

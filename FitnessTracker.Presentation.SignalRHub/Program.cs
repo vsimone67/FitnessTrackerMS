@@ -17,8 +17,8 @@ namespace FitnessTracker.Presentation.SignalRHub
           WebHost.CreateDefaultBuilder(args)
 
               .UseHealthChecks("/hc")    // ADD LINK TO HEALTHCHECKS
-              .ConfigureNLog()
-              .ConfigAppConfiguration()
+              .ConfigureNLog("/settings/")
+              .ConfigAppConfiguration("/settings/")
               .UseStartup<Startup>();
     }
 }

@@ -214,12 +214,13 @@ namespace FitnessTracker.Common.Web.StartupConfig
 
         #region WebHostBuilder
 
-        public static IWebHostBuilder ConfigureNLog(this IWebHostBuilder builder)
+        public static IWebHostBuilder ConfigureNLog(this IWebHostBuilder builder, string basePath = "")
         {
+            string fileName = basePath + "NLog.config";
             builder.ConfigureLogging((hostingContext, logging) =>
             {
                 //hostingContext.HostingEnvironment.ConfigureNLog("/appsettings/NLog.Config"); // common settings are in the /appsettings folder
-                hostingContext.HostingEnvironment.ConfigureNLog("NLog.config"); // common settings are in the /appsettings folder
+                hostingContext.HostingEnvironment.ConfigureNLog(fileName); // common settings are in the /appsettings folder
                 logging.AddProvider(new NLogLoggerProvider());
                 logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
                 logging.AddConsole();

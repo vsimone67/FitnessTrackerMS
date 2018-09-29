@@ -4,29 +4,29 @@ services:
         ports:
             - '4300:80'
         volumes:
-            - './dockerlogs:/logs'
-            - './sharedsettings:/appsettings'
+            - './configpath/workoutservice/logs:/logs'
+            - './configpath/workoutservice/configfiles:/settings'
     dietservice:
         ports:
             - '4301:80'
         volumes:
-            - './dockerlogs:/logs'
-            - './sharedsettings:/appsettings'
+            - './configpath/dietservice/logs:/logs'
+            - './configpath/dietservice/configfiles:/settings'
     signalrhub:
         ports:
             - '4302:80'
         volumes:
-            - './dockerlogs:/logs'
-            - './sharedsettings:/appsettings'
+            - './configpath/signalrhub/logs:/logs'
+            - './configpath/signalrhub/configfiles:/settings'
     webstatus:
         ports:
             - '4303:80'
         volumes:
-            - './dockerlogs:/logs'
-            - './sharedsettings:/appsettings'
-    fitnesstracker:
+            - './configpath/webstatus/logs:/logs'
+            - './configpath/webstatus/configfiles:/settings'
+    fitnesstracker:       
         ports:
             - '4304:80'
         volumes:
-            - './dockerlogs:/logs'
-            - './sharedsettings:/appsettings'
+            - './configpath/fitnesstracker/logs:/logs'
+            - './configpath/fitnesstracker/configfiles:/settings'

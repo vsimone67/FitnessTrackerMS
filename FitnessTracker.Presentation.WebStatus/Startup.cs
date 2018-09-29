@@ -1,7 +1,6 @@
 ﻿using FitnessTracker.Presentation.WebStatus.BackgroundProcesses;
+using FitnessTracker.Presentation.WebStatus.Models;
 using Microsoft.AspNetCore.Builder;
-
-//using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -44,7 +43,7 @@ namespace FitnessTracker.Presentation.WebStatus
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.Configure<KeepAlive>(Configuration);
             // Add background service
             services.AddSingleton<IHostedService, WebStatusHostedService>();
         }

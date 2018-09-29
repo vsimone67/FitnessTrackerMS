@@ -266,3 +266,4 @@ appsettings.secrets.json
 dockerlogs/
 workoutservicelogs.txt
 fitnesstrackerlogs.txt
+configpath/*.*
