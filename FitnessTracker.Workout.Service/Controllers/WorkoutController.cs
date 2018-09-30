@@ -32,7 +32,7 @@ namespace FitnessTracker.Service.Controllers
         [Route("GetWorkouts")]
         public async Task<IActionResult> GetWorkouts()
         {
-            _logger.LogWarning("Getting Workouts.....");
+            _logger.LogInformation("Getting Workouts.....");
 
             List<Application.Model.Workout.WorkoutDTO> workout = await _queryProcessor.ProcessAsync(new GetAllWorkoutsQuery());
             return Ok(workout);

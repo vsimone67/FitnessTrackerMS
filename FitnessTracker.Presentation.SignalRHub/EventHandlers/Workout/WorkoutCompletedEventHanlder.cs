@@ -21,7 +21,7 @@ namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout
 
         public async Task Handle(WorkoutCompletedEvent completedWorkout)
         {
-            _logger.LogWarning("Workout Completed Event Handled, SignalR Hub");
+            _logger.LogInformation("Workout Completed Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients

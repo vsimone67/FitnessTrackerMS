@@ -21,7 +21,7 @@ namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet
 
         public async Task Handle(AddNewFoodEvent addedFoodItem)
         {
-            _logger.LogWarning("Add New Food Event Handled, SignalR Hub");
+            _logger.LogInformation("Add New Food Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients

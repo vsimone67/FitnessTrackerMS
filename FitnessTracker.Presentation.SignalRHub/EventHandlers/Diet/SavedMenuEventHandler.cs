@@ -21,7 +21,7 @@ namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet
 
         public async Task Handle(SaveMenuEvent savedMenu)
         {
-            _logger.LogWarning("Saved Menu Completed Event Handled, SignalR Hub");
+            _logger.LogInformation("Saved Menu Completed Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients

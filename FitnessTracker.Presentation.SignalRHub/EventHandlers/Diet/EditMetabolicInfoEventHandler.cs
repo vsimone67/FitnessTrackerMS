@@ -21,7 +21,7 @@ namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet
 
         public async Task Handle(EditMetabolicInfo metabolicInfo)
         {
-            _logger.LogWarning("Edit Metabolic Info Completed Event Handled, SignalR Hub");
+            _logger.LogInformation("Edit Metabolic Info Completed Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients

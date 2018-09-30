@@ -21,7 +21,7 @@ namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet
 
         public async Task Handle(DeleteFoodItemEvent deletedFoodItem)
         {
-            _logger.LogWarning("Delete Food Item Event Handled, SignalR Hub");
+            _logger.LogInformation("Delete Food Item Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients

@@ -21,7 +21,7 @@ namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout
 
         public async Task Handle(BodyInfoSavedEvent newBodyInfo)
         {
-            _logger.LogWarning("BodyInfo Saved Event Handled, SignalR Hub");
+            _logger.LogInformation("BodyInfo Saved Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients

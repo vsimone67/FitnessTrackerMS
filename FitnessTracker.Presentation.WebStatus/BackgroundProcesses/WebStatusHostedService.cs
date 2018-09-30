@@ -30,16 +30,28 @@ namespace FitnessTracker.Presentation.WebStatus.BackgroundProcesses
             {
                 while (!cancellationToken.IsCancellationRequested)
                 {
-                    _logger.LogInformation($"Pinging Servers - {DateTime.Now}");
+                    _logger.LogInformation($"Pinging Servers - {DateTime.Now} - Wakeup Interval: {_pingSettings.Value.WakeupInterval}");
 
                     try
                     {
-                        await PingServerAsync(_pingSettings.Value.WorkoutServiceURL);
-                        await PingServerAsync(_pingSettings.Value.DietServiceURL);
+                        if (!string.IsNullOrEmpty(_pingSettings.Value.WorkoutServiceURL))
+                        {
+                            _logger.LogInformation($"Pinging Server: {_pingSettings.Value.WorkoutServiceURL}");
+                            await PingServerAsync(_pingSettings.Value.WorkoutServiceURL);
+                        }
+
+                        if (!string.IsNullOrEmpty(_pingSettings.Value.DietServiceURL))
+                        {
+                            _logger.LogInformation($"Pinging Server: {_pingSettings.Value.DietServiceURL}");
+                            await PingServerAsync(_pingSettings.Value.DietServiceURL);
+                        }
+
                         await Task.Delay(TimeSpan.FromSeconds(_pingSettings.Value.WakeupInterval), cancellationToken);
                     }
-                    catch (OperationCanceledException) { }
+                    catch (Exception ex) { _logger.LogError($"Exception Occured {ex.Message}"); await Task.Delay(TimeSpan.FromSeconds(_pingSettings.Value.WakeupInterval), cancellationToken); }
                 }
+
+                _logger.LogInformation($"Keep ALive Loop Has Ended......");
             }, cancellationToken);
         }
 
@@ -53,7 +65,7 @@ namespace FitnessTracker.Presentation.WebStatus.BackgroundProcesses
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _logger.LogInformation("Hosted service stopping");
+            _logger.LogInformation("Keep Alive Process Is Stopping....");
             return Task.CompletedTask;
         }
     }

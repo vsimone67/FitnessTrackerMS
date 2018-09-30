@@ -33,7 +33,7 @@ namespace FitnessTracker.Service.Controllers
         [Route("GetSavedMenuItems")]
         public async Task<IActionResult> GetSavedMenuItems()
         {
-            _logger.LogWarning("Getting Saved Menu Items.....");
+            _logger.LogInformation("Getting Saved Menu Items.....");
 
             List<FoodInfoDTO> foodList = await _queryProcessor.ProcessAsync(new GetSavedMenuItemsQuery());
             return Ok(foodList);

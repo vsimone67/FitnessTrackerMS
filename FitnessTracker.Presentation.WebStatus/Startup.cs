@@ -43,7 +43,7 @@ namespace FitnessTracker.Presentation.WebStatus
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.Configure<KeepAlive>(Configuration);
+            services.Configure<KeepAlive>(Configuration.GetSection("KeepAlive"));
             // Add background service
             services.AddSingleton<IHostedService, WebStatusHostedService>();
         }
