@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Rx';
 import { Http, Response } from '@angular/http';
 import { EventService } from '../services';
 import { Toast, events } from '../models';
-import { AppsettingsService } from '..//../shared/services'
+import { AppsettingsService } from '../../shared/services'
 
 export class BaseService {
   protected errorColor: string = 'mdl-color--red';
@@ -19,7 +19,7 @@ export class BaseService {
     }
   }
   async loadConfigData() {
-    await this._appSettings.LoadConfigData('appsettings.json');
+    await this._appSettings.LoadConfigData('/settings/appsettings.json');
   }
   getData(url: string) {
     return this._http.get(url)
@@ -53,9 +53,6 @@ export class BaseService {
   }
   putDataWithSpinner(url: string, payload: any, callback: any) {
     this.spinnerOn();
-    // this._http.post(url, payload)
-    //   .map((response: Response) => response.json())
-    //   .catch(this._handlerError);
 
     this.putData(url, payload).subscribe((data) => { callback(data); },
       (err) => this.showError(err),
