@@ -24,9 +24,10 @@ services:
         volumes:
             - './configpath/webstatus/logs:/logs'
             - './configpath/webstatus/configfiles:/settings'
-    fitnesstracker:       
+    fitnesstracker:
         ports:
             - '4304:80'
         volumes:
             - './configpath/fitnesstracker/logs:/logs'
             - './configpath/fitnesstracker/configfiles:/settings'
+            - './configpath/fitnesstracker/dist:/dist'

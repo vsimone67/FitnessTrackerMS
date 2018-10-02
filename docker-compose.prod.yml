@@ -30,3 +30,4 @@ services:
         volumes:
             - './configpath/fitnesstracker/logs:/logs'
             - './configpath/fitnesstracker/configfiles:/settings'
+            - './configpath/fitnesstracker/dist:/dist'

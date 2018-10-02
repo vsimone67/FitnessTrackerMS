@@ -19,7 +19,12 @@ export class BaseService {
     }
   }
   async loadConfigData() {
-    await this._appSettings.LoadConfigData('/settings/appsettings.json');
+    try {
+      await this._appSettings.LoadConfigData('appsettings.json');
+    }
+    catch (e) {
+      console.log("Eror " + e.message);
+    }
   }
   getData(url: string) {
     return this._http.get(url)

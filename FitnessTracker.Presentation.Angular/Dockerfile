@@ -28,5 +28,5 @@ WORKDIR /app
 
 COPY --from=publish /app .
 
-copy ["FitnessTracker.Presentation.Angular/dist/*.*","dist/"] # copy Angular NG BUILD output to dist folder (this is where I have the .NET core sever looking for the files)
+#copy ["FitnessTracker.Presentation.Angular/dist/*.*","dist/"] # copy Angular NG BUILD output to dist folder (this is where I have the .NET core sever looking for the files)
 ENTRYPOINT ["dotnet", "FitnessTracker.Presentation.Angular.dll"]
