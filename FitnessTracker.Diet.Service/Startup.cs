@@ -50,6 +50,7 @@ namespace FitnessTracker.Diet.Service
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.AddCorsConfiguration()
+                .UseRequestTimings()
                 .AddMFCConfiguration()
                 .AddSwaggerConfiguration(_swaggerInfo)
                 .InitialzieDIContainer(_container);

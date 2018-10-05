@@ -1,9 +1,5 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.MappingProfile;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace FitnessTracker.Workout.Service.AutoMapper
 {
@@ -19,7 +15,7 @@ namespace FitnessTracker.Workout.Service.AutoMapper
             return mapperConfig.CreateMapper();
         }
 
-        public static IMapper GetDietMapperConfig()
+        public static IMapper GetWorkoutMapperConfig()
         {
             return new WorkoutMapperConfig().GetMapperConfiguration();
         }

@@ -25,6 +25,7 @@ using System.Threading.Tasks;
 using NLog.Extensions.Logging;
 using NLog.Web;
 using Microsoft.Extensions.Logging;
+using FitnessTracker.Common.Web.Middware;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
@@ -200,6 +201,12 @@ namespace FitnessTracker.Common.Web.StartupConfig
                   c.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerInfo.EndPointDescription);
               });
 
+            return app;
+        }
+
+        public static IApplicationBuilder UseRequestTimings(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<RequestTimingsMiddleWare>();
             return app;
         }
 

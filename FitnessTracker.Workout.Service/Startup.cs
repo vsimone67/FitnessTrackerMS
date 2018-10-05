@@ -41,7 +41,7 @@ namespace FitnessTracker.Workout.Service
              .AddDependencies(Configuration)
              .RegisterFitnessTrackerDependencies(_container)
              .RegisterCommandAndQueryHandlers(_container)
-             .RegisterMappingEngine(_container, WorkoutMapperConfig.GetDietMapperConfig())
+             .RegisterMappingEngine(_container, WorkoutMapperConfig.GetWorkoutMapperConfig())
              .AddHealthChecks(Configuration)
              .AddEventBus(Configuration, _container);
         }
@@ -50,9 +50,10 @@ namespace FitnessTracker.Workout.Service
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.AddCorsConfiguration()
-                  .AddMFCConfiguration()
-                  .AddSwaggerConfiguration(_swaggerInfo)
-                  .InitialzieDIContainer(_container);
+                .UseRequestTimings()
+                .AddMFCConfiguration()
+                .AddSwaggerConfiguration(_swaggerInfo)
+                .InitialzieDIContainer(_container);
         }
     }
 }

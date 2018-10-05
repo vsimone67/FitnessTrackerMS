@@ -35,6 +35,7 @@ namespace FitnessTracker.Presentation.SignalRHub
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.AddCorsConfiguration()
+                .UseRequestTimings()
                 .InitialzieDIContainer(_container)
                 .ConfigureSignalRHubs()
                 .ConfigureEventBus();
