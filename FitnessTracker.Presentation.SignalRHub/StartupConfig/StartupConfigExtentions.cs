@@ -1,18 +1,24 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Model.Diet.Events;
 using FitnessTracker.Application.Workout.Events;
+using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Web;
 using FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet;
 using FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout;
 using FitnessTracker.Presentation.SignalRHub.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using SimpleInjector;
 
 namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
 {
     public static class StartupConfigExtentions
     {
+        private const int Workout = 0;
+        private const int Diet = 1;
+        private const int Queue = 0;
+
         public static IServiceCollection AddSignalRServices(this IServiceCollection services)
         {
             services.AddSignalR();
@@ -22,17 +28,6 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
 
         public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
-            // Workout
-            //services.AddSingleton<IIntegrationEventHandler<AddNewWorkoutEvent>, AddNewWorkoutEventHandler>();
-            //services.AddSingleton<IIntegrationEventHandler<BodyInfoSavedEvent>, BodyInfoSavedEventHandler>();
-            //services.AddSingleton<IIntegrationEventHandler<WorkoutCompletedEvent>, WorkoutCompletedEventHanlder>();
-
-            // Diet
-            //services.AddSingleton<IIntegrationEventHandler<AddNewFoodEvent>, AddNewFoodEventHandler>();
-            //services.AddSingleton<IIntegrationEventHandler<DeleteFoodItemEvent>, DeleteFoodItemEventHandler>();
-            //services.AddSingleton<IIntegrationEventHandler<EditMetabolicInfo>, EditMetabolicInfoEventHandler>();
-            //services.AddSingleton<IIntegrationEventHandler<SaveMenuEvent>, SavedMenuEventHandler>();
-
             return services;
         }
 
@@ -51,17 +46,18 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
         public static IApplicationBuilder ConfigureEventBus(this IApplicationBuilder app)
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
+            var appSettings = app.ApplicationServices.GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
             // Workout
-            eventBus.Subscribe<AddNewWorkoutEvent, AddNewWorkoutEventHandler>();
-            eventBus.Subscribe<BodyInfoSavedEvent, BodyInfoSavedEventHandler>();
-            eventBus.Subscribe<WorkoutCompletedEvent, WorkoutCompletedEventHanlder>();
+            eventBus.Subscribe<AddNewWorkoutEvent, AddNewWorkoutEventHandler>(appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].Queue[Queue], appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].ExchangeName);
+            eventBus.Subscribe<BodyInfoSavedEvent, BodyInfoSavedEventHandler>(appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].Queue[Queue], appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].ExchangeName);
+            eventBus.Subscribe<WorkoutCompletedEvent, WorkoutCompletedEventHanlder>(appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].Queue[Queue], appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].ExchangeName);
 
             // Diet
-            eventBus.Subscribe<AddNewFoodEvent, AddNewFoodEventHandler>();
-            eventBus.Subscribe<DeleteFoodItemEvent, DeleteFoodItemEventHandler>();
-            eventBus.Subscribe<EditMetabolicInfo, EditMetabolicInfoEventHandler>();
-            eventBus.Subscribe<SaveMenuEvent, SavedMenuEventHandler>();
+            eventBus.Subscribe<AddNewFoodEvent, AddNewFoodEventHandler>(appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
+            eventBus.Subscribe<DeleteFoodItemEvent, DeleteFoodItemEventHandler>(appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
+            eventBus.Subscribe<EditMetabolicInfo, EditMetabolicInfoEventHandler>(appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
+            eventBus.Subscribe<SaveMenuEvent, SavedMenuEventHandler>(appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
 
             return app;
         }

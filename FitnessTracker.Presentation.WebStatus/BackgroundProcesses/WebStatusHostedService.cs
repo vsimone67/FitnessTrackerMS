@@ -36,13 +36,13 @@ namespace FitnessTracker.Presentation.WebStatus.BackgroundProcesses
                     {
                         if (!string.IsNullOrEmpty(_pingSettings.Value.WorkoutServiceURL))
                         {
-                            _logger.LogInformation($"Pinging Server: {_pingSettings.Value.WorkoutServiceURL}");
+                            _logger.LogInformation($"        URL: {_pingSettings.Value.WorkoutServiceURL}");
                             await PingServerAsync(_pingSettings.Value.WorkoutServiceURL);
                         }
 
                         if (!string.IsNullOrEmpty(_pingSettings.Value.DietServiceURL))
                         {
-                            _logger.LogInformation($"Pinging Server: {_pingSettings.Value.DietServiceURL}");
+                            _logger.LogInformation($"        URL: {_pingSettings.Value.DietServiceURL}");
                             await PingServerAsync(_pingSettings.Value.DietServiceURL);
                         }
 

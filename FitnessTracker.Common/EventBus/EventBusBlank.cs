@@ -18,6 +18,12 @@ namespace FitnessTracker.Common.EventBus
         {
         }
 
+        public void Subscribe<T, TH>(string queue, string exchange)
+            where T : IntegrationEvent
+            where TH : IIntegrationEventHandler<T>
+        {
+        }
+
         public void SubscribeDynamic<TH>(string eventName) where TH : IDynamicIntegrationEventHandler
         {
         }

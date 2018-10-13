@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EventBus" Version="1.0.5" />
+    <PackageReference Include="EventBus" Version="1.0.6" />
   </ItemGroup>
 
 </Project>
