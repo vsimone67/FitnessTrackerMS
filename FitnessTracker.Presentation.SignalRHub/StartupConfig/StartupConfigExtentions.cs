@@ -28,6 +28,9 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
 
         public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
+            // Experimented with background process to host the event queue, I like the original way better
+            //services.AddSingleton<IHostedService, EventBusHostedService>();
+
             return services;
         }
 

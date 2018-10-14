@@ -90,7 +90,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
             return services;
         }
 
-        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration, Container container)
+        public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration, Container container, bool ShouldTurnOnReceiveQueue = false)
         {
             IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
@@ -101,7 +101,11 @@ namespace FitnessTracker.Common.Web.StartupConfig
                     var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
                     var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAtributes, eventBusSubcriptionsManager, container);
-                    eventBus.TurnOnRecieveQueue();
+
+                    // We do not want multiple listeners on the event queue becuase the messages will not get through.  If we want to broadcast to multile queues, set it up via config.  Each process should read from a queue not multiple
+                    if (ShouldTurnOnReceiveQueue)
+                        eventBus.TurnOnRecieveQueue();
+
                     return eventBus;
                 });
 

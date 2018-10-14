@@ -11,10 +11,12 @@ namespace FitnessTracker.Presentation.SignalRHub
     public class Startup
     {
         private readonly Container _container = new Container();
+        public static Container DIContainer;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            DIContainer = _container;
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +28,7 @@ namespace FitnessTracker.Presentation.SignalRHub
               .ConfigureDIContainer(_container)
               .RegiserAppSettings(Configuration)
               .AddDependencies()
-              .AddEventBus(Configuration, _container)
+              .AddEventBus(Configuration, _container, true)
               .AddSignalRServices()
               .RegisterEventHandlers(_container);
         }
