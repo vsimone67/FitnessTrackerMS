@@ -29,3 +29,4 @@ services:
             - '4304:80'
         volumes:
             - './configpath/fitnesstracker/logs:/logs'
+            - './configpath/fitnesstracker/dist:/dist'
