@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "../../configpath/fitnesstracker/dist",
+      "outDir": "../dist",
       "assets": [
 
         {
@@ -17,6 +17,11 @@
         {
           "glob": "favicon.png",
           "input": "./content/images/",
+          "output": "./"
+        },
+        {
+          "glob": "appsettings.json",
+          "input": "./content/appsettings/",
           "output": "./"
         }
 

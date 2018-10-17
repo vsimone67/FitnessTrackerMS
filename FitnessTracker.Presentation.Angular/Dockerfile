@@ -11,10 +11,6 @@ COPY ["FitnessTracker.Presentation.Angular/nuget.config","FitnessTracker.Present
 # Copy the local nuget packages to the container this is needed to resolve the ones on my server.  The nuget.config has a reference to this folder below
 copy ["./ng/*.*","FitnessTracker.Presentation.Angular/"] #Copy all the local nuget packges to the container so they can resolve. 
 
-
-
-#RUN powershell.exe -File .\BuildAngular.ps1
-
 RUN dotnet restore "FitnessTracker.Presentation.Angular/FitnessTracker.Presentation.Angular.csproj"
 COPY . .
 WORKDIR "/src/FitnessTracker.Presentation.Angular"
@@ -28,5 +24,5 @@ WORKDIR /app
 
 COPY --from=publish /app .
 
-#copy ["FitnessTracker.Presentation.Angular/dist/*.*","dist/"] # copy Angular NG BUILD output to dist folder (this is where I have the .NET core sever looking for the files)
+copy ["FitnessTracker.Presentation.Angular/dist/*.*","dist/"] # copy Angular NG BUILD output to dist folder (this is where I have the .NET core sever looking for the files)
 ENTRYPOINT ["dotnet", "FitnessTracker.Presentation.Angular.dll"]
