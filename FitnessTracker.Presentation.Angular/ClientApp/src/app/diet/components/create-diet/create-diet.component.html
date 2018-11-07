@@ -1,0 +1,171 @@
+<baseLayout cardcellwidth='mdl-cell--9-col'>
+
+	<div title class="full-width">
+
+		<div class="mdl-grid">
+			<div class=" mdl-card__title-text mdl-cell mdl-cell--3-col">Create Diet</div>
+			<div class="mdl-cell mdl-cell--9-col">
+				<div class="align-right">
+					<button (click)="onAddFood()" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" id="addfood">
+                        <i class="material-icons">add</i>                   
+                    </button>
+					<div class="mdl-tooltip" data-mdl-for="addfood">Add Food</div>
+					<button (click)="onPrint()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
+						id="print">
+                        <i class="material-icons">print</i>                   
+                    </button>
+					<div class="mdl-tooltip" data-mdl-for="print">Print Menu</div>
+					<button (click)="onSaveMenu()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
+						id="savemenu">
+                        <i class="material-icons">save</i>                   
+                    </button>
+					<div class="mdl-tooltip" data-mdl-for="savemenu">Save Menu</div>
+					<button (click)="onEditMetabolicInfo()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
+						id="editmetabolic">
+                        <i class="material-icons">perm_identity</i>                   
+                    </button>
+					<div class="mdl-tooltip" data-mdl-for="editmetabolic">Edit Metabolic Info</div>
+
+					<button (click)="onCalcMacro()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
+						id="calcmacro">
+                        <i class="material-icons">edit</i>                   
+                    </button>
+					<div class="mdl-tooltip" data-mdl-for="calcmacro">Calculate Macro Nutrients</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div supportingtext>
+
+		<section class="mdl-grid" id="grid-table">
+			<div class="mdl-layout-spacer"></div>
+			<div class="mdl-cell mdl-cell--12-col mdl-cell--stretch diet-gridheight">
+				<metabolicCounter [macroColumns]="columns"></metabolicCounter> 
+
+				<ag-grid-angular #agGrid class="ag-theme-blue ag-table-diet" [gridOptions]="gridOptions" [rowData]="foodList$ | async" rowBuffer=200 (cellClicked)="onCellClicked($event)"></ag-grid-angular>
+
+			</div>
+			<div class="mdl-layout-spacer"></div>
+		</section>
+
+
+	</div>
+
+</baseLayout>
+
+<macrocalc></macrocalc>
+<dialog class="mdl-dialog" id="editFood">
+
+	<div class="mdl-dialog__content">
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="item" [(ngModel)]="cell.Item">
+			<label class="mdl-textfield__label" for="item">Item...</label>
+		</div>
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="serving" [(ngModel)]="cell.ServingSize">
+			<label class="mdl-textfield__label" for="serving">Serving...</label>
+		</div>
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="calories" [(ngModel)]="cell.Calories">
+			<label class="mdl-textfield__label" for="calories">Calories...</label>
+		</div>
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="protein" [(ngModel)]="cell.Protien">
+			<label class="mdl-textfield__label" for="protein">Protien...</label>
+		</div>
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="carbs" [(ngModel)]="cell.Carbs">
+			<label class="mdl-textfield__label" for="carbs">Carbs...</label>
+		</div>
+
+		<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+			<input class="mdl-textfield__input" type="text" id="fat" [(ngModel)]="cell.Fat">
+			<label class="mdl-textfield__label" for="fat">Fat...</label>
+		</div>
+
+		<div class="mdl-dialog__actions mdl-dialog__actions">
+			<button type="button" class="mdl-button" (click)="onSaveFoodItem()">Save</button>
+			<button type="button" class="mdl-button close" (click)="onClose()">Close</button>
+		</div>
+
+	</div>
+
+</dialog>
+
+<dialog class="mdl-dialog" id="deleteFood" style="width: 15%">
+
+	<div class="mdl-dialog__content">
+
+		<h1 class="mdl-dialog__title">Delete Food?</h1>
+		<div class="mdl-dialog__content">
+			<p>
+				Are you sure you want to delete this item: <b>{{cell.Item}}</b>?
+			</p>
+		</div>
+
+		<div class="mdl-dialog__actions mdl-dialog__actions">
+			<button type="button" class="mdl-button" (click)="onDelete()">Yes</button>
+			<button type="button" class="mdl-button close" (click)="onClose()">No</button>
+		</div>
+
+	</div>
+
+</dialog>
+
+<dialog class="mdl-dialog" id="showMenu" style="width: 45%">
+
+	<div class="mdl-dialog__content">
+
+		<div class="mdl-dialog__content">
+			<div id="printable">
+				<table *ngFor="let meal of meals">
+					<th *ngIf="meal.item.length > 0">
+						{{meal.meal}} (<span><b>Calories:</b> {{meal.calories}}&nbsp;<b> Protein:</b> {{meal.protein}}&nbsp; <b> Carbs:</b> {{meal.carbs}}&nbsp;<b> Fat:</b>{{meal.fat0}}</span>)
+					</th>
+					<tr *ngFor="let food of meal.item">
+						<td>{{food.Serving}} ({{food.ServingSize}}) => {{food.Item}}</td>
+						<tr>
+
+
+				</table>
+				<table>
+					<tr>
+						<td>
+							<b>Totals</b>&nbsp;<b>Calories:</b> {{totals.calories}}&nbsp;<b> Protein:</b> {{totals.protein}}&nbsp; <b> Carbs:</b>							{{totals.carbs}}&nbsp;<b> Fat:</b>{{totals.fat}}
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+		<div class="mdl-dialog__actions mdl-dialog__actions">
+			<button type="button" class="mdl-button" (click)="onPrintMenu()">Print</button>
+			<button type="button" class="mdl-button close" (click)="onClose()">Cancel</button>
+		</div>
+	</div>
+</dialog>
+
+<dialog class="mdl-dialog" id="editMetabolicInfo" style="width: 30%">
+
+	<div class="mdl-dialog__content">
+
+		<div class="mdl-dialog__content">
+			<div>
+				<editMetabolicInfo></editMetabolicInfo>
+			</div>
+
+		</div>
+
+		<div class="mdl-dialog__actions mdl-dialog__actions">
+			<button type="button" class="mdl-button close" (click)="onClose()">Close</button>
+		</div>
+	</div>
+</dialog>
