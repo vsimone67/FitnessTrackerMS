@@ -1,8 +1,11 @@
 import { Component, OnInit, ElementRef, Inject } from "@angular/core";
 import { EventService } from "../../../shared/services";
-import { DietService } from "../../service/diet.service";
 import { BaseComponent } from "../../../shared/components";
 import { MeatabolicInfo, MeatabolicInfoConstants } from "../../models";
+import { Store, Select } from "@ngxs/store";
+import { Observable } from "rxjs/observable";
+import { GetMetabolicInfo, SaveMetabolicInfo } from "../../actions/metabolic-info.actions"
+import { MetabolicInfoState } from '../../state/metabolic-info.state'
 
 @Component({
   selector: "macrocalc",
@@ -10,7 +13,7 @@ import { MeatabolicInfo, MeatabolicInfoConstants } from "../../models";
 })
 export class MacroCalculatorComponent extends BaseComponent implements OnInit {
   dialog: any;
-  metabolicInfo: Array<MeatabolicInfo>;
+  private metabolicInfo: Array<MeatabolicInfo>;
   private weight: number;
   private activityLevel: number;
   private bmr: number;
@@ -64,9 +67,11 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
   private carbsGramsMaintain: number;
   private carbsGramsGain: number;
 
+  @Select(MetabolicInfoState.metabolicInfoList) metabolidInfoList$: Observable<Array<MeatabolicInfo>>;
+
   constructor(
     private _el: ElementRef,
-    private _dietService: DietService,
+    private _store: Store,
     public _eventService: EventService
   ) {
     super(_eventService);
@@ -74,9 +79,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this._dietService.getMetabolicInfo((metabolicInfo: Array<MeatabolicInfo>) => {
-    //     this._dietPlannerActions.updateStore<Array<MeatabolicInfo>>(metabolicInfo, DIETPLANNER_ACTIONS.GET_METABOLICINFO);
-    // });
+    this._store.dispatch(new GetMetabolicInfo()).subscribe( () =>  this.metabolidInfoList$.subscribe(metabolicInfoList => this.metabolicInfo = metabolicInfoList ));
   }
   showDialog() {
     this.dialog = this._el.nativeElement.querySelector("dialog");
@@ -98,9 +101,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
     weight.maintain = this.weight;
     weight.gain = this.weight;
 
-    this._dietService.saveMetabolicInfo(weight, () => {
-      this.showMessage("Weight Saved");
-    });
+    this._store.dispatch(new SaveMetabolicInfo(weight)).subscribe( () =>  this.showMessage("Weight Saved")); 
 
     let dcr = this.metabolicInfo.find(
       exp => exp.macro === MeatabolicInfoConstants.dcr
@@ -109,9 +110,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
     dcr.maintain = this.dcr;
     dcr.gain = this.dcr;
 
-    this._dietService.saveMetabolicInfo(dcr, () => {
-      this.showMessage("DCR Saved");
-    });
+    this._store.dispatch(new SaveMetabolicInfo(dcr)).subscribe( () =>  this.showMessage("DCR Saved")); 
 
     let caloriePer = this.metabolicInfo.find(
       exp => exp.macro === MeatabolicInfoConstants.caldefper
@@ -120,9 +119,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
     caloriePer.maintain = this.calorieDeficitPerMaintain / 100;
     caloriePer.gain = this.calorieDeficitPerGain / 100;
 
-    this._dietService.saveMetabolicInfo(caloriePer, () => {
-      this.showMessage("Calories % Saved");
-    });
+    this._store.dispatch(new SaveMetabolicInfo(caloriePer)).subscribe( () =>  this.showMessage("Calorie % Saved")); 
 
     let calorieMax = this.metabolicInfo.find(
       exp => exp.macro === MeatabolicInfoConstants.calories
@@ -131,9 +128,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
     calorieMax.maintain = this.newCalorieMaintain;
     calorieMax.gain = this.newCalorieGain;
 
-    this._dietService.saveMetabolicInfo(calorieMax, () => {
-      this.showMessage("Calories Saved");
-    });
+    this._store.dispatch(new SaveMetabolicInfo(calorieMax)).subscribe( () =>  this.showMessage("Calorie Max Saved")); 
 
     let fatPer = this.metabolicInfo.find(
       exp => exp.macro === MeatabolicInfoConstants.fatper
@@ -142,9 +137,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
     fatPer.maintain = this.fatPerMaintain / 100;
     fatPer.gain = this.fatPerGain / 100;
 
-    this._dietService.saveMetabolicInfo(fatPer, () => {
-      this.showMessage("Fat Saved");
-    });
+    this._store.dispatch(new SaveMetabolicInfo(fatPer)).subscribe( () =>  this.showMessage("Fat Saved")); 
 
     let proteinPer = this.metabolicInfo.find(
       exp => exp.macro === MeatabolicInfoConstants.proteinper
@@ -153,9 +146,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
     proteinPer.maintain = this.proteinPerMaintain / 100;
     proteinPer.gain = this.proteinPerGain / 100;
 
-    this._dietService.saveMetabolicInfo(proteinPer, () => {
-      this.showMessage("Protein Saved");
-    });
+    this._store.dispatch(new SaveMetabolicInfo(proteinPer)).subscribe( () =>  this.showMessage("Protein Saved")); 
 
     let carbsPer = this.metabolicInfo.find(
       exp => exp.macro === MeatabolicInfoConstants.carbsper
@@ -164,9 +155,7 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
     carbsPer.maintain = this.carbsPerMaintain / 100;
     carbsPer.gain = this.carbsPerGain / 100;
 
-    this._dietService.saveMetabolicInfo(carbsPer, () => {
-      this.showMessage("Carbs Saved");
-    });
+    this._store.dispatch(new SaveMetabolicInfo(carbsPer)).subscribe( () =>  this.showMessage("Carbs Saved")); 
 
     this.onClose();
   }

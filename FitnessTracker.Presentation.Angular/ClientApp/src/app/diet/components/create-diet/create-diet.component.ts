@@ -37,8 +37,7 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
     public store: Store,
     private _dietervice: DietService,
     public _eventService: EventService,
-    private _el: ElementRef
-  ) {
+    private _el: ElementRef) {
     super(_eventService);
 
     this.setGridOptions();

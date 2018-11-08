@@ -1,9 +1,12 @@
 import { Component, OnInit, ElementRef, Inject } from "@angular/core";
 import { GridOptions } from "ag-grid-community";
 import { EventService } from "../../../shared/services";
-import { DietService } from "../../service/diet.service";
 import { MeatabolicInfo } from "../../models";
 import { BaseComponent } from "../../../shared/components";
+import { Store, Select } from "@ngxs/store";
+import { Observable } from "rxjs/observable";
+import { GetMetabolicInfo, SaveMetabolicInfo } from "../../actions/metabolic-info.actions"
+import { MetabolicInfoState } from '../../state/metabolic-info.state'
 
 @Component({
   selector: "editMetabolicInfo",
@@ -13,17 +16,18 @@ import { BaseComponent } from "../../../shared/components";
       style="width: 97%; height: 300px;"
       class="ag-theme-blue"
       [gridOptions]="gridOptions"
-      (cellValueChanged)="onCellValueChanged($event)"
-    >
-    </ag-grid-angular>
-  `
+      [rowData]="metabolidInfoList$ | async"
+      (cellValueChanged)="onCellValueChanged($event)">
+    </ag-grid-angular>`
 })
 export class EditMetabolicInfoComponent extends BaseComponent
   implements OnInit {
   gridOptions: any;
 
-  constructor(
-    private _dietService: DietService,
+  @Select(MetabolicInfoState.metabolicInfoList) metabolidInfoList$: Observable<Array<MeatabolicInfo>>;
+
+  constructor(  
+    private _store: Store,
     private _el: ElementRef,
     public _eventService: EventService
   ) {
@@ -32,9 +36,7 @@ export class EditMetabolicInfoComponent extends BaseComponent
   ngOnInit() {
     this.setGridOptions();
 
-    // this._dietService.getMetabolicInfo((metabolicInfo: MeatabolicInfo) => {
-    //     this._dietPlannerActions.updateStore<MeatabolicInfo>(metabolicInfo, DIETPLANNER_ACTIONS.GET_METABOLICINFO);
-    // });
+    this._store.dispatch(new GetMetabolicInfo());
   }
   setGridOptions() {
     this.gridOptions = <GridOptions>{};
@@ -82,9 +84,7 @@ export class EditMetabolicInfoComponent extends BaseComponent
   }
   onCellValueChanged($event: any) {
     if ($event.oldValue !== $event.newValue) {
-      this._dietService.saveMetabolicInfo($event.data, () => {
-        this.showMessage("Data Saved");
-      });
+      this._store.dispatch(new SaveMetabolicInfo($event)).subscribe( () =>  this.showMessage("Data Saved"));      
     }
   }
 }

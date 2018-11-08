@@ -1,6 +1,6 @@
 import { MeatabolicInfo } from './';
 
-export interface MeatabolicInfoState {
-    event: string;
-    metabolicInfo: Array<MeatabolicInfo>;
+export interface MeatabolicInfoStateModel {    
+    metabolicInfoList: Array<MeatabolicInfo>;
+    metabolicInfo: MeatabolicInfo
 }
