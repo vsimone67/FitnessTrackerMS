@@ -67,7 +67,7 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
         field: column.MealId.toString(),
         cellRendererFramework: MealCheckBoxComponent,
         cellClass: "text-center",
-        width: 99
+        width: 95
       });
     });
 
@@ -76,14 +76,14 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
       headerName: "",
       field: "#editFood",
       cellRendererFramework: EditImageComponent,
-      width: 35
+      width: 55
     });
     // add delete icon
     this.newColumns.push({
       headerName: "",
       field: "#deleteFood",
       cellRendererFramework: DeleteImageComponent,
-      width: 35
+      width: 55
     });
 
     this.gridOptions.api.setColumnDefs(this.newColumns);
@@ -96,27 +96,27 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
       {
         headerName: "Calories",
         field: "Calories",
-        width: 63,
+        width: 90,
         cellClass: "text-center"
       },
       {
         headerName: "Protein",
         field: "Protien",
-        width: 65,
+        width: 83,
         cellClass: "text-center"
       },
       {
         headerName: "Carbs",
         field: "Carbs",
-        width: 55,
+        width: 75,
         cellClass: "text-center"
       },
-      { headerName: "Fat", field: "Fat", width: 55, cellClass: "text-center" },
+      { headerName: "Fat", field: "Fat", width: 75, cellClass: "text-center" },
       {
         headerName: "Serving",
         field: "Serving",
         cellRendererFramework: ServingDropDownComponent,
-        width: 70
+        width: 85
       }
     ];
   }
