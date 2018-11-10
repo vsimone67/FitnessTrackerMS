@@ -1,12 +1,16 @@
 import { Component, OnInit, ElementRef, Inject } from "@angular/core";
 import { GridOptions } from "ag-grid-community";
 import { EventService } from "../../../shared/services";
-import { MeatabolicInfo } from "../../models";
+import { MeatabolicInfo } from "../../models/metabolicInfo.model";
 import { BaseComponent } from "../../../shared/components";
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs/observable";
-import { GetMetabolicInfo, SaveMetabolicInfo } from "../../actions/metabolic-info.actions"
-import { MetabolicInfoState } from '../../state/metabolic-info.state'
+import {
+  GetMetabolicInfo,
+  SaveMetabolicInfo
+} from "../../actions/metabolic-info.actions";
+import { MetabolicInfoState } from "../../state/metabolic-info.state";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: "editMetabolicInfo",
@@ -17,16 +21,19 @@ import { MetabolicInfoState } from '../../state/metabolic-info.state'
       class="ag-theme-blue"
       [gridOptions]="gridOptions"
       [rowData]="metabolidInfoList$ | async"
-      (cellValueChanged)="onCellValueChanged($event)">
-    </ag-grid-angular>`
+      (cellValueChanged)="onCellValueChanged($event)"
+    >
+    </ag-grid-angular>
+  `
 })
 export class EditMetabolicInfoComponent extends BaseComponent
   implements OnInit {
   gridOptions: any;
 
-  @Select(MetabolicInfoState.metabolicInfoList) metabolidInfoList$: Observable<Array<MeatabolicInfo>>;
+  @Select(MetabolicInfoState.metabolicInfoList)
+  metabolidInfoList$: Observable<Array<MeatabolicInfo>>;
 
-  constructor(  
+  constructor(
     private _store: Store,
     private _el: ElementRef,
     public _eventService: EventService
@@ -40,7 +47,11 @@ export class EditMetabolicInfoComponent extends BaseComponent
   }
   setGridOptions() {
     this.gridOptions = <GridOptions>{};
-    // this.gridOptions.enableCellEdit = true;
+
+    this.gridOptions.defaultColDef = {
+      editable: true
+    };
+
     this.gridOptions.columnDefs = this.createColumnDefs();
   }
   createColumnDefs() {
@@ -49,34 +60,34 @@ export class EditMetabolicInfoComponent extends BaseComponent
       {
         headerName: "Macro",
         field: "macro",
-        width: 70,
+        width: 80,
         cellClass: "text-left"
       },
       {
         headerName: "Cut",
         field: "cut",
-        width: 60,
+        width: 80,
         cellClass: "text-right",
         editable: true
       },
       {
         headerName: "Maintain",
         field: "maintain",
-        width: 60,
+        width: 90,
         cellClass: "text-right",
         editable: true
       },
       {
         headerName: "Gain",
         field: "gain",
-        width: 60,
+        width: 80,
         cellClass: "text-right",
         editable: true
       },
       {
         headerName: "Factor",
         field: "factor",
-        width: 60,
+        width: 80,
         cellClass: "text-right",
         editable: true
       }
@@ -84,7 +95,9 @@ export class EditMetabolicInfoComponent extends BaseComponent
   }
   onCellValueChanged($event: any) {
     if ($event.oldValue !== $event.newValue) {
-      this._store.dispatch(new SaveMetabolicInfo($event)).subscribe( () =>  this.showMessage("Data Saved"));      
+      this._store
+        .dispatch(new SaveMetabolicInfo($event.data))
+        .subscribe(() => this.showMessage("Data Saved"));
     }
   }
 }

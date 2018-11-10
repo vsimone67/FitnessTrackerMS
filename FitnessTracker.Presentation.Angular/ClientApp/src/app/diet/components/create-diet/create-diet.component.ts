@@ -8,7 +8,11 @@ import { DeleteImageComponent } from "../../components/grid/delete-image/delete-
 import { ServingDropDownComponent } from "../../components/grid/servings-drop-down/servings-drop-down.component";
 import { EventService } from "../../../shared/services";
 import { DietService } from "../../service/diet.service";
-import { GetAllMenuItems } from "../../actions/diet.actions";
+import {
+  GetAllMenuItems,
+  AddMenuItem,
+  DeleteMenuItem
+} from "../../actions/diet.actions";
 import { FoodInfo, Columns, NutritionInfo } from "../../models";
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs/observable";
@@ -37,7 +41,8 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
     public store: Store,
     private _dietervice: DietService,
     public _eventService: EventService,
-    private _el: ElementRef) {
+    private _el: ElementRef
+  ) {
     super(_eventService);
 
     this.setGridOptions();
@@ -196,17 +201,15 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
     });
   }
   onSaveFoodItem() {
-    this._dietervice.processItem(this.cell, () => {
+    this.store.dispatch(new AddMenuItem(this.cell)).subscribe(() => {
       this.showMessage("Food Saved");
       this.dialog.close();
-      //this.loadMenuItems();
     });
   }
   onDelete() {
-    this._dietervice.deleteItem(this.cell, () => {
+    this.store.dispatch(new DeleteMenuItem(this.cell)).subscribe(() => {
       this.showMessage("Food Deleted");
       this.dialog.close();
-      //this.loadMenuItems();
     });
   }
   onClose() {

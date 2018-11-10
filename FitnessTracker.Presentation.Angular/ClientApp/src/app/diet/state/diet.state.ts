@@ -1,6 +1,10 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { DietStateModel } from "../models/dietState.model";
-import { GetAllMenuItems } from "../actions/diet.actions";
+import {
+  GetAllMenuItems,
+  AddMenuItem,
+  DeleteMenuItem
+} from "../actions/diet.actions";
 import { DietService } from "../service/diet.service";
 import { FoodInfo } from "../models";
 
@@ -25,7 +29,7 @@ export class DietState {
   }
 
   @Action(GetAllMenuItems)
-  GetAllMenuItems({ getState, patchState }: StateContext<DietStateModel>) {
+  getAllMenuItems({ getState, patchState }: StateContext<DietStateModel>) {
     const state = getState();
 
     this._dietService.getDietItems((dietItems: any) => {
@@ -36,30 +40,38 @@ export class DietState {
     });
   }
 
-  // @Action(GetMenuItem)
-  //  getWorkout( {getState, patchState } : StateContext<WorkoutStateModel>,workout: GetWorkout ) {
+  @Action(AddMenuItem)
+  addMenuItem(
+    { getState, patchState }: StateContext<DietStateModel>,
+    menuItem: AddMenuItem
+  ) {
+    const state = getState();
 
-  //     const state = getState();
+    this._dietService.processItem(menuItem.foodInfo, () => {
+      patchState({
+        ...state,
+        foodItems: [...state.foodItems, menuItem.foodInfo]
+      });
+    });
+  }
 
-  //   this._workoutService.getWorkout(workout.workoutID, (workout: Workout) => {
-  //     patchState({
-  //         ...state,
-  //         currentWorkout:  workout
-  //     })
+  @Action(DeleteMenuItem)
+  deleteMenuItem(
+    { getState, patchState }: StateContext<DietStateModel>,
+    menuItem: DeleteMenuItem
+  ) {
+    const state = getState();
 
-  //   });
-  // }
+    state.foodItems.splice(
+      state.foodItems.findIndex(exp => exp.ItemId === menuItem.foodInfo.ItemId),
+      1
+    );
 
-  // @Action(SaveWorkout)
-  // saveWorkout({ getState, patchState }: StateContext<WorkoutStateModel>, workout: SaveWorkout) {
-  //   const state = getState();
-
-  //       this._workoutService.saveDailyWorkout(workout.workout,(() => {
-
-  //         patchState({
-  //             ...state,
-  //             currentWorkout:  workout.workout
-  //         })
-  //       }));
-  // }
+    this._dietService.deleteItem(menuItem.foodInfo, () => {
+      patchState({
+        ...state,
+        foodItems: [...state.foodItems]
+      });
+    });
+  }
 }

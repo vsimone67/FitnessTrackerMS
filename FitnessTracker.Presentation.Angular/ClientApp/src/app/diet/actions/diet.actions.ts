@@ -1,15 +1,17 @@
+import { FoodInfo } from "../models/foodInfo.model";
+
 export class GetAllMenuItems {
-    static readonly type = '[diet] GetAllMenuItems';    
-  }
+  static readonly type = "[diet] GetAllMenuItems";
+}
 
-//   export class GetMenuItem {
-//     static readonly type = '[diet] GetMenuItem';  
-    
-//     constructor() {}
-//   }
+export class AddMenuItem {
+  static readonly type = "[diet] AddMenuItem";
 
-//   export class SaveMenuItem {
-//     static readonly type = '[diet] SaveMenuItem';  
-    
-//     constructor() {}
-//   }
+  constructor(public foodInfo: FoodInfo) {}
+}
+
+export class DeleteMenuItem {
+  static readonly type = "[diet] DeleteMenuItem";
+
+  constructor(public foodInfo: FoodInfo) {}
+}
