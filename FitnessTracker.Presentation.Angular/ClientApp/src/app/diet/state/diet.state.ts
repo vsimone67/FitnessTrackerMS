@@ -1,5 +1,5 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
-import { DietStateModel } from "../models/dietState.model";
+import { DietStateModel } from "../models/diet-state.model";
 import {
   GetAllMenuItems,
   AddMenuItem,

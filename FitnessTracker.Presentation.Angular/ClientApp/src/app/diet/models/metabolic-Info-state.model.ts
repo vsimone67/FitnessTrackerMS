@@ -1,4 +1,4 @@
-import { MeatabolicInfo } from "./metabolicInfo.model";
+import { MeatabolicInfo } from "./metabolic-info.model";
 
 export interface MeatabolicInfoStateModel {
   metabolicInfoList: Array<MeatabolicInfo>;

@@ -1,4 +1,4 @@
-import { FoodInfo } from "../models/foodInfo.model";
+import { FoodInfo } from "../models/food-Info.model";
 
 export class GetAllMenuItems {
   static readonly type = "[diet] GetAllMenuItems";

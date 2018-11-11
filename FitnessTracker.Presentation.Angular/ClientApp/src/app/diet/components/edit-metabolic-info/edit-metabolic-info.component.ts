@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Inject } from "@angular/core";
 import { GridOptions } from "ag-grid-community";
 import { EventService } from "../../../shared/services";
-import { MeatabolicInfo } from "../../models/metabolicInfo.model";
+import { MeatabolicInfo } from "../../models/metabolic-info.model";
 import { BaseComponent } from "../../../shared/components";
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs/observable";

@@ -1,4 +1,4 @@
-﻿import { FoodDefault, SavedMenu } from "./";
+﻿import { FoodDefault, SavedMenu } from ".";
 
 export class FoodInfo {
   ItemId: number;

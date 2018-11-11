@@ -1,5 +1,5 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
-import { BodyInfoStateModel } from "../models/bodyInfoState.model";
+import { BodyInfoStateModel } from "../models/body-Info-state.model";
 import { GetBodyInfo, SaveBodyInfo } from "../actions/body-info.actions";
 import { WorkoutService } from "../services/workout.service";
 

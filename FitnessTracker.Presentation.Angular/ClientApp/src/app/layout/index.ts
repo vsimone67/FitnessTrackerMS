@@ -1,2 +1,2 @@
-export * from './navagation.component';
-export * from './baselayout.component';
+export * from "./navagation.component";
+export * from "./base-layout.component";

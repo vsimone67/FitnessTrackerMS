@@ -1,1 +1,1 @@
-export * from './MaterialDesignLiteUpgradeElement';
+export * from "./material-design-lite-upgrade-element";

@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, Inject } from "@angular/core";
 import { EventService } from "../../../shared/services";
 import { BaseComponent } from "../../../shared/components";
 import { MeatabolicInfoConstants } from "../../models";
-import { MeatabolicInfo } from "../../models/metabolicInfo.model";
+import { MeatabolicInfo } from "../../models/metabolic-info.model";
 import { Store, Select } from "@ngxs/store";
 import { Observable } from "rxjs/observable";
 import {
