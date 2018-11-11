@@ -189,7 +189,7 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
       );
       popupWin.document.close();
     }
-    popupWin.document.close();
+
     this.onClose();
   }
   onEditMetabolicInfo() {
