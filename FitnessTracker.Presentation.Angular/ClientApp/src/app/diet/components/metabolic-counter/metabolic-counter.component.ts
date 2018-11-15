@@ -2,7 +2,8 @@ import { Component, OnInit, Input, SimpleChange } from "@angular/core";
 import { NutritionInfo, Columns, CurrentMacros, CalcMacro } from "../../models";
 import { DropDownModel } from "../../../shared/models";
 import { DietService } from "../../service/diet.service";
-
+import { Store } from "@ngxs/store";
+import { SetMeals } from "../../actions/diet.actions";
 @Component({
   selector: "metabolicCounter",
   templateUrl: "metabolic-counter.component.html"
@@ -17,7 +18,7 @@ export class MetabolicCounterComponent implements OnInit {
 
   modeLocalStorage: string = "currentMode";
 
-  constructor(private _dietervice: DietService) {
+  constructor(private _dietervice: DietService, private _store: Store) {
     this.meals = new Array<NutritionInfo>();
     this.macroColumns = new Array<Columns>();
     this.macroMax = 1;
@@ -36,6 +37,8 @@ export class MetabolicCounterComponent implements OnInit {
     } else {
       this.mode = this.modes[0];
     }
+
+    console.info("ngOnInit MetabolicInfoCounter");
   }
   ngOnChanges(changes: SimpleChange) {
     if (this.macroColumns.length > 0) {
@@ -76,7 +79,7 @@ export class MetabolicCounterComponent implements OnInit {
         remaining.protein = maxMacro.protein - totals.protein;
         remaining.fat = maxMacro.fat - totals.fat;
 
-        this._dietervice.setNutritionInfo(this.meals); // update the meal info in the global service for access by the grid
+        this._store.dispatch(new SetMeals(this.meals));
       }
     );
   }

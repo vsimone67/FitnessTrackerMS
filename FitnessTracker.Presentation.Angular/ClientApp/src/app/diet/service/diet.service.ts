@@ -80,13 +80,4 @@ export class DietService extends BaseService {
       callback
     );
   }
-
-  // These two methods allow the sharing of data between components
-
-  getNutritionInfo(): Array<NutritionInfo> {
-    return this.nutritionInfo;
-  }
-  setNutritionInfo(nutritionInfo: Array<NutritionInfo>) {
-    this.nutritionInfo = nutritionInfo;
-  }
 }

@@ -84,13 +84,16 @@ export class MacroCalculatorComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._store
-      .dispatch(new GetMetabolicInfo())
-      .subscribe(() =>
-        this.metabolicInfoList$.subscribe(
-          metabolicInfoList => (this.metabolicInfo = metabolicInfoList)
-        )
-      );
+    this._store.dispatch(new GetMetabolicInfo());
+    // .subscribe(() =>
+    //   this.metabolicInfoList$.subscribe(
+    //     metabolicInfoList => (this.metabolicInfo = metabolicInfoList)
+    //   )
+    // );
+
+    this.metabolicInfoList$.subscribe(
+      metabolicInfoList => (this.metabolicInfo = metabolicInfoList)
+    );
   }
   showDialog() {
     this.getMacroInputs();

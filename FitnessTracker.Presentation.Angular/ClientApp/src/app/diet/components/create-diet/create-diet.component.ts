@@ -7,11 +7,11 @@ import { EditImageComponent } from "../../components/grid/edit-image/edit-image.
 import { DeleteImageComponent } from "../../components/grid/delete-image/delete-image.component";
 import { ServingDropDownComponent } from "../../components/grid/servings-drop-down/servings-drop-down.component";
 import { EventService } from "../../../shared/services";
-import { DietService } from "../../service/diet.service";
 import {
-  GetAllMenuItems,
   AddMenuItem,
-  DeleteMenuItem
+  DeleteMenuItem,
+  GetColumns,
+  SaveMenu
 } from "../../actions/diet.actions";
 import { FoodInfo, Columns, NutritionInfo } from "../../models";
 import { Store, Select } from "@ngxs/store";
@@ -36,10 +36,11 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
   newColumns: any;
 
   @Select(DietState.foodItems) foodList$: Observable<Array<FoodInfo>>;
+  @Select(DietState.columns) columns$: Observable<Array<Columns>>;
+  @Select(DietState.meals) meals$: Observable<Array<NutritionInfo>>;
 
   constructor(
-    public store: Store,
-    private _dietervice: DietService,
+    public _store: Store,
     public _eventService: EventService,
     private _el: ElementRef
   ) {
@@ -50,13 +51,21 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
     this.cell = new FoodInfo();
     this.cell.ItemId = 0; // default to add
     this.totals = new NutritionInfo(0, "0");
+
+    this.meals$.subscribe(meals => {
+      if (meals.length > 0) {
+        this.meals = meals;
+        console.info("Create DIet Subscribe on meals " + meals.length);
+      }
+    });
   }
   ngOnInit() {
-    this._dietervice.getColumns((columns: Array<Columns>) => {
-      this.addMealColumns(columns);
-      this.columns = columns;
-      this.store.dispatch(new GetAllMenuItems());
-    });
+    this._store.dispatch(new GetColumns()).subscribe(() =>
+      this.columns$.subscribe(columns => {
+        this.addMealColumns(columns);
+        this.columns = columns;
+      })
+    );
   }
   setGridOptions() {
     this.gridOptions = <GridOptions>{};
@@ -90,7 +99,9 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
       width: 55
     });
 
-    this.gridOptions.api.setColumnDefs(this.newColumns);
+    if (this.gridOptions.api !== undefined) {
+      this.gridOptions.api.setColumnDefs(this.newColumns);
+    }
   }
   createColumnDefs() {
     return [
@@ -148,7 +159,7 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
     this.showDialog("#editFood");
   }
   onPrint() {
-    this.meals = this._dietervice.getNutritionInfo();
+    //this.meals = this._dietervice.getNutritionInfo();
     this.totals = this.meals.find(exp => exp.meal === "Totals");
     this.showDialog("#showMenu");
   }
@@ -196,18 +207,18 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
     this.showDialog("#editMetabolicInfo");
   }
   onSaveMenu() {
-    this._dietervice.saveMenu(this._dietervice.getNutritionInfo(), () => {
-      this.showMessage("Menu Saved");
-    });
+    this._store
+      .dispatch(new SaveMenu(this.meals))
+      .subscribe(() => this.showMessage("Menu Saved"));
   }
   onSaveFoodItem() {
-    this.store.dispatch(new AddMenuItem(this.cell)).subscribe(() => {
+    this._store.dispatch(new AddMenuItem(this.cell)).subscribe(() => {
       this.showMessage("Food Saved");
       this.dialog.close();
     });
   }
   onDelete() {
-    this.store.dispatch(new DeleteMenuItem(this.cell)).subscribe(() => {
+    this._store.dispatch(new DeleteMenuItem(this.cell)).subscribe(() => {
       this.showMessage("Food Deleted");
       this.dialog.close();
     });

@@ -26,8 +26,8 @@ import { MetabolicInfoState } from "./diet/state/metabolic-info.state";
       DietState,
       MetabolicInfoState
     ]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    // NgxsReduxDevtoolsPluginModule.forRoot(),
+    // NgxsLoggerPluginModule.forRoot(),
     DietModule
   ],
 
