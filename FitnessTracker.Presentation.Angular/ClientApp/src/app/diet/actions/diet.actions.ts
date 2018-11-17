@@ -1,5 +1,5 @@
 import { FoodInfo } from "../models/food-Info.model";
-import { NutritionInfo } from "../models";
+import { NutritionInfo, Columns } from "../models";
 
 export class GetAllMenuItems {
   static readonly type = "[diet] GetAllMenuItems";
@@ -31,4 +31,10 @@ export class SetMeals {
   static readonly type = "[diet] SetMeals";
 
   constructor(public meals: Array<NutritionInfo>) {}
+}
+
+export class CreateMenu {
+  static readonly type = "[diet] CreateMenu";
+
+  constructor(public foodInfiList: Array<FoodInfo>, public columns: Array<Columns>) {}
 }

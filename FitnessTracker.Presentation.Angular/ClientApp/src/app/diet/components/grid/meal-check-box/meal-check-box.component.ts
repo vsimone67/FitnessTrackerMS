@@ -40,8 +40,7 @@ export class MealCheckBoxComponent implements AgRendererComponent {
     this.cellName = params.colDef.field;
     this.field = params.colDef.headerName;
 
-    let foodDefault = new Array<SavedMenu>();
-    foodDefault = this.cell.SavedMenu;
+    let foodDefault = this.cell.SavedMenu;
 
     if (foodDefault.find(exp => exp.MealId === Number(this.cellName)) != null) {
       this.isChecked = true;

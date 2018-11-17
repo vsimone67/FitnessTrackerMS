@@ -42,14 +42,14 @@ export class MetabolicCounterComponent implements OnInit {
   }
   ngOnChanges(changes: SimpleChange) {
     if (this.macroColumns.length > 0) {
-      this.macroColumns.forEach(column => {
-        this.meals.push(
-          new NutritionInfo(column.MealId, column.MealDisplayName)
-        );
-      });
-      this.meals.push(new NutritionInfo(0, "Max Macro"));
-      this.meals.push(new NutritionInfo(0, "Totals"));
-      this.meals.push(new NutritionInfo(0, "Remaining"));
+      // this.macroColumns.forEach(column => {
+      //   this.meals.push(
+      //     new NutritionInfo(column.MealId, column.MealDisplayName)
+      //   );
+      // });
+      // this.meals.push(new NutritionInfo(0, "Max Macro"));
+      // this.meals.push(new NutritionInfo(0, "Totals"));
+      // this.meals.push(new NutritionInfo(0, "Remaining"));
 
       this.calcTotals();
     }
