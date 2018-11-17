@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 import { AgRendererComponent } from "ag-grid-angular";
 import { NutritionInfo, CurrentMenu, SavedMenu } from "../../../models";
-import { Select } from "@ngxs/store";
+import { Select, Store } from "@ngxs/store";
 import { Observable } from "rxjs/observable";
 import { DietState } from "../../../state/diet.state";
+import { SetMeals } from "../../../actions/diet.actions";
 
 @Component({
   selector: "checkbox-cell",
@@ -25,12 +26,12 @@ export class MealCheckBoxComponent implements AgRendererComponent {
 
   @Select(DietState.meals) meals$: Observable<Array<NutritionInfo>>;
 
-  constructor() {
+  constructor(protected _store: Store) {
     this.isChecked = false;
 
     this.meals$.subscribe(meals => {
       this.nutritionInfo = meals;
-      console.info("Meal CheckBox Subscribe on meals " + meals.length);
+      //console.info("Meal CheckBox Subscribe on meals " + meals.length);
     });
   }
 
@@ -105,6 +106,8 @@ export class MealCheckBoxComponent implements AgRendererComponent {
         remaining.carbs -= Math.round(this.cell.Carbs * value);
         remaining.protein -= Math.round(this.cell.Protien * value);
         remaining.fat -= Math.round(this.cell.Fat * value);
+
+        this._store.dispatch(new SetMeals(this.nutritionInfo));
       }
     }
   }

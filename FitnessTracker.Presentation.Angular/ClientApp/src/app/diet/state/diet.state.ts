@@ -43,18 +43,6 @@ export class DietState {
     return state.nutritionInfo;
   }
 
-  // @Action(GetAllMenuItems)
-  // getAllMenuItems({ getState, patchState }: StateContext<DietStateModel>) {
-  //   const state = getState();
-
-  //   this._dietService.getDietItems((dietItems: any) => {
-  //     patchState({
-  //       ...state,
-  //       foodItems: dietItems
-  //     });
-  //   });
-  // }
-
   @Action(GetAllMenuItems)
   getAllMenuItems(ctx: StateContext<DietStateModel>) {
     const state = ctx.getState();
@@ -69,21 +57,6 @@ export class DietState {
     });
   }
 
-  // @Action(AddMenuItem)
-  // addMenuItem(
-  //   { getState, patchState }: StateContext<DietStateModel>,
-  //   menuItem: AddMenuItem
-  // ) {
-  //   const state = getState();
-
-  //   this._dietService.processItem(menuItem.foodInfo, () => {
-  //     patchState({
-  //       ...state,
-  //       foodItems: [...state.foodItems, menuItem.foodInfo]
-  //     });
-  //   });
-  // }
-
   @Action(AddMenuItem)
   addMenuItem(ctx: StateContext<DietStateModel>, menuItem: AddMenuItem) {
     const state = ctx.getState();
@@ -96,26 +69,6 @@ export class DietState {
       });
     });
   }
-
-  // @Action(DeleteMenuItem)
-  // deleteMenuItem(
-  //   { getState, patchState }: StateContext<DietStateModel>,
-  //   menuItem: DeleteMenuItem
-  // ) {
-  //   const state = getState();
-
-  //   state.foodItems.splice(
-  //     state.foodItems.findIndex(exp => exp.ItemId === menuItem.foodInfo.ItemId),
-  //     1
-  //   );
-
-  //   this._dietService.deleteItem(menuItem.foodInfo, () => {
-  //     patchState({
-  //       ...state,
-  //       foodItems: [...state.foodItems]
-  //     });
-  //   });
-  // }
 
   @Action(DeleteMenuItem)
   deleteMenuItem(ctx: StateContext<DietStateModel>, menuItem: AddMenuItem) {
