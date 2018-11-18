@@ -31,7 +31,6 @@ export class MealCheckBoxComponent implements AgRendererComponent {
 
     this.meals$.subscribe(meals => {
       this.nutritionInfo = meals;
-      //console.info("Meal CheckBox Subscribe on meals " + meals.length);
     });
   }
 
@@ -44,11 +43,7 @@ export class MealCheckBoxComponent implements AgRendererComponent {
 
     if (foodDefault.find(exp => exp.MealId === Number(this.cellName)) != null) {
       this.isChecked = true;
-
-      this.addMacroData(true, params.colDef.headerName);
     }
-
-    console.info("Meal CheckBox Component");
   }
 
   checkboxClick(event: any) {

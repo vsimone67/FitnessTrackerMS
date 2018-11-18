@@ -11,7 +11,8 @@ import {
   AddMenuItem,
   DeleteMenuItem,
   GetColumns,
-  SaveMenu
+  SaveMenu,
+  CreateMenu
 } from "../../actions/diet.actions";
 import { FoodInfo, Columns, NutritionInfo } from "../../models";
 import { Store, Select } from "@ngxs/store";
@@ -34,6 +35,7 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
   meals: Array<NutritionInfo>;
   totals: NutritionInfo;
   newColumns: any;
+  foodItems: Array<FoodInfo>;
 
   @Select(DietState.foodItems) foodList$: Observable<Array<FoodInfo>>;
   @Select(DietState.columns) columns$: Observable<Array<Columns>>;
@@ -52,11 +54,16 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
     this.cell.ItemId = 0; // default to add
     this.totals = new NutritionInfo(0, "0");
 
+    // subscribe to the changed in meals
     this.meals$.subscribe(meals => {
       if (meals.length > 0) {
         this.meals = meals;
-        console.info("Create DIet Subscribe on meals " + meals.length);
       }
+    });
+
+    // subscribe when the food items are returned from the api
+    this.foodList$.subscribe(foodList => {
+      this._store.dispatch(new CreateMenu(foodList, this.columns));
     });
   }
   ngOnInit() {

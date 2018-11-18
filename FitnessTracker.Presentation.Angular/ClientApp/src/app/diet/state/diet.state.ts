@@ -11,6 +11,7 @@ import {
 } from "../actions/diet.actions";
 import { DietService } from "../service/diet.service";
 import { FoodInfo, Columns, NutritionInfo, CurrentMenu } from "../models";
+import { noUndefined } from "@angular/compiler/src/util";
 
 @State<DietStateModel>({
   name: "diet",
@@ -47,8 +48,6 @@ export class DietState {
   @Action(GetAllMenuItems)
   getAllMenuItems(ctx: StateContext<DietStateModel>) {
     const state = ctx.getState();
-
-    console.info("Get All Menu Items");
 
     this._dietService.getDietItems((dietItems: any) => {
       ctx.patchState({
@@ -103,7 +102,6 @@ export class DietState {
   getColumns(ctx: StateContext<DietStateModel>) {
     const state = ctx.getState();
 
-    console.info("Get Columns");
     this._dietService.getColumns((columns: Array<Columns>) => {
       ctx.patchState({
         ...state,
@@ -118,7 +116,6 @@ export class DietState {
   setMeals(ctx: StateContext<DietStateModel>, mealsPayload: SetMeals) {
     const state = ctx.getState();
 
-    console.info("Setting Meals.... " + mealsPayload.meals.length);
     ctx.patchState({
       ...state,
       nutritionInfo: mealsPayload.meals
@@ -128,79 +125,59 @@ export class DietState {
   @Action(CreateMenu)
   createMenu(ctx: StateContext<DietStateModel>, foodListPayload: CreateMenu) {
     const state = ctx.getState();
-    
-    
+
     let meals = new Array<NutritionInfo>();
     foodListPayload.columns.forEach(column => {
-      meals.push(
-        new NutritionInfo(column.MealId, column.MealDisplayName)
-      );
+      meals.push(new NutritionInfo(column.MealId, column.MealDisplayName));
     });
     meals.push(new NutritionInfo(0, "Max Macro"));
     meals.push(new NutritionInfo(0, "Totals"));
     meals.push(new NutritionInfo(0, "Remaining"));
 
-    foodListPayload.foodInfiList.forEach( food =>  {
+    foodListPayload.foodInfiList.forEach(food => {
+      food.SavedMenu.forEach(menuItem => {
+        let selectedMeal = meals.find(meal => meal.id === menuItem.MealId);
 
-      foodListPayload.columns.forEach(column => {
-         let savedMenu = food.SavedMenu.find(exp => exp.Id === Number(column.MealName) != null) ;
+        let totals = meals.find(meal => meal.meal === "Totals");
+        let remaining = meals.find(meal => meal.meal === "Remaining");
+        let maxMacro = meals.find(meal => meal.meal === "Max Macro");
 
-         if (savedMenu !== null) {
-          let selectedMeal = meals.find(meal => meal.meal === column.MealName);
+        let value = menuItem.Serving;
 
-            if (selectedMeal != null) {
+        selectedMeal.item.push(
+          new CurrentMenu(
+            menuItem.ItemId.toString(),
+            menuItem.ItemId,
+            menuItem.Serving,
+            food.ServingSize,
+            food.Item
+          )
+        );
 
-              let foodItem = selectedMeal.item.find(
-                item => item.ItemID === food.ItemId
-              );
-              let totals = meals.find(meal => meal.meal === "Totals");
-              let remaining = meals.find(
-                meal => meal.meal === "Remaining"
-              );
-              let maxMacro = meals.find(
-                meal => meal.meal === "Max Macro"
-              );
-              let value =  savedMenu.Serving;                           
-                selectedMeal.item.push(
-                  new CurrentMenu(
-                    selectedMeal.id.toString(),
-                    //food.ItemId.toString(),
-                    //food.ItemId,
-                    food.ItemId,
-                    value,
-                    food.ServingSize,
-                    //food.ServingSize,
-                    food.Item
-                    //food.Item
-                
-                  )
-                );
-              }
-      
-              selectedMeal.calories += Math.round(food.Calories * value);
-              selectedMeal.carbs += Math.round(food.Carbs * value);
-              selectedMeal.protein += Math.round(food.Protien * value);
-              selectedMeal.fat += Math.round(food.Fat * value);
-      
-              totals.carbs += Math.round(food.Carbs * value);
-              totals.protein += Math.round(food.Protien * value);
-              totals.fat += Math.round(food.Fat * value);
-              totals.calories = Math.round(
-                totals.carbs * 4 + totals.protein * 4 + totals.fat * 9
-              ); // recalc calories via macro and not what the foodl says
-      
-              remaining.calories = Math.round(maxMacro.calories - totals.calories);
-              remaining.carbs -= Math.round(food.Carbs * value);
-              remaining.protein -= Math.round(food.Protien * value);
-              remaining.fat -= Math.round(food.Fat * value);
-         }
-      })
+        selectedMeal.calories += Math.round(food.Calories * value);
+        selectedMeal.carbs += Math.round(food.Carbs * value);
+        selectedMeal.protein += Math.round(food.Protien * value);
+        selectedMeal.fat += Math.round(food.Fat * value);
+
+        totals.carbs += Math.round(food.Carbs * value);
+        totals.protein += Math.round(food.Protien * value);
+        totals.fat += Math.round(food.Fat * value);
+        totals.calories = Math.round(
+          totals.carbs * 4 + totals.protein * 4 + totals.fat * 9
+        ); // recalc calories via macro and not what the foodl says
+
+        remaining.calories = Math.round(maxMacro.calories - totals.calories);
+        remaining.carbs -= Math.round(food.Carbs * value);
+        remaining.protein -= Math.round(food.Protien * value);
+        remaining.fat -= Math.round(food.Fat * value);
       });
-
+    });
 
     ctx.patchState({
       ...state,
       nutritionInfo: meals
     });
+
+    ctx.dispatch(new SetMeals(meals));
   }
 }

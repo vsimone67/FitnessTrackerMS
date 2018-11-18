@@ -2,14 +2,17 @@ import { Component, OnInit, Input, SimpleChange } from "@angular/core";
 import { NutritionInfo, Columns, CurrentMacros, CalcMacro } from "../../models";
 import { DropDownModel } from "../../../shared/models";
 import { DietService } from "../../service/diet.service";
-import { Store } from "@ngxs/store";
+import { Store, Select } from "@ngxs/store";
 import { SetMeals } from "../../actions/diet.actions";
+import { Observable } from "rxjs/observable";
+import { DietState } from "../../state/diet.state";
+
 @Component({
   selector: "metabolicCounter",
   templateUrl: "metabolic-counter.component.html"
 })
 export class MetabolicCounterComponent implements OnInit {
-  @Input() macroColumns: Array<Columns>;
+  @Input() macroColumns: Array<NutritionInfo>;
 
   meals: Array<NutritionInfo>;
   macroMax: number; // hold what type of max, Low Carb (1), High Carb (2) , Gain (3)
@@ -18,10 +21,17 @@ export class MetabolicCounterComponent implements OnInit {
 
   modeLocalStorage: string = "currentMode";
 
+  @Select(DietState.meals) meals$: Observable<Array<NutritionInfo>>;
+
   constructor(private _dietervice: DietService, private _store: Store) {
-    this.meals = new Array<NutritionInfo>();
-    this.macroColumns = new Array<Columns>();
+    this.macroColumns = new Array<NutritionInfo>();
     this.macroMax = 1;
+
+    this.meals$.subscribe(meals => {
+      if (this.macroColumns.length > 0) {
+        this.calcTotals();
+      }
+    });
   }
 
   ngOnInit() {
@@ -37,23 +47,8 @@ export class MetabolicCounterComponent implements OnInit {
     } else {
       this.mode = this.modes[0];
     }
-
-    console.info("ngOnInit MetabolicInfoCounter");
   }
-  ngOnChanges(changes: SimpleChange) {
-    if (this.macroColumns.length > 0) {
-      // this.macroColumns.forEach(column => {
-      //   this.meals.push(
-      //     new NutritionInfo(column.MealId, column.MealDisplayName)
-      //   );
-      // });
-      // this.meals.push(new NutritionInfo(0, "Max Macro"));
-      // this.meals.push(new NutritionInfo(0, "Totals"));
-      // this.meals.push(new NutritionInfo(0, "Remaining"));
 
-      this.calcTotals();
-    }
-  }
   metabolicInfoSelected(item: DropDownModel) {
     this.mode = item;
     this.calcTotals();
@@ -65,9 +60,13 @@ export class MetabolicCounterComponent implements OnInit {
       this.mode.value,
       (metabolicInfo: CurrentMacros) => {
         let calcMacro = new CalcMacro(metabolicInfo);
-        let maxMacro = this.meals.find(meal => meal.meal === "Max Macro");
-        let remaining = this.meals.find(meal => meal.meal === "Remaining");
-        let totals = this.meals.find(meal => meal.meal === "Totals");
+        let maxMacro = this.macroColumns.find(
+          meal => meal.meal === "Max Macro"
+        );
+        let remaining = this.macroColumns.find(
+          meal => meal.meal === "Remaining"
+        );
+        let totals = this.macroColumns.find(meal => meal.meal === "Totals");
 
         maxMacro.calories = calcMacro.calcCalories();
         maxMacro.carbs = calcMacro.caclCarbs();
@@ -79,7 +78,7 @@ export class MetabolicCounterComponent implements OnInit {
         remaining.protein = maxMacro.protein - totals.protein;
         remaining.fat = maxMacro.fat - totals.fat;
 
-        this._store.dispatch(new SetMeals(this.meals));
+        this._store.dispatch(new SetMeals(this.macroColumns));
       }
     );
   }
