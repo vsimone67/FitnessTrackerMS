@@ -37,9 +37,9 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
   newColumns: any;
   foodItems: Array<FoodInfo>;
 
-  @Select(DietState.foodItems) foodList$: Observable<Array<FoodInfo>>;
-  @Select(DietState.columns) columns$: Observable<Array<Columns>>;
-  @Select(DietState.meals) meals$: Observable<Array<NutritionInfo>>;
+  @Select(DietState.foodItems) foodList$: Observable<Array<FoodInfo>>; // list of availbie food
+  @Select(DietState.columns) columns$: Observable<Array<Columns>>; // colums to use for the grid and macro calc
+  @Select(DietState.meals) meals$: Observable<Array<NutritionInfo>>; // selected meals for menu
 
   constructor(
     public _store: Store,
@@ -63,7 +63,7 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
 
     // subscribe when the food items are returned from the api
     this.foodList$.subscribe(foodList => {
-      this._store.dispatch(new CreateMenu(foodList, this.columns));
+      this._store.dispatch(new CreateMenu(foodList, this.columns)); // create menu from items saved (they come from the foodlist returned from the api server)
     });
   }
   ngOnInit() {

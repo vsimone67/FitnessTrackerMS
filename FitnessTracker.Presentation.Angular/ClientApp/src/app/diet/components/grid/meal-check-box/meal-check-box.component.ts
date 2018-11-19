@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { AgRendererComponent } from "ag-grid-angular";
-import { NutritionInfo, CurrentMenu, SavedMenu } from "../../../models";
+import { NutritionInfo, CurrentMenu } from "../../../models";
 import { Select, Store } from "@ngxs/store";
 import { Observable } from "rxjs/observable";
 import { DietState } from "../../../state/diet.state";
@@ -21,7 +21,6 @@ export class MealCheckBoxComponent implements AgRendererComponent {
   private cell: any;
   private isChecked: boolean;
   private field: string;
-  private mealid: string;
   private nutritionInfo: Array<NutritionInfo>;
 
   @Select(DietState.meals) meals$: Observable<Array<NutritionInfo>>;

@@ -14,7 +14,6 @@ import { DietState } from "../../state/diet.state";
 export class MetabolicCounterComponent implements OnInit {
   @Input() macroColumns: Array<NutritionInfo>;
 
-  meals: Array<NutritionInfo>;
   macroMax: number; // hold what type of max, Low Carb (1), High Carb (2) , Gain (3)
   mode: DropDownModel; // hold what type of cacl (carb cycle, calorie, etc)
   modes: Array<DropDownModel>;

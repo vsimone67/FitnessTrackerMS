@@ -126,53 +126,10 @@ export class DietState {
   createMenu(ctx: StateContext<DietStateModel>, foodListPayload: CreateMenu) {
     const state = ctx.getState();
 
-    let meals = new Array<NutritionInfo>();
-    foodListPayload.columns.forEach(column => {
-      meals.push(new NutritionInfo(column.MealId, column.MealDisplayName));
-    });
-    meals.push(new NutritionInfo(0, "Max Macro"));
-    meals.push(new NutritionInfo(0, "Totals"));
-    meals.push(new NutritionInfo(0, "Remaining"));
-
-    foodListPayload.foodInfiList.forEach(food => {
-      food.SavedMenu.forEach(menuItem => {
-        let selectedMeal = meals.find(meal => meal.id === menuItem.MealId);
-
-        let totals = meals.find(meal => meal.meal === "Totals");
-        let remaining = meals.find(meal => meal.meal === "Remaining");
-        let maxMacro = meals.find(meal => meal.meal === "Max Macro");
-
-        let value = menuItem.Serving;
-
-        selectedMeal.item.push(
-          new CurrentMenu(
-            menuItem.ItemId.toString(),
-            menuItem.ItemId,
-            menuItem.Serving,
-            food.ServingSize,
-            food.Item
-          )
-        );
-
-        selectedMeal.calories += Math.round(food.Calories * value);
-        selectedMeal.carbs += Math.round(food.Carbs * value);
-        selectedMeal.protein += Math.round(food.Protien * value);
-        selectedMeal.fat += Math.round(food.Fat * value);
-
-        totals.carbs += Math.round(food.Carbs * value);
-        totals.protein += Math.round(food.Protien * value);
-        totals.fat += Math.round(food.Fat * value);
-        totals.calories = Math.round(
-          totals.carbs * 4 + totals.protein * 4 + totals.fat * 9
-        ); // recalc calories via macro and not what the foodl says
-
-        remaining.calories = Math.round(maxMacro.calories - totals.calories);
-        remaining.carbs -= Math.round(food.Carbs * value);
-        remaining.protein -= Math.round(food.Protien * value);
-        remaining.fat -= Math.round(food.Fat * value);
-      });
-    });
-
+    let meals = this._dietService.makeSavedMenu(
+      foodListPayload.columns,
+      foodListPayload.foodInfiList
+    );
     ctx.patchState({
       ...state,
       nutritionInfo: meals

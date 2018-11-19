@@ -28,14 +28,11 @@ export class MetabolicInfoState {
   }
 
   @Action(GetMetabolicInfo)
-  getMetabolicInfo({
-    getState,
-    patchState
-  }: StateContext<MeatabolicInfoStateModel>) {
-    const state = getState();
+  getMetabolicInfo(ctx: StateContext<MeatabolicInfoStateModel>) {
+    const state = ctx.getState();
 
     this._dietService.getMetabolicInfo((metabolicInfoList: any) => {
-      patchState({
+      ctx.patchState({
         ...state,
         metabolicInfoList: metabolicInfoList
       });
@@ -44,13 +41,13 @@ export class MetabolicInfoState {
 
   @Action(SaveMetabolicInfo)
   saveMetabolicInfo(
-    { getState, patchState }: StateContext<MeatabolicInfoStateModel>,
+    ctx: StateContext<MeatabolicInfoStateModel>,
     metabolicinfo: SaveMetabolicInfo
   ) {
-    const state = getState();
+    const state = ctx.getState();
 
     this._dietService.saveMetabolicInfo(metabolicinfo.metabolicInfo, () => {
-      patchState({
+      ctx.patchState({
         ...state,
         metabolicInfo: metabolicinfo.metabolicInfo
       });

@@ -29,11 +29,11 @@ export class WorkoutState {
   }
 
   @Action(GetAllWorkouts)
-  GetAllWorkouts({ getState, patchState }: StateContext<WorkoutStateModel>) {
-    const state = getState();
+  GetAllWorkouts(ctx: StateContext<WorkoutStateModel>) {
+    const state = ctx.getState();
 
     this._workoutService.getWorkouts((workouts: any) => {
-      patchState({
+      ctx.patchState({
         ...state,
         workouts: workouts
       });
@@ -41,14 +41,11 @@ export class WorkoutState {
   }
 
   @Action(GetWorkout)
-  getWorkout(
-    { getState, patchState }: StateContext<WorkoutStateModel>,
-    workout: GetWorkout
-  ) {
-    const state = getState();
+  getWorkout(ctx: StateContext<WorkoutStateModel>, workout: GetWorkout) {
+    const state = ctx.getState();
 
     this._workoutService.getWorkout(workout.workoutID, (workout: Workout) => {
-      patchState({
+      ctx.patchState({
         ...state,
         currentWorkout: workout
       });
@@ -56,14 +53,11 @@ export class WorkoutState {
   }
 
   @Action(SaveWorkout)
-  saveWorkout(
-    { getState, patchState }: StateContext<WorkoutStateModel>,
-    workout: SaveWorkout
-  ) {
-    const state = getState();
+  saveWorkout(ctx: StateContext<WorkoutStateModel>, workout: SaveWorkout) {
+    const state = ctx.getState();
 
     this._workoutService.saveDailyWorkout(workout.workout, () => {
-      patchState({
+      ctx.patchState({
         ...state,
         currentWorkout: workout.workout
       });

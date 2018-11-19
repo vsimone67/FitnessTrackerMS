@@ -18,11 +18,11 @@ export class BodyInfoState {
   }
 
   @Action(GetBodyInfo)
-  GetBodyInfo({ getState, patchState }: StateContext<BodyInfoStateModel>) {
-    const state = getState();
+  GetBodyInfo(ctx: StateContext<BodyInfoStateModel>) {
+    const state = ctx.getState();
 
     this._workoutService.getBodyInfo((bodyInfoItems: any[]) => {
-      patchState({
+      ctx.patchState({
         ...state,
         bodyInfoItems: bodyInfoItems
       });
@@ -30,14 +30,11 @@ export class BodyInfoState {
   }
 
   @Action(SaveBodyInfo)
-  saveWorkout(
-    { getState, patchState }: StateContext<BodyInfoStateModel>,
-    bodyInfo: SaveBodyInfo
-  ) {
-    const state = getState();
+  saveWorkout(ctx: StateContext<BodyInfoStateModel>, bodyInfo: SaveBodyInfo) {
+    const state = ctx.getState();
 
     this._workoutService.saveBodyInfo(bodyInfo.bodyInfo, () => {
-      patchState({
+      ctx.patchState({
         ...state,
         bodyInfoItems: [...state.bodyInfoItems, bodyInfo.bodyInfo]
       });
