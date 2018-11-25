@@ -100,7 +100,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
                 {
                     var eventBusSubscriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAttributes, eventBusSubscriptionsManager, container);
+                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAtributes, eventBusSubscriptionsManager, container);
 
                     // We do not want multiple listeners on the event queue because the messages will not get through.  If we want to broadcast to multiple queues, set it up via config.  Each process should read from a queue not multiple
                     if (ShouldTurnOnReceiveQueue)

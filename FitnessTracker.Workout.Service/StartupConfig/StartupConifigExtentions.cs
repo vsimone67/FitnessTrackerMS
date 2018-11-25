@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FitnessTracker.Workout.Service.StartupConfig
 {
-    public static class StartupConifigExtentions
+    public static class StartupConfigExtentions
     {
         public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
         {

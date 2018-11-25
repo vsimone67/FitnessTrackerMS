@@ -20,7 +20,7 @@ namespace FitnessTracker.Mobile.Views
 
             MessagingCenter.Subscribe<object, string>(this, MessageConstants.TimeExpired, (sender, message) =>
             {
-                OnCloseAsync();
+                OnClose();
             });
         }
 
@@ -35,9 +35,9 @@ namespace FitnessTracker.Mobile.Views
                 viewModel.StartTimer();
         }
 
-        private async Task OnCloseAsync()
+        private void OnClose()
         {
-            await Navigation.PopPopupAsync();
+            Navigation.PopPopupAsync();
         }
     }
 }

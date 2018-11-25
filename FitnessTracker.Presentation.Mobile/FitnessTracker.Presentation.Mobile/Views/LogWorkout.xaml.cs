@@ -101,7 +101,7 @@ namespace FitnessTracker.Mobile.Views
             var tapGestureRecognizer = new TapGestureRecognizer();
             tapGestureRecognizer.Tapped += (s, e) =>
             {
-                OnCellTapAsync(s, e);
+                OnCellTap(s, e);
             };
             gridLabel.GestureRecognizers.Add(tapGestureRecognizer);
 
@@ -130,10 +130,10 @@ namespace FitnessTracker.Mobile.Views
         }
 
         // user taps a cell to complete a exercise/rep
-        private async System.Threading.Tasks.Task OnCellTapAsync(object sender, EventArgs eventArgs)
+        private void OnCellTap(object sender, EventArgs eventArgs)
         {
             LabelExt label = (LabelExt)sender;
-            label.BackgroundColor = Color.Green;  // Change the backgroud color to green (done)
+            label.BackgroundColor = Color.Green;  // Change the background color to green (done)
 
             if (!label.IsClicked)  // check to see if this column has been
             {
@@ -157,6 +157,7 @@ namespace FitnessTracker.Mobile.Views
             {
                 viewModel.WorkoutEndedCommand.Execute(null);
             }
+
         }
 
         #endregion Grid

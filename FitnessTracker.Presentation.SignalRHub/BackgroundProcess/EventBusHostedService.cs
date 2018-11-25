@@ -38,18 +38,18 @@ namespace FitnessTracker.Presentation.SignalRHub.BackgroundProcess
                 _logger.LogInformation("Starting EventBus Process......");
 
                 _subscriptionManager = new InMemoryEventBusSubscriptionsManager();
-                _eventBus = new EventBusRabbitMQIOC(_appSettings.Value.ConnectionAttributes, _subscriptionManager, Startup.DIContainer);
+                _eventBus = new EventBusRabbitMQIOC(_appSettings.Value.ConnectionAtributes, _subscriptionManager, Startup.DIContainer);
                 _eventBus.TurnOnRecieveQueue();
                 // Workout
-                _eventBus.Subscribe<AddNewWorkoutEvent, AddNewWorkoutEventHandler>(_appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].Queue[Queue], _appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].ExchangeName);
-                _eventBus.Subscribe<BodyInfoSavedEvent, BodyInfoSavedEventHandler>(_appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].Queue[Queue], _appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].ExchangeName);
-                _eventBus.Subscribe<WorkoutCompletedEvent, WorkoutCompletedEventHandler>(_appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].Queue[Queue], _appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].ExchangeName);
+                _eventBus.Subscribe<AddNewWorkoutEvent, AddNewWorkoutEventHandler>(_appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].Queue[Queue], _appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].ExchangeName);
+                _eventBus.Subscribe<BodyInfoSavedEvent, BodyInfoSavedEventHandler>(_appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].Queue[Queue], _appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].ExchangeName);
+                _eventBus.Subscribe<WorkoutCompletedEvent, WorkoutCompletedEventHandler>(_appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].Queue[Queue], _appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Workout].ExchangeName);
 
                 // Diet
-                _eventBus.Subscribe<AddNewFoodEvent, AddNewFoodEventHandler>(_appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].ExchangeName);
-                _eventBus.Subscribe<DeleteFoodItemEvent, DeleteFoodItemEventHandler>(_appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].ExchangeName);
-                _eventBus.Subscribe<EditMetabolicInfo, EditMetabolicInfoEventHandler>(_appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].ExchangeName);
-                _eventBus.Subscribe<SaveMenuEvent, SavedMenuEventHandler>(_appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].ExchangeName);
+                _eventBus.Subscribe<AddNewFoodEvent, AddNewFoodEventHandler>(_appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
+                _eventBus.Subscribe<DeleteFoodItemEvent, DeleteFoodItemEventHandler>(_appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
+                _eventBus.Subscribe<EditMetabolicInfo, EditMetabolicInfoEventHandler>(_appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
+                _eventBus.Subscribe<SaveMenuEvent, SavedMenuEventHandler>(_appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].Queue[Queue], _appSettings.Value.ConnectionAtributes.RabbitExchangeInfo[Diet].ExchangeName);
 
                 while (!cancellationToken.IsCancellationRequested)
                 {
