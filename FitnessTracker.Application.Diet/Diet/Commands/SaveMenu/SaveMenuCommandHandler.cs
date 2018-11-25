@@ -3,7 +3,7 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
-using FitnetssTracker.Application.Common;
+using FitnessTracker.Application.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +12,7 @@ namespace FitnessTracker.Application.Command
 {
     public class SaveMenuCommandHandler : HandlerBase<IDietService>, ICommandHandler<SaveMenuCommand, List<NutritionInfoDTO>>
     {
-        public SaveMenuCommandHandler(IDietService service, IMapper mapper) : base(service, mapper) { }       
+        public SaveMenuCommandHandler(IDietService service, IMapper mapper) : base(service, mapper) { }
 
         public List<NutritionInfoDTO> Handle(SaveMenuCommand command)
         {

@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace FitnetssTracker.Application.Common
+namespace FitnessTracker.Application.Common
 {
     public interface ICommandHandler<in TQuery, TResult> where TQuery : ICommand
     {

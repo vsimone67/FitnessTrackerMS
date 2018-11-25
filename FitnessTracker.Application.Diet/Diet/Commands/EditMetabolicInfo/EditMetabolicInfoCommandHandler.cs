@@ -1,5 +1,5 @@
 ﻿using FitnessTracker.Application.Interfaces;
-using FitnetssTracker.Application.Common;
+using FitnessTracker.Application.Common;
 using FitnessTracker.Domain.Diet;
 using System;
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace FitnessTracker.Application.Command
         public MetabolicInfoDTO Handle(EditMetabolicInfoCommand command)
         {
             var metabolicInfo = _mapper.Map<MetabolicInfo>(command.MetabolicInfo);
-            var  editRecord = _service.EditMetabolicInfo(metabolicInfo);
+            var editRecord = _service.EditMetabolicInfo(metabolicInfo);
 
             return _mapper.Map<MetabolicInfoDTO>(editRecord);
         }

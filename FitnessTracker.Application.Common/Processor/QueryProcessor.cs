@@ -1,7 +1,7 @@
-﻿using FitnetssTracker.Common.Helpers;
+﻿using FitnessTracker.Common.Helpers;
 using System.Threading.Tasks;
 
-namespace FitnetssTracker.Application.Common.Processor
+namespace FitnessTracker.Application.Common.Processor
 {
     /// <inheritdoc />
     public class QueryProcessor : IQueryProcessor

@@ -3,7 +3,7 @@ using AutoMapper;
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Application.Model.Workout;
-using FitnetssTracker.Application.Common;
+using FitnessTracker.Application.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,4 +25,4 @@ namespace FitnessTracker.Application.Queries
         }
     }
 
-}   
+}

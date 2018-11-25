@@ -2,7 +2,7 @@
 using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Domain.Workout;
-using FitnetssTracker.Application.Common;
+using FitnessTracker.Application.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;

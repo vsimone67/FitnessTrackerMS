@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace FitnetssTracker.Common.Helpers
+namespace FitnessTracker.Common.Helpers
 {
     /// <summary>
     /// Design By Contract Checks.

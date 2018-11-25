@@ -1,4 +1,4 @@
-﻿using FitnetssTracker.Application.Common;
+﻿using FitnessTracker.Application.Common;
 using System;
 using System.Collections.Generic;
 using FitnessTracker.Domain.Workout;

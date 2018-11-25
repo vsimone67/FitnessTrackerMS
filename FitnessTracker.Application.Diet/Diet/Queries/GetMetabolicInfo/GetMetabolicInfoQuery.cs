@@ -1,5 +1,5 @@
 ﻿using FitnessTracker.Application.Model.Diet;
-using FitnetssTracker.Application.Common;
+using FitnessTracker.Application.Common;
 using System.Collections.Generic;
 
 namespace FitnessTracker.Application.Queries

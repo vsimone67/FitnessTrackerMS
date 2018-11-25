@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FitnetssTracker.Application.Common
-{ 
+namespace FitnessTracker.Application.Common
+{
     public interface ICommand
     {
     }

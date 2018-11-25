@@ -3,7 +3,7 @@ using FitnessTracker.Application.Command;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Application.Model.Diet.Events;
 using FitnessTracker.Application.Queries;
-using FitnetssTracker.Application.Common.Processor;
+using FitnessTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

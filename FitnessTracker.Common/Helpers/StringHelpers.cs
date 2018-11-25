@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace FitnetssTracker.Common.Helpers
+namespace FitnessTracker.Common.Helpers
 {
     public static class StringHelpers
     {

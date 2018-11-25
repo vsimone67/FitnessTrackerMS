@@ -1,7 +1,7 @@
-﻿using FitnetssTracker.Application.Common;
+﻿using FitnessTracker.Application.Common;
 using System.Threading.Tasks;
 
-namespace FitnetssTracker.Application.Common.Processor
+namespace FitnessTracker.Application.Common.Processor
 {
     /// <summary>
     /// Finds the correct command handler and invokes it.  This helps reduce the amount of handlers you need to have references to.

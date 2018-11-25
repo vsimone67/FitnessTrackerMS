@@ -1,7 +1,7 @@
 ﻿
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Domain.Workout;
-using FitnetssTracker.Application.Common;
+using FitnessTracker.Application.Common;
 using System.Collections.Generic;
 
 
