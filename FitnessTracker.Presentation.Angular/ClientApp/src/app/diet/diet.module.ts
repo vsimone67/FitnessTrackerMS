@@ -49,4 +49,4 @@ import { MetabolicInfoState } from "../../app/diet/state/metabolic-info.state";
   ],
   providers: [DietService]
 })
-export class DietModule {}
+export class DietModule { }

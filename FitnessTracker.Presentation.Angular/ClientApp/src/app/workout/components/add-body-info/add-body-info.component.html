@@ -11,21 +11,18 @@
              <div class="mdl-tooltip" data-mdl-for="addbodyinfo">Add Body Info</div>
           </div>
       </div>
-
   </div>
 
   <div supportingtext>
-      
-      <section class="mdl-grid" >
 
-          <div class="mdl-cell mdl-cell--12-col addBody-gridheight" >
+      <section class="mdl-grid">
+
+          <div class="mdl-cell mdl-cell--12-col addBody-gridheight">
                <ag-grid-angular class="ag-theme-blue ag-table-addBody" [gridOptions]="gridOptions" [rowData]="bodyInfoItems$ | async"></ag-grid-angular>
           </div>
           <div class="mdl-layout-spacer"></div>
       </section>
-      
   </div>
-
 </baseLayout>
 
 <dialog class="mdl-dialog bodyInfo-dialog">
@@ -76,8 +73,6 @@
           <textarea class="mdl-textfield__input" type="text" rows="3" id="note" [(ngModel)]="bodyInfo.Note"></textarea>
           <label class="mdl-textfield__label" for="note">Note...</label>
       </div>
-
-
   </div>
   <div class="mdl-dialog__actions mdl-dialog__actions">
       <button type="button" class="mdl-button" (click)="onSave()">Save</button>

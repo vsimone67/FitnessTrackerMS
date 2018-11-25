@@ -1,7 +1,7 @@
 <baseLayout cardcellwidth='mdl-cell--10-col'>
   <div title class="full-width">
     <div class="mdl-grid">
-      <div class="mdl-card__title-text mdl-cell mdl-cell--3-col">Log Workout</div>   
+      <div class="mdl-card__title-text mdl-cell mdl-cell--3-col">Log Workout</div>
     </div>
   </div>
   <div supportingtext>
@@ -12,7 +12,7 @@
             <tr>
               <td class="mdl-data-table__cell--non-numeric ">
                 <dropdownAsync displayField="Name" [items]="workouts$" (itemSelected)="workoutSelected($event)" defaultText="Select Workout... "></dropdownAsync>
-              </td>            
+              </td>
             </tr>
           </tbody>
         </table>

@@ -1,7 +1,6 @@
 ﻿using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Mobile.Models;
 using FitnessTracker.Mobile.ViewModels;
-using Rg.Plugins.Popup.Extensions;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,14 +8,14 @@ using Xamarin.Forms.Xaml;
 namespace FitnessTracker.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class LogWorkout : BaseView
-	{
+    public partial class LogWorkout : BaseView
+    {
         protected LogWorkoutViewModel viewModel;
-        int _currentRow;
+        private int _currentRow;
 
-        public LogWorkout ()
-		{
-			InitializeComponent ();
+        public LogWorkout()
+        {
+            InitializeComponent();
 
             _currentRow = 0;
         }
@@ -32,16 +31,16 @@ namespace FitnessTracker.Mobile.Views
             if (viewModel.Workouts.Count == 0 && !viewModel.IsBusy)
                 viewModel.LoadWorkoutCommand.Execute(null);
 
-            // Keep Screen on             
+            // Keep Screen on
             viewModel.TurnSleepOffCommand.Execute(null);
 
             // Reinitialize two viewmodel variables in case we redo or pick another workout mid stream
             viewModel.IsFirstClick = false;
             viewModel.NumberOfClicks = 0;
-            
         }
 
-        #region Grid 
+        #region Grid
+
         protected void FillGrid()
         {
             _currentRow = 0;
@@ -61,9 +60,9 @@ namespace FitnessTracker.Mobile.Views
                 WriteExerciseInfo(set);    // write exercises for the set
             }
         }
+
         private void WriteSetHeader(SetDisplayDTO set)
         {
-
             AddGridItem(set.Name + " (" + set.DisplayReps.Count.ToString() + ")", Color.White, Color.Black, 0, _currentRow); // write the header info
 
             int currentColumn = 1;
@@ -92,15 +91,16 @@ namespace FitnessTracker.Mobile.Views
 
                 _currentRow++;  // set next grid row
             }
-
         }
+
         private void AddGridItemTap(string text, string timeToNextExercise, Color textColor, Color backgroundColor, int currentColumn, int currentRow)
         {
             LabelExt gridLabel = CreateLabel(text, textColor, backgroundColor);
             gridLabel.TimeToNextExercise = timeToNextExercise;
 
             var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += (s, e) => {
+            tapGestureRecognizer.Tapped += (s, e) =>
+            {
                 OnCellTapAsync(s, e);
             };
             gridLabel.GestureRecognizers.Add(tapGestureRecognizer);
@@ -133,15 +133,15 @@ namespace FitnessTracker.Mobile.Views
         private async System.Threading.Tasks.Task OnCellTapAsync(object sender, EventArgs eventArgs)
         {
             LabelExt label = (LabelExt)sender;
-            label.BackgroundColor = Color.Green;  // Change the backgroud color to green (done)     
+            label.BackgroundColor = Color.Green;  // Change the backgroud color to green (done)
 
-            if (!label.IsClicked)  // check to see if this column has been 
+            if (!label.IsClicked)  // check to see if this column has been
             {
-                viewModel.NumberOfClicks++;  // increment the number of clicks for the workout, this is to determien 
+                viewModel.NumberOfClicks++;  // increment the number of clicks for the workout, this is to determien
                 label.IsClicked = true;  // set this cell as clicked
             }
 
-            if (!viewModel.IsFirstClick) // has the workout started, the first click with signal the start of the workout.  If it is get the starting time 
+            if (!viewModel.IsFirstClick) // has the workout started, the first click with signal the start of the workout.  If it is get the starting time
             {
                 viewModel.IsFirstClick = true;
                 viewModel.StartWorkoutTime = DateTime.Now;
@@ -150,17 +150,19 @@ namespace FitnessTracker.Mobile.Views
             if (int.Parse(label.TimeToNextExercise) > 0) // only allow the timer windows to appear for a rest time greater than 0
             {
                 viewModel.StartRestTimerCommand.Execute(int.Parse(label.TimeToNextExercise));
-            }          
-                        
+            }
+
             // Workout is over popup the save
             if (viewModel.NumberOfClicks == viewModel.MaxExercisesPerWorkout)
             {
                 viewModel.WorkoutEndedCommand.Execute(null);
             }
         }
-        #endregion
+
+        #endregion Grid
 
         #region Control Events
+
         private void WorkoutSelected(object sender, EventArgs e)
         {
             WorkoutDTO workout = (WorkoutDTO)((Xamarin.Forms.Picker)sender).SelectedItem;
@@ -172,11 +174,11 @@ namespace FitnessTracker.Mobile.Views
 
                 if (viewModel.isIncreaseWeight)
                 {
-                    DisplayAlert("Workout", "Increase Weight","OK");
+                    DisplayAlert("Workout", "Increase Weight", "OK");
                 }
             }
         }
 
-        #endregion
+        #endregion Control Events
     }
 }

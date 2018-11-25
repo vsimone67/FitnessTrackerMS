@@ -20,9 +20,9 @@ export class DropDownComponentMDL implements OnInit, OnChanges {
   @Input() keyChange: boolean;
   @Output() itemSelected: EventEmitter<any> = new EventEmitter();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   // The ngOnChanges is used to keep dropdown data in an ngfor from cascade change.  The method below is equivilent to the "::" operator in angualr 1
   ngOnChanges(changes: { [key: string]: SimpleChange }): void {

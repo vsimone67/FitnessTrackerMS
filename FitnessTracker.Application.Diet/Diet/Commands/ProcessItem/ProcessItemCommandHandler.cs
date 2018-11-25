@@ -3,7 +3,6 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
-using FitnessTracker.Application.Common;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Command

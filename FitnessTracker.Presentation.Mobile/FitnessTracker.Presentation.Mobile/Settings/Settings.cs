@@ -2,7 +2,7 @@
 using Plugin.Settings.Abstractions;
 
 namespace FitnessTracker.Mobile.Settings
-{    
+{
     public static class Settings
     {
         public const string WorkoutServiceURL = "http://vsfitnesstrackerapi.azurewebsites.net/api/Workout/";
@@ -14,7 +14,7 @@ namespace FitnessTracker.Mobile.Settings
                 return CrossSettings.Current;
             }
         }
-        
+
         public static int WorkoutsToIncreaseWeight
         {
             get => AppSettings.GetValueOrDefault(nameof(WorkoutsToIncreaseWeight), 2);
@@ -32,6 +32,5 @@ namespace FitnessTracker.Mobile.Settings
             get => AppSettings.GetValueOrDefault(nameof(ServiceURL), Settings.WorkoutServiceURL);
             set => AppSettings.AddOrUpdateValue(nameof(ServiceURL), value);
         }
-
     }
 }

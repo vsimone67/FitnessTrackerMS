@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.HealthChecks;
+using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.HealthChecks;
 
 namespace FitnessTracker.Presentation.WebStatus.Controllers
 {

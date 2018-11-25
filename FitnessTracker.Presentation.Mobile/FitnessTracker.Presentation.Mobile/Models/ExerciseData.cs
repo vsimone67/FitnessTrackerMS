@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FitnessTracker.Mobile.Models
+﻿namespace FitnessTracker.Mobile.Models
 {
     public class ExerciseData
     {
@@ -12,7 +6,11 @@ namespace FitnessTracker.Mobile.Models
         public int NextExercise { get; set; }
         public int NextRep { get; set; }
         public bool IsCompleted { get; set; }
-        public ExerciseData() { }
+
+        public ExerciseData()
+        {
+        }
+
         public ExerciseData(int nextSet, int nextExercise, int nextRep, bool isCompleted)
         {
             NextSet = nextSet;

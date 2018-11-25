@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FitnessTracker.Application.Model.Workout
+﻿namespace FitnessTracker.Application.Model.Workout
 {
     public class SetNameDTO
-    {   
+    {
         public int SetNameId { get; set; }
         public string Name { get; set; }
     }

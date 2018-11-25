@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FitnessTracker.Mobile
+﻿namespace FitnessTracker.Mobile
 {
     public class BaseModel
     {
@@ -11,7 +9,5 @@ namespace FitnessTracker.Mobile
         public string Title { get; set; }
         public string Details { get; set; }
         public int Id { get; set; }
-
     }
 }
-

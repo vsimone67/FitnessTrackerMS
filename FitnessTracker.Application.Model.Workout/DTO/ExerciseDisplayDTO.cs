@@ -9,6 +9,5 @@ namespace FitnessTracker.Application.Model.Workout
         public string Measure { get; set; }
         public int SetId { get; set; }
         public List<RepsDisplayDTO> Reps { get; set; }
-
     }
 }

@@ -6,7 +6,8 @@ namespace FitnessTracker.Domain.Diet
     {
         [Key]
         public int MealId { get; set; }
+
         public string MealName { get; set; }
-        public string MealDisplayName { get; set; }        
+        public string MealDisplayName { get; set; }
     }
 }

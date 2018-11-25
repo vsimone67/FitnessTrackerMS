@@ -23,7 +23,7 @@ namespace FitnessTracker.Diet.Service
             {
                 Title = "Diet Micro Service",
                 Version = "v1",
-                Description = "Application to track my deit and learn new technologies",
+                Description = "Application to track my diet and learn new technologies",
                 TermsOfService = "Terms of Service",
                 EndPointDescription = "Diet Micro Service V1"
             };
@@ -37,7 +37,7 @@ namespace FitnessTracker.Diet.Service
             services.AddCustomMvc()
               .AddCustomSwagger(_swaggerInfo)
               .ConfigureDIContainer(_container)
-              .RegiserAppSettings(Configuration)
+              .RegisterAppSettings(Configuration)
               .AddDependencies(Configuration)
               .RegisterFitnessTrackerDependencies(_container)
               .RegisterCommandAndQueryHandlers(_container)
@@ -53,7 +53,7 @@ namespace FitnessTracker.Diet.Service
                 .UseRequestTimings()
                 .AddMFCConfiguration()
                 .AddSwaggerConfiguration(_swaggerInfo)
-                .InitialzieDIContainer(_container);
+                .InitializeDIContainer(_container);
         }
     }
 }

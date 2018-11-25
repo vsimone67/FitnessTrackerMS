@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout
 {
-    public class WorkoutCompletedEventHanlder : IIntegrationEventHandler<WorkoutCompletedEvent>
+    public class WorkoutCompletedEventHandler : IIntegrationEventHandler<WorkoutCompletedEvent>
     {
         private ILogger _logger;
         private readonly IHubContext<WorkoutHub> _hubContext;
 
-        public WorkoutCompletedEventHanlder(IHubContext<WorkoutHub> hubContext, ILogger<WorkoutCompletedEventHanlder> logger)
+        public WorkoutCompletedEventHandler(IHubContext<WorkoutHub> hubContext, ILogger<WorkoutCompletedEventHandler> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));

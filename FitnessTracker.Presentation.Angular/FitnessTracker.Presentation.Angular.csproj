@@ -20,25 +20,24 @@
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.HealthChecks" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.HealthChecks.SqlServer" Version="1.0.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2073426" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\shared\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\shared\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\shared\services\appsettings.service.ts" />
+    <EmbeddedResource Remove="ClientApp\src\shared\**" />
+    <None Remove="ClientApp\src\shared\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FitnessTracker.Common.Web\FitnessTracker.Common.Web.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\shared\services\appsettings.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

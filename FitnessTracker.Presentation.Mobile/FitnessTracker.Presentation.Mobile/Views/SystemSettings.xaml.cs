@@ -1,17 +1,17 @@
-﻿using Xamarin.Forms.Xaml;
-using FitnessTracker.Mobile.ViewModels;
+﻿using FitnessTracker.Mobile.ViewModels;
+using Xamarin.Forms.Xaml;
 
 namespace FitnessTracker.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class SystemSettings : BaseView
+    public partial class SystemSettings : BaseView
     {
-        SystemSettingsViewModel viewModel;
+        private SystemSettingsViewModel viewModel;
 
-        public SystemSettings ()
-		{
-			InitializeComponent ();
-		}
+        public SystemSettings()
+        {
+            InitializeComponent();
+        }
 
         protected override void OnAppearing()
         {
@@ -25,7 +25,6 @@ namespace FitnessTracker.Mobile.Views
             viewModel.SetWorkoutInterval.Execute(null);
             viewModel.SetWorkoutWeightNotification.Execute(null);
             viewModel.SetServiceURL.Execute(null);
-
         }
     }
 }

@@ -1,8 +1,8 @@
 export class SetName {
-    SetNameId: number;
-    Name: string;
+  SetNameId: number;
+  Name: string;
 
-    constructor() {
-        this.SetNameId = 0;
-    }
+  constructor() {
+    this.SetNameId = 0;
+  }
 }

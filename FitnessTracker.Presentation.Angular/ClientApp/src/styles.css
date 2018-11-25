@@ -711,7 +711,7 @@ table.scroll {
 }
 
 table.scroll thead {
-  /* head takes the height it requires, 
+  /* head takes the height it requires,
       and it's not scaled when table is resized */
   flex: 0 0 auto;
   width: calc(100% - 0.9em);

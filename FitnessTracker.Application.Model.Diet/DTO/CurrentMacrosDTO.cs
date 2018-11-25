@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FitnessTracker.Application.Model.Diet
+﻿namespace FitnessTracker.Application.Model.Diet
 {
     public class CurrentMacrosDTO
-    {       
+    {
         public double calories { get; set; }
         public int caloriesFactor { get; set; }
         public double protein { get; set; }

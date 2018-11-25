@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FitnessTracker.Mobile.ViewModels
+﻿namespace FitnessTracker.Mobile.ViewModels
 {
     public class AddBodyInfoViewModel : BaseViewModel
     {

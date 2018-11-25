@@ -1,35 +1,35 @@
 ﻿using AutoMapper;
 using EventBus;
 using EventBus.Abstractions;
+using FitnessTracker.Application.Common;
+using FitnessTracker.Application.Common.Processor;
 using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Common.EventBus;
 using FitnessTracker.Common.Web.Extentions;
 using FitnessTracker.Common.Web.Filters;
-using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Common.Processor;
+using FitnessTracker.Common.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using RabbitMQEventBus;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using NLog.Extensions.Logging;
-using NLog.Web;
-using Microsoft.Extensions.Logging;
-using FitnessTracker.Common.Web.Middware;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
-    public static class CommonStartupConifigExtentions
+    public static class CommonStartupConfigExtentions
     {
         #region Services
 
@@ -98,11 +98,11 @@ namespace FitnessTracker.Common.Web.StartupConfig
             {
                 services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
                 {
-                    var eventBusSubcriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                    var eventBusSubscriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAtributes, eventBusSubcriptionsManager, container);
+                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAttributes, eventBusSubscriptionsManager, container);
 
-                    // We do not want multiple listeners on the event queue becuase the messages will not get through.  If we want to broadcast to multile queues, set it up via config.  Each process should read from a queue not multiple
+                    // We do not want multiple listeners on the event queue because the messages will not get through.  If we want to broadcast to multiple queues, set it up via config.  Each process should read from a queue not multiple
                     if (ShouldTurnOnReceiveQueue)
                         eventBus.TurnOnRecieveQueue();
 
@@ -166,7 +166,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
             return services;
         }
 
-        public static IServiceCollection RegiserAppSettings(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection RegisterAppSettings(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<FitnessTrackerSettings>(configuration);
 
@@ -214,7 +214,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
             return app;
         }
 
-        public static IApplicationBuilder InitialzieDIContainer(this IApplicationBuilder app, Container container)
+        public static IApplicationBuilder InitializeDIContainer(this IApplicationBuilder app, Container container)
         {
             container.AutoCrossWireAspNetComponents(app);
             container.Verify();

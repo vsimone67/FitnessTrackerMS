@@ -4,7 +4,6 @@ namespace FitnessTracker.Application.Model.Workout
 {
     public class BodyInfoDTO
     {
- 
         public int Id { get; set; }
         public string Phase { get; set; }
         public DateTime Date { get; set; }

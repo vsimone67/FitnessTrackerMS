@@ -5,10 +5,8 @@
     <div class="mdl-grid mdl-cell mdl-cell--12-col">
       <div class="mdl-card__title-text mdl-cell mdl-cell--3-col">Add Workout</div>
       <div class="mdl-cell mdl-cell--9-col">
-
       </div>
     </div>
-
   </div>
 
   <div supportingtext>
@@ -31,21 +29,18 @@
       </div>
 
       <div class="mdl-grid">
-        <div class="mdl-cell mdl-cell--12-col addWorkout-gridheight">        
-         
+        <div class="mdl-cell mdl-cell--12-col addWorkout-gridheight">
+
            <ag-grid-angular #agGrid class="ag-theme-blue ag-table-addWorkout"
                      [gridOptions]="gridOptions" (cellClicked)="onCellClicked($event)">
            </ag-grid-angular>
         </div>
-      </div>  
-
+      </div>
     </section>
 
   <div actions class="mdl-card__actions mdl-card--border">
       <button class="mdl-button mdl-js-button mdl-button--accent" type="submit" (click)="saveWorkout()" [disabled]="workout.Set?.length == 0">Save Workout</button>
     </div>
-
   </div>
-
 </baseLayout>
 <addSet [workout]="workout"></addSet>

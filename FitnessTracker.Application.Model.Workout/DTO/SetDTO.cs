@@ -10,6 +10,4 @@ namespace FitnessTracker.Application.Model.Workout
         public int? SetOrder { get; set; }
         public IEnumerable<ExerciseDTO> Exercise { get; set; }
     }
-
-            
 }

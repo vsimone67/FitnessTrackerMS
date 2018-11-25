@@ -1,4 +1,4 @@
-﻿export * from "./diet-state.model";
+export * from "./diet-state.model";
 export * from "./food-default.model";
 export * from "./food-Info.model";
 export * from "./columns.model";

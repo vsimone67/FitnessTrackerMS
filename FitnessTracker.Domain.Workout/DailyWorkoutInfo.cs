@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace FitnessTracker.Domain.Workout
+﻿namespace FitnessTracker.Domain.Workout
 {
     public partial class DailyWorkoutInfo
     {

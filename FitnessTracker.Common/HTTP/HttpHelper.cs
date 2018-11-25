@@ -22,7 +22,6 @@ namespace FitnessTracker.Common.HTTP
 
                     return result;
                 }
-
             }
         }
 
@@ -44,6 +43,5 @@ namespace FitnessTracker.Common.HTTP
                 }
             }
         }
-
     }
 }

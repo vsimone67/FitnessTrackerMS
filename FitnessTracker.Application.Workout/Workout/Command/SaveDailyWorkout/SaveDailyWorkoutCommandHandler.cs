@@ -3,10 +3,7 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Domain.Workout;
-
-using FitnessTracker.Application.Common;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Command

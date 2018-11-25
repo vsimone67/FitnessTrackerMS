@@ -10,7 +10,7 @@ import { WorkoutService } from "../services/workout.service";
   }
 })
 export class BodyInfoState {
-  constructor(private _workoutService: WorkoutService) {}
+  constructor(private _workoutService: WorkoutService) { }
 
   @Selector()
   static BodyInfoItems(state: BodyInfoStateModel) {

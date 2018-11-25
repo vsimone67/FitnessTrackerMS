@@ -1,5 +1,5 @@
 export class Columns {
-         MealId: number;
-         MealName: string;
-         MealDisplayName: string;
+  MealId: number;
+  MealName: string;
+  MealDisplayName: string;
 }

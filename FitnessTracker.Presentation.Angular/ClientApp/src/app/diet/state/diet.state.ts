@@ -23,7 +23,7 @@ import { noUndefined } from "@angular/compiler/src/util";
   }
 })
 export class DietState {
-  constructor(private _dietService: DietService) {}
+  constructor(private _dietService: DietService) { }
 
   @Selector()
   static foodItems(state: DietStateModel) {

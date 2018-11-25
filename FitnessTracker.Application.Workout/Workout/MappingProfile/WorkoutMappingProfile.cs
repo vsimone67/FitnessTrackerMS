@@ -8,7 +8,6 @@ namespace FitnessTracker.Application.MappingProfile
     {
         public WorkoutMappingProfile()
         {
-
             CreateMap<BodyInfo, BodyInfoDTO>();
             CreateMap<BodyInfoDTO, BodyInfo>();
 
@@ -16,7 +15,7 @@ namespace FitnessTracker.Application.MappingProfile
             CreateMap<DailyWorkoutDTO, DailyWorkout>();
 
             CreateMap<DailyWorkoutInfo, DailyWorkoutInfoDTO>();
-            CreateMap<DailyWorkoutInfoDTO, DailyWorkoutInfo>();            
+            CreateMap<DailyWorkoutInfoDTO, DailyWorkoutInfo>();
 
             CreateMap<SetName, SetNameDTO>();
             CreateMap<SetNameDTO, SetName>();
@@ -38,7 +37,6 @@ namespace FitnessTracker.Application.MappingProfile
 
             CreateMap<FitnessTracker.Domain.Workout.Workout, WorkoutDTO>();
             CreateMap<WorkoutDTO, FitnessTracker.Domain.Workout.Workout>();
-            
         }
     }
 }

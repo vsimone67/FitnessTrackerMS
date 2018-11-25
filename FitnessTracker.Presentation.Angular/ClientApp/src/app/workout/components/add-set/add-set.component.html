@@ -5,8 +5,6 @@
 			<div class="mdl-cell mdl-cell--3-col">
 				<dropdownMDL displayField="Name" [items]="sets" (itemSelected)="setSelected($event)" defaultText="Set Type..." [model]="selectedSet"></dropdownMDL>
 			</div>
-
-
 		</div>
 
 		<div class="mdl-grid--no-spacing">
@@ -15,7 +13,6 @@
 				<ag-grid-angular #agGrid class="ag-theme-blue ag-table-addSet" [gridOptions]="gridOptions" (cellClicked)="onCellClicked($event)">
 				</ag-grid-angular>
 			</div>
-
 		</div>
 
 		<div class="mdl-grid--no-spacing">
@@ -23,9 +20,7 @@
 
 				<button class="mdl-button mdl-js-button mdl-button--accent align-right" (click)="onAddExercise()" [disabled]="reps?.length == 0">Add Exercise</button>
 			</div>
-
 		</div>
-
 
 		<div class="mdl-grid">
 			<div class="mdl-cell--middle mdl-cell--6-col">
@@ -40,7 +35,6 @@
 				<button (click)="onAddReps()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored align-right"
 					id="addreps" [disabled]="selectedSet?.Name.length == 0">
               <i class="material-icons">add</i>
-              
             </button>
 				<div class="mdl-tooltip" data-mdl-for="addreps">Add Reps</div>
 			</div>
@@ -51,7 +45,6 @@
 				<div>
 					<dropdownMDL displayField="Name" [items]="repNames" defaultText="Rep..." (itemSelected)="repSelected($event)" ></dropdownMDL>
 				</div>
-
 			</div>
 			<div class="mdl-cell mdl-cell--4-col">
 				<div class="mdl-textfield mdl-js-textfield">
@@ -59,9 +52,7 @@
 					<label class="mdl-textfield__label" for="timeToTextExercise">Rest Time after exercise...</label>
 				</div>
 			</div>
-
 		</div>
-
 	</div>
 	<div class="mdl-dialog__actions">
 		<button type="button" class="mdl-button" (click)="onSaveSet()" [disabled]="selectedSet?.Name.length == 0  || reps?.length == 0">Save</button>

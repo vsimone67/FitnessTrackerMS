@@ -15,7 +15,7 @@ import { MeatabolicInfo } from "../models/metabolic-info.model";
   }
 })
 export class MetabolicInfoState {
-  constructor(private _dietService: DietService) {}
+  constructor(private _dietService: DietService) { }
 
   @Selector()
   static metabolicInfoList(state: MeatabolicInfoStateModel) {

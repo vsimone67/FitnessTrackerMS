@@ -1,5 +1,4 @@
-﻿using FitnessTracker.Application.Common;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Common.Processor
 {

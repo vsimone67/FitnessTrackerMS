@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Common.Web.Middware
+namespace FitnessTracker.Common.Web.Middleware
 {
     public class RequestTimingsMiddleWare
     {
@@ -26,7 +26,7 @@ namespace FitnessTracker.Common.Web.Middware
             s.Stop();
 
             TimeSpan timeSpan = s.Elapsed;
-            _logger.LogTrace($"Espased Time: {timeSpan.Minutes}:{timeSpan.Seconds}, URL: {context.Request.GetDisplayUrl()}");
+            _logger.LogTrace($"Elapsed Time: {timeSpan.Minutes}:{timeSpan.Seconds}, URL: {context.Request.GetDisplayUrl()}");
         }
     }
 }

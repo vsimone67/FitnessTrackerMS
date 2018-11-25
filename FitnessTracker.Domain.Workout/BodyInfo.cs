@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FitnessTracker.Domain.Workout
@@ -16,12 +15,16 @@ namespace FitnessTracker.Domain.Workout
         public int? Protein { get; set; }
         public int? Fat { get; set; }
         public int? Carbs { get; set; }
+
         [NotMapped]
         public bool isBestWeight { get; set; }
+
         [NotMapped]
         public bool isBestBodyFat { get; set; }
+
         [NotMapped]
         public bool isWorstWeight { get; set; }
+
         [NotMapped]
         public bool isWorstBodyFat { get; set; }
     }

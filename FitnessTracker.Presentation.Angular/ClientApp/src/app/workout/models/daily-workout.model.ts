@@ -1,4 +1,4 @@
-﻿import { DailyWorkoutInfo } from ".";
+import { DailyWorkoutInfo } from ".";
 
 export class DailyWorkout {
   public DailyWorkoutId: number;

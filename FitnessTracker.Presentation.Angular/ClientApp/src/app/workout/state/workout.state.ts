@@ -16,7 +16,7 @@ import { WorkoutService } from "../services/workout.service";
   }
 })
 export class WorkoutState {
-  constructor(private _workoutService: WorkoutService) {}
+  constructor(private _workoutService: WorkoutService) { }
 
   @Selector()
   static workouts(state: WorkoutStateModel) {

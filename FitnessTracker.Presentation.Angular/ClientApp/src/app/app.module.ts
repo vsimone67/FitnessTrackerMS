@@ -34,4 +34,4 @@ import { MetabolicInfoState } from "./diet/state/metabolic-info.state";
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

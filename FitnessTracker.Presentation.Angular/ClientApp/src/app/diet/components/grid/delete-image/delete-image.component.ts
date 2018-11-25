@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AgRendererComponent  } from 'ag-grid-angular';
 
-@Component({    
+@Component({
     selector: 'selector',
     template: `<i class="material-icons">delete</i>`
 })

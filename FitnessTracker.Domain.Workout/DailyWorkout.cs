@@ -14,7 +14,7 @@ namespace FitnessTracker.Domain.Workout
         public DateTime WorkoutDate { get; set; }
         public string Phase { get; set; }
         public int WorkoutId { get; set; }
-        public int? Duration { get; set; }        
+        public int? Duration { get; set; }
         public virtual ICollection<DailyWorkoutInfo> DailyWorkoutInfo { get; set; }
     }
 }

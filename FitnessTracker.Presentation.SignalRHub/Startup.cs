@@ -26,7 +26,7 @@ namespace FitnessTracker.Presentation.SignalRHub
             services.AddCustomMvc()
               .AddHealthChecks(Configuration, false)
               .ConfigureDIContainer(_container)
-              .RegiserAppSettings(Configuration)
+              .RegisterAppSettings(Configuration)
               .AddDependencies()
               .AddEventBus(Configuration, _container, true)
               .AddSignalRServices()
@@ -38,7 +38,7 @@ namespace FitnessTracker.Presentation.SignalRHub
         {
             app.AddCorsConfiguration()
                 .UseRequestTimings()
-                .InitialzieDIContainer(_container)
+                .InitializeDIContainer(_container)
                 .ConfigureSignalRHubs()
                 .ConfigureEventBus();
         }

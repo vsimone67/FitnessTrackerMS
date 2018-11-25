@@ -112,17 +112,23 @@ namespace FitnessTracker.Common.Helpers
 
     /// <summary>
     /// Exception raised when a contract is broken.
-    /// Catch this exception type if you wish to differentiate between 
+    /// Catch this exception type if you wish to differentiate between
     /// any DesignByContract exception and other runtime exceptions.
     /// </summary>
     [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable")]
     public class DesignByContractException : ApplicationException
     {
-        protected DesignByContractException() { }
+        protected DesignByContractException()
+        {
+        }
 
-        protected DesignByContractException(string message) : base(message) { }
+        protected DesignByContractException(string message) : base(message)
+        {
+        }
 
-        protected DesignByContractException(string message, Exception inner) : base(message, inner) { }
+        protected DesignByContractException(string message, Exception inner) : base(message, inner)
+        {
+        }
     }
 
     /// <summary>
@@ -188,5 +194,5 @@ namespace FitnessTracker.Common.Helpers
         public InvariantException(string message, Exception inner) : base(message, inner) { }
     }
 
-    #endregion // Exception classes
+    #endregion Exceptions
 }

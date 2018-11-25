@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FitnessTracker.Application.Common
+﻿namespace FitnessTracker.Application.Common
 {
     public interface IQuery<TResult> { }
 }

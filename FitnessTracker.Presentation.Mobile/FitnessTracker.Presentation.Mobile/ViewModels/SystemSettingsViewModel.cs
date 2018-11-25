@@ -7,18 +7,22 @@ namespace FitnessTracker.Mobile.ViewModels
     public class SystemSettingsViewModel : BaseViewModel
     {
         #region Command Creation
+
         public ICommand SetWorkoutInterval => new Command(() => ExecuteSetWorkoutInterval());
         public ICommand SetWorkoutWeightNotification => new Command(() => ExecuteSetWorkoutWeightNotification());
         public ICommand SetServiceURL => new Command(() => ExecuteSetServiceURL());
-        #endregion
+
+        #endregion Command Creation
 
         #region Properties
+
         protected List<int> workoutIntervals = new List<int>
         { 1,2,3,4,5};
 
         public List<int> WorkoutIntervals => workoutIntervals;
 
-        int intervalIndex;
+        private int intervalIndex;
+
         public int IntervalIndex
         {
             get => intervalIndex;
@@ -52,7 +56,8 @@ namespace FitnessTracker.Mobile.ViewModels
                 Settings.Settings.ServiceURL = serviceURL;
             }
         }
-        #endregion
+
+        #endregion Properties
 
         public SystemSettingsViewModel()
         {
@@ -60,6 +65,7 @@ namespace FitnessTracker.Mobile.ViewModels
         }
 
         #region Command Implementation
+
         protected void ExecuteSetWorkoutInterval()
         {
             IntervalIndex = Settings.Settings.WorkoutsToIncreaseWeight - 1; // there are 5 values but the index is 0 based so just subtract one
@@ -74,6 +80,7 @@ namespace FitnessTracker.Mobile.ViewModels
         {
             ServiceURL = Settings.Settings.ServiceURL;
         }
-        #endregion
+
+        #endregion Command Implementation
     }
 }

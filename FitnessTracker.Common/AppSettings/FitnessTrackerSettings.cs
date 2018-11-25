@@ -6,7 +6,7 @@ namespace FitnessTracker.Common.AppSettings
     {
         public string ConnectionString { get; set; }
 
-        public ConnectionAtributes ConnectionAtributes { get; set; }
+        public ConnectionAtributes ConnectionAttributes { get; set; }
 
         public bool UseRabbitMQEventBus { get; set; }
     }

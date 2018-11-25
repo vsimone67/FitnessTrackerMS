@@ -13,11 +13,11 @@ namespace FitnessTracker.Mobile.Droid.Services
         public SleepService()
         {
         }
+
         public void SleepOff()
         {
             Window window = (Forms.Context as Activity).Window;
             window.SetFlags(WindowManagerFlags.KeepScreenOn, WindowManagerFlags.KeepScreenOn);
-
         }
     }
 }

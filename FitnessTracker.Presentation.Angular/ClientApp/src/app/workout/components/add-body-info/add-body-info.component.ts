@@ -12,7 +12,7 @@ import { BodyInfoState } from '../../state/body-info.state'
   templateUrl: 'add-body-info.component.html'
 })
 export class AddBodyInfoComponent extends BaseComponent implements OnInit {
-  @Input() title: string;  
+  @Input() title: string;
   dialog: any;
   bodyInfo: BodyInfo;
   gridOptions: GridOptions;
@@ -20,13 +20,11 @@ export class AddBodyInfoComponent extends BaseComponent implements OnInit {
   @Select(BodyInfoState.BodyInfoItems) bodyInfoItems$: Observable<Array<BodyInfo>>;
 
   constructor(public store: Store, private _el: ElementRef, public _eventService: EventService) {
-
     super(_eventService);
 
     this.bodyInfo = new BodyInfo();
-    
-    this.setGridOptions();
 
+    this.setGridOptions();
   }
 
   ngOnInit() {
@@ -37,10 +35,10 @@ export class AddBodyInfoComponent extends BaseComponent implements OnInit {
     this.gridOptions = <GridOptions>{};
     this.gridOptions.columnDefs = this.createColumnDefs();
     this.gridOptions.enableColResize = true;
-    
+
     // ag-grid does not do a good job of wrapping text so I added a custom row height to wrap the text for notes
     this.gridOptions.getRowHeight = function (params: any) {
-      // assuming line height of 30 and max 80 charcacters per line            
+      // assuming line height of 30 and max 80 charcacters per line
       return 30 * ((params.data.Note === null) ? 1 : (Math.floor(params.data.Note.length / 80) + 1));
     };
   }
@@ -125,7 +123,7 @@ export class AddBodyInfoComponent extends BaseComponent implements OnInit {
 
     this.dialog.showModal();
   }
-  onSave() {   
+  onSave() {
     this.store.dispatch(new SaveBodyInfo(this.bodyInfo)).subscribe(() => {
       this.showMessage('Body Info Saved');
       this.dialog.close();
@@ -134,11 +132,9 @@ export class AddBodyInfoComponent extends BaseComponent implements OnInit {
   onClose() {
     this.dialog.close();
   }
-
 }
 
 function arrowCell(value: any, isMax: boolean, isMin: boolean) {
-
   let eDivPercentBar = document.createElement('div');
 
   let eValue = document.createElement('div');

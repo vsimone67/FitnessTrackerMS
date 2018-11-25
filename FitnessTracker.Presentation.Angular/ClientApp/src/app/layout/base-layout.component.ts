@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from "@angular/core";
 export class BaseLayoutComponent implements OnInit {
   @Input() cardcellwidth: string = "mdl-cell--8-col";
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

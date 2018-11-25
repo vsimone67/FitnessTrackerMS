@@ -9,32 +9,28 @@
           <button
             (click)="onAddFood()"
             class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored"
-            id="addfood"
-          >
+            id="addfood">
             <i class="material-icons">add</i>
           </button>
           <div class="mdl-tooltip" data-mdl-for="addfood">Add Food</div>
           <button
             (click)="onPrint()"
             class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
-            id="print"
-          >
+            id="print">
             <i class="material-icons">print</i>
           </button>
           <div class="mdl-tooltip" data-mdl-for="print">Print Menu</div>
           <button
             (click)="onSaveMenu()"
             class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
-            id="savemenu"
-          >
+            id="savemenu">
             <i class="material-icons">save</i>
           </button>
           <div class="mdl-tooltip" data-mdl-for="savemenu">Save Menu</div>
           <button
             (click)="onEditMetabolicInfo()"
             class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
-            id="editmetabolic"
-          >
+            id="editmetabolic">
             <i class="material-icons">perm_identity</i>
           </button>
           <div class="mdl-tooltip" data-mdl-for="editmetabolic">
@@ -44,8 +40,7 @@
           <button
             (click)="onCalcMacro()"
             class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored"
-            id="calcmacro"
-          >
+            id="calcmacro">
             <i class="material-icons">edit</i>
           </button>
           <div class="mdl-tooltip" data-mdl-for="calcmacro">
@@ -84,8 +79,7 @@
         class="mdl-textfield__input"
         type="text"
         id="item"
-        [(ngModel)]="cell.Item"
-      />
+        [(ngModel)]="cell.Item" />
       <label class="mdl-textfield__label" for="item">Item...</label>
     </div>
 
@@ -94,8 +88,7 @@
         class="mdl-textfield__input"
         type="text"
         id="serving"
-        [(ngModel)]="cell.ServingSize"
-      />
+        [(ngModel)]="cell.ServingSize" />
       <label class="mdl-textfield__label" for="serving">Serving...</label>
     </div>
 
@@ -104,8 +97,7 @@
         class="mdl-textfield__input"
         type="text"
         id="calories"
-        [(ngModel)]="cell.Calories"
-      />
+        [(ngModel)]="cell.Calories" />
       <label class="mdl-textfield__label" for="calories">Calories...</label>
     </div>
 
@@ -114,8 +106,7 @@
         class="mdl-textfield__input"
         type="text"
         id="protein"
-        [(ngModel)]="cell.Protien"
-      />
+        [(ngModel)]="cell.Protien" />
       <label class="mdl-textfield__label" for="protein">Protien...</label>
     </div>
 
@@ -124,8 +115,7 @@
         class="mdl-textfield__input"
         type="text"
         id="carbs"
-        [(ngModel)]="cell.Carbs"
-      />
+        [(ngModel)]="cell.Carbs" />
       <label class="mdl-textfield__label" for="carbs">Carbs...</label>
     </div>
 
@@ -134,8 +124,7 @@
         class="mdl-textfield__input"
         type="text"
         id="fat"
-        [(ngModel)]="cell.Fat"
-      />
+        [(ngModel)]="cell.Fat" />
       <label class="mdl-textfield__label" for="fat">Fat...</label>
     </div>
 
@@ -195,8 +184,7 @@
           <tr>
             <td>
               <b>Totals</b>&nbsp;<b>Calories:</b> {{ totals.calories }}&nbsp;<b>
-                Protein:</b
-              >
+                Protein:</b>
               {{ totals.protein }}&nbsp; <b> Carbs:</b>
               {{ totals.carbs }}&nbsp;<b> Fat:</b>{{ totals.fat }}
             </td>

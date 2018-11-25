@@ -7,6 +7,5 @@
         public string Name { get; set; }
         public string TimeToNextExercise { get; set; }
         public int RepOrder { get; set; }
-
     }
 }

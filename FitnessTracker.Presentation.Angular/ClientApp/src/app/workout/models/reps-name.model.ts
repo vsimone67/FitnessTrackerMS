@@ -1,8 +1,8 @@
 export class RepsName {
-    RepsNameId: number;
-    Name: string;
+  RepsNameId: number;
+  Name: string;
 
-    constructor() {
-        this.RepsNameId = 0;
-    }
+  constructor() {
+    this.RepsNameId = 0;
+  }
 }

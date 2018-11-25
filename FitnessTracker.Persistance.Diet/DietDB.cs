@@ -1,5 +1,4 @@
-﻿using FitnessTracker.Application.Common.Interfaces;
-using FitnessTracker.Application.Interfaces;
+﻿using FitnessTracker.Application.Interfaces;
 using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Domain.Diet;

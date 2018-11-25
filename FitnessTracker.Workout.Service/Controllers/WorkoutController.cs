@@ -1,9 +1,9 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Command;
+using FitnessTracker.Application.Common.Processor;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Queries;
 using FitnessTracker.Application.Workout.Events;
-using FitnessTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -93,8 +93,10 @@ namespace FitnessTracker.Service.Controllers
             BodyInfoDTO savedBodyInfo = await _commandProcessor.ProcessAsync<BodyInfoDTO>(new SaveBodyInfoCommand() { BodyInfo = item });
 
             // write to event bus that a bodyinfo was saved
-            var evt = new BodyInfoSavedEvent();
-            evt.SavedBodyInfo = savedBodyInfo;
+            var evt = new BodyInfoSavedEvent
+            {
+                SavedBodyInfo = savedBodyInfo
+            };
             _eventBus.Publish(evt);
 
             return Ok(savedBodyInfo);
@@ -107,8 +109,10 @@ namespace FitnessTracker.Service.Controllers
             DailyWorkoutDTO savedWorkout = await _commandProcessor.ProcessAsync<DailyWorkoutDTO>(new SaveDailyWorkoutCommand() { Workout = item });
 
             // write to event bus a  workout as been completed
-            var evt = new WorkoutCompletedEvent();
-            evt.CompletedWorkout = savedWorkout;
+            var evt = new WorkoutCompletedEvent
+            {
+                CompletedWorkout = savedWorkout
+            };
             _eventBus.Publish(evt);
 
             return Ok(savedWorkout);
@@ -121,8 +125,10 @@ namespace FitnessTracker.Service.Controllers
             WorkoutDTO savedWorkout = await _commandProcessor.ProcessAsync<WorkoutDTO>(new SaveWorkoutCommand() { Workout = item });
 
             // write to event bus a new workout as been added
-            var evt = new AddNewWorkoutEvent();
-            evt.AddedWorkout = savedWorkout;
+            var evt = new AddNewWorkoutEvent
+            {
+                AddedWorkout = savedWorkout
+            };
             _eventBus.Publish(evt);
 
             return Ok(savedWorkout);

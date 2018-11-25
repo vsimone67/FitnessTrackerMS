@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FitnessTracker.Mobile
+﻿namespace FitnessTracker.Mobile
 {
     public enum MenuType
     {
@@ -8,16 +6,16 @@ namespace FitnessTracker.Mobile
         LogWorkout,
         AddBodyInfo,
         AddWorkout
-
     }
+
     public class HomeMenuItem : BaseModel
     {
         public HomeMenuItem()
         {
             //MenuType = MenuType.CreateDiet;
         }
+
         public string Icon { get; set; }
         public MenuType MenuType { get; set; }
     }
 }
-

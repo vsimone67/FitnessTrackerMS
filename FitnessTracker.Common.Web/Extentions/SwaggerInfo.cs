@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FitnessTracker.Common.Web.Extentions
+﻿namespace FitnessTracker.Common.Web.Extentions
 {
     public class SwaggerInfo
     {

@@ -8,29 +8,32 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
-using FitnessTracker.Mobile.Settings;
 
 namespace FitnessTracker.Mobile.ViewModels
 {
     public class LogWorkoutViewModel : BaseViewModel
     {
-
         #region Injected Servcices
-        IWorkoutService _workoutService;
-        ISleep _sleepService;
-        IPopupNavigation _navigation;
-        #endregion
+
+        private IWorkoutService _workoutService;
+        private ISleep _sleepService;
+        private IPopupNavigation _navigation;
+
+        #endregion Injected Servcices
 
         #region Command Creation
+
         public ICommand LoadWorkoutCommand => new Command(async () => await ExecuteLoadWorkoutsCommand());
         public ICommand GetWorkoutCommand => new Command(async (workoutId) => await ExecuteGetWorkoutCommand(workoutId));
         public ICommand TurnSleepOffCommand => new Command(() => ExecuteTurnOffSleepCommand());
-        public ICommand StartRestTimerCommand => new Command(async  (TimeToNextExercise) => await ExecuteStartRestTimerCommand(TimeToNextExercise));
+        public ICommand StartRestTimerCommand => new Command(async (TimeToNextExercise) => await ExecuteStartRestTimerCommand(TimeToNextExercise));
         public ICommand RestTimeClickCommand => new Command(async () => await ExecuteRestTimeClickCommand());
         public ICommand WorkoutEndedCommand => new Command(async () => await ExecuteWorkoutEndedCommand());
-        #endregion
+
+        #endregion Command Creation
 
         #region Member Variables
+
         public DateTime StartWorkoutTime { get; set; }  // Time the workout started
         public int NumberOfClicks { get; set; }  // the number of times the user taps the cell of a rep
         public int MaxExercisesPerWorkout { get; set; }  // now man exercises/rep in the workout
@@ -40,15 +43,18 @@ namespace FitnessTracker.Mobile.ViewModels
         public ObservableCollection<WorkoutDTO> Workouts { get; set; } // The workouts availible to select from
 
         protected WorkoutDisplayDTO _selectedWorkout;
-        #endregion
+
+        #endregion Member Variables
 
         #region Properties
+
         public WorkoutDisplayDTO SelectedWorkout
         {
             get => _selectedWorkout;
             set => SetProperty(ref _selectedWorkout, value);
         }
-        #endregion
+
+        #endregion Properties
 
         public LogWorkoutViewModel(IWorkoutService workoutService, ISleep sleepService, IPopupNavigationService navigation)
         {
@@ -65,6 +71,7 @@ namespace FitnessTracker.Mobile.ViewModels
         }
 
         #region Command Implementations
+
         public async Task ExecuteLoadWorkoutsCommand()
         {
             Workouts.Clear();
@@ -73,8 +80,7 @@ namespace FitnessTracker.Mobile.ViewModels
             try
             {
                 var workouts = await _workoutService.GetAllWorkoutsAsync();
-                workouts.ForEach( workout => Workouts.Add(workout));
-
+                workouts.ForEach(workout => Workouts.Add(workout));
             }
             catch (Exception ex)
             {
@@ -84,7 +90,6 @@ namespace FitnessTracker.Mobile.ViewModels
             {
                 IsBusy = false;
             }
-
         }
 
         public async Task ExecuteGetWorkoutCommand(object workoutId)
@@ -109,7 +114,6 @@ namespace FitnessTracker.Mobile.ViewModels
                 }
 
                 await CheckToIncreaseWeight(SelectedWorkout.WorkoutId);
-
             }
             catch (Exception ex)
             {
@@ -119,7 +123,6 @@ namespace FitnessTracker.Mobile.ViewModels
             {
                 IsBusy = false;
             }
-
         }
 
         public void ExecuteTurnOffSleepCommand()
@@ -169,6 +172,6 @@ namespace FitnessTracker.Mobile.ViewModels
             }
         }
 
-        #endregion
+        #endregion Command Implementations
     }
 }

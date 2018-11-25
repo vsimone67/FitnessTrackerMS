@@ -8,13 +8,12 @@ namespace FitnessTracker.Application.MappingProfile
     {
         public DietMappingProfile()
         {
-
             CreateMap<MealInfo, MealInfoDTO>();
             CreateMap<MealInfoDTO, MealInfo>();
-                        
+
             CreateMap<CurrentMacros, CurrentMacrosDTO>();
             CreateMap<CurrentMacrosDTO, CurrentMacros>();
-                        
+
             CreateMap<MetabolicInfo, MetabolicInfoDTO>();
             CreateMap<MetabolicInfoDTO, MetabolicInfo>();
 
@@ -32,8 +31,6 @@ namespace FitnessTracker.Application.MappingProfile
 
             CreateMap<CurrentMenu, CurrentMenuDTO>();
             CreateMap<CurrentMenuDTO, CurrentMenu>();
-
-
         }
     }
 }

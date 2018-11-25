@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FitnessTracker.Application.Model.Diet
 {
     public class FoodInfoDTO
-    {     
+    {
         public FoodInfoDTO()
         {
             Serving = 1;
         }
+
         public int ItemId { get; set; }
         public string Item { get; set; }
         public string ServingSize { get; set; }

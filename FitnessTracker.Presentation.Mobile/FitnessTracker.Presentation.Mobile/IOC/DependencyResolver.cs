@@ -17,10 +17,12 @@ namespace FitnessTracker.Mobile.IOC
         {
             Register(typeof(TService), typeof(TImplementation));
         }
+
         public static void Register<TImplementation>()
         {
             _container.Register(typeof(TImplementation));
         }
+
         public static T Resolve<T>() where T : class
         {
             return _container.GetInstance<T>();
@@ -31,6 +33,4 @@ namespace FitnessTracker.Mobile.IOC
             return _container.GetInstance(implementation);
         }
     }
-
-
 }

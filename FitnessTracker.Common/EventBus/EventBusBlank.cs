@@ -1,8 +1,5 @@
 ﻿using EventBus.Abstractions;
 using EventBus.Events;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessTracker.Common.EventBus
 {

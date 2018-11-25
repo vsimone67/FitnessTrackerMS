@@ -1,9 +1,9 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Command;
+using FitnessTracker.Application.Common.Processor;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Application.Model.Diet.Events;
 using FitnessTracker.Application.Queries;
-using FitnessTracker.Application.Common.Processor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

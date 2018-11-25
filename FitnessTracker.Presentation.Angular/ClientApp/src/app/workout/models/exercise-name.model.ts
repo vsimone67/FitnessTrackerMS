@@ -1,8 +1,8 @@
 export class ExerciseName {
-    ExerciseNameId: number;
-    Name: string;
+  ExerciseNameId: number;
+  Name: string;
 
-    constructor() {
-        this.ExerciseNameId = 0;
-    }
+  constructor() {
+    this.ExerciseNameId = 0;
+  }
 }

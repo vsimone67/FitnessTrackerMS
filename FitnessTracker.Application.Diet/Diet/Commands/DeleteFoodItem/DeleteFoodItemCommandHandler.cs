@@ -3,14 +3,15 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
-using FitnessTracker.Application.Common;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Command
 {
     public class DeleteFoodItemCommandHandler : HandlerBase<IDietService>, ICommandHandler<DeleteFoodItemCommand, FoodInfoDTO>
     {
-        public DeleteFoodItemCommandHandler(IDietService service, IMapper mapper) : base(service, mapper) { }
+        public DeleteFoodItemCommandHandler(IDietService service, IMapper mapper) : base(service, mapper)
+        {
+        }
 
         public FoodInfoDTO Handle(DeleteFoodItemCommand command)
         {
@@ -25,6 +26,4 @@ namespace FitnessTracker.Application.Command
             return await Task.FromResult<FoodInfoDTO>(Handle(command));
         }
     }
-
-
 }

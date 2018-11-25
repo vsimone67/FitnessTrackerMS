@@ -37,7 +37,7 @@ namespace FitnessTracker.Workout.Service
             services.AddCustomMvc()
              .AddCustomSwagger(_swaggerInfo)
              .ConfigureDIContainer(_container)
-             .RegiserAppSettings(Configuration)
+             .RegisterAppSettings(Configuration)
              .AddDependencies(Configuration)
              .RegisterFitnessTrackerDependencies(_container)
              .RegisterCommandAndQueryHandlers(_container)
@@ -53,7 +53,7 @@ namespace FitnessTracker.Workout.Service
                 .UseRequestTimings()
                 .AddMFCConfiguration()
                 .AddSwaggerConfiguration(_swaggerInfo)
-                .InitialzieDIContainer(_container);
+                .InitializeDIContainer(_container);
         }
     }
 }

@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Application.Model.Workout;
-using FitnessTracker.Domain.Workout;
-using FitnessTracker.Application.Common;
+using FitnessTracker.Application.Workout.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,7 +10,9 @@ namespace FitnessTracker.Application.Queries
 {
     public class GetAllWorkoutsQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetAllWorkoutsQuery, List<WorkoutDTO>>
     {
-        public GetAllWorkoutsQueryHandler(IWorkoutService workoutService, IMapper mapper) : base(workoutService, mapper) { }
+        public GetAllWorkoutsQueryHandler(IWorkoutService workoutService, IMapper mapper) : base(workoutService, mapper)
+        {
+        }
 
         public List<WorkoutDTO> Handle(GetAllWorkoutsQuery query)
         {
