@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.ViewModels
+namespace FitnessTracker.Presentation.Mobile.ViewModels
 {
     public class SystemSettingsViewModel : BaseViewModel
     {

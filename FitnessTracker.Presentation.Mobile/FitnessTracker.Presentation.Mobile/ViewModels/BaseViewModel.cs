@@ -1,12 +1,11 @@
-﻿using FitnessTracker.Mobile.Models;
+﻿using FitnessTracker.Presentation.Mobile.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-
 using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.ViewModels
+namespace FitnessTracker.Presentation.Mobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

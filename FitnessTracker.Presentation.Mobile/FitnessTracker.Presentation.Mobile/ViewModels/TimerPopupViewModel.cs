@@ -1,8 +1,8 @@
-﻿using FitnessTracker.Mobile.Models;
+﻿using FitnessTracker.Presentation.Mobile.Models;
 using System;
 using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.ViewModels
+namespace FitnessTracker.Presentation.Mobile.ViewModels
 {
     public class TimerPopupViewModel : BaseViewModel
     {
@@ -33,7 +33,7 @@ namespace FitnessTracker.Mobile.ViewModels
             Device.StartTimer(TimeSpan.FromSeconds(1), TimeElapsed);
         }
 
-        // Thisis called every second from the timer class
+        // This is called every second from the timer class
         private bool TimeElapsed()
         {
             bool isKeepAlive = true;  // True = keep timer going, false = end

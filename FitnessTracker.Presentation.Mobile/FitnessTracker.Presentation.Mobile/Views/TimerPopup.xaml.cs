@@ -1,13 +1,12 @@
-﻿using FitnessTracker.Mobile.Models;
-using FitnessTracker.Mobile.ViewModels;
+﻿using FitnessTracker.Presentation.Mobile.Models;
+using FitnessTracker.Presentation.Mobile.ViewModels;
 using Rg.Plugins.Popup.Extensions;
 using Rg.Plugins.Popup.Pages;
-using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FitnessTracker.Mobile.Views
+namespace FitnessTracker.Presentation.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TimerPopup : PopupPage

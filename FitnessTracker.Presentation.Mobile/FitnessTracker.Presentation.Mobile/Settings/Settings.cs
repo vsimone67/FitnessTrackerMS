@@ -1,7 +1,7 @@
 ﻿using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
-namespace FitnessTracker.Mobile.Settings
+namespace FitnessTracker.Presentation.Mobile.Settings
 {
     public static class Settings
     {

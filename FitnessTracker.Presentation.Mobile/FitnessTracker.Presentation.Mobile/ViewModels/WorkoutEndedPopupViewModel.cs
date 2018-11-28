@@ -1,12 +1,12 @@
 ﻿using FitnessTracker.Application.Model.Workout;
-using FitnessTracker.Mobile.Models;
-using FitnessTracker.Mobile.Services;
+using FitnessTracker.Presentation.Mobile.Models;
+using FitnessTracker.Presentation.Mobile.Services;
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.ViewModels
+namespace FitnessTracker.Presentation.Mobile.ViewModels
 {
     public class WorkoutEndedPopupViewModel : BaseViewModel
     {

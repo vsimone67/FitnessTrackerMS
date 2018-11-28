@@ -1,7 +1,7 @@
-﻿using FitnessTracker.Mobile.ViewModels;
+﻿using FitnessTracker.Presentation.Mobile.ViewModels;
 using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.Views
+namespace FitnessTracker.Presentation.Mobile.Views
 {
     public partial class BaseView : ContentPage
     {
@@ -13,7 +13,6 @@ namespace FitnessTracker.Mobile.Views
         {
             BaseViewModel viewModel = (BaseViewModel)BindingContext;
             Title = viewModel.Title;
-            ((MainPage)this.Parent).Title = Title;
         }
     }
 }

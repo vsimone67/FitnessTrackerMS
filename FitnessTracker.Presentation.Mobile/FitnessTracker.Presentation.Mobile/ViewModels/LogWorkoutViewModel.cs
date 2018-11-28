@@ -1,25 +1,25 @@
 ﻿using FitnessTracker.Application.Model.Workout;
-using FitnessTracker.Mobile.Models;
-using FitnessTracker.Mobile.Services;
-using FitnessTracker.Mobile.Views;
+using FitnessTracker.Presentation.Mobile.Models;
+using FitnessTracker.Presentation.Mobile.Services;
+using FitnessTracker.Presentation.Mobile.Views;
 using Rg.Plugins.Popup.Contracts;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.ViewModels
+namespace FitnessTracker.Presentation.Mobile.ViewModels
 {
     public class LogWorkoutViewModel : BaseViewModel
     {
-        #region Injected Servcices
+        #region Injected Services
 
         private IWorkoutService _workoutService;
-        private ISleep _sleepService;
         private IPopupNavigation _navigation;
 
-        #endregion Injected Servcices
+        #endregion Injected Services
 
         #region Command Creation
 
@@ -38,9 +38,9 @@ namespace FitnessTracker.Mobile.ViewModels
         public int NumberOfClicks { get; set; }  // the number of times the user taps the cell of a rep
         public int MaxExercisesPerWorkout { get; set; }  // now man exercises/rep in the workout
         public bool IsFirstClick { get; set; }  // Is this the first click on the workout screen
-        public bool isIncreaseWeight { get; set; }  // Notification it is time to increase weight
+        public bool IsIncreaseWeight { get; set; }  // Notification it is time to increase weight
         public int WorkoutsToIncreaseWeight { get; set; } // number of workouts to check to notify to increase weight
-        public ObservableCollection<WorkoutDTO> Workouts { get; set; } // The workouts availible to select from
+        public ObservableCollection<WorkoutDTO> Workouts { get; set; } // The workouts available to select from
 
         protected WorkoutDisplayDTO _selectedWorkout;
 
@@ -56,16 +56,15 @@ namespace FitnessTracker.Mobile.ViewModels
 
         #endregion Properties
 
-        public LogWorkoutViewModel(IWorkoutService workoutService, ISleep sleepService, IPopupNavigationService navigation)
+        public LogWorkoutViewModel(IWorkoutService workoutService, IPopupNavigationService navigation)
         {
             Workouts = new ObservableCollection<WorkoutDTO>();
 
             _workoutService = workoutService;
-            _sleepService = sleepService;
             Title = "Log Workout";
             NumberOfClicks = 0;
             IsFirstClick = false;
-            isIncreaseWeight = false;
+            IsIncreaseWeight = false;
             WorkoutsToIncreaseWeight = 2;
             _navigation = navigation.Navigation;
         }
@@ -96,7 +95,7 @@ namespace FitnessTracker.Mobile.ViewModels
         {
             IsBusy = true;
             MaxExercisesPerWorkout = 0;
-            isIncreaseWeight = false;
+            IsIncreaseWeight = false;
             try
             {
                 SelectedWorkout = await _workoutService.GetWorkoutAsync((int)workoutId);
@@ -127,13 +126,13 @@ namespace FitnessTracker.Mobile.ViewModels
 
         public void ExecuteTurnOffSleepCommand()
         {
-            _sleepService.SleepOff();
+            ScreenLock.RequestActive();
         }
 
         public async Task ExecuteStartRestTimerCommand(object timeToNextExercise)
         {
             var page = new TimerPopup();
-            // Send the data over to the view model of the popup timer
+            // Send the data over to the view model of the pop-up timer
             MessagingCenter.Send<object, int>(this, MessageConstants.PopupTimer, (int)timeToNextExercise);
             await _navigation.PushAsync(page, false);
         }
@@ -168,7 +167,7 @@ namespace FitnessTracker.Mobile.ViewModels
             // check to see if it is time to increase weight in the workout
             if (savedWorkouts.Count > 0 && Settings.Settings.IncreaseWorkoutNotification)
             {
-                isIncreaseWeight = (savedWorkouts.Count % Settings.Settings.WorkoutsToIncreaseWeight) == 0;
+                IsIncreaseWeight = (savedWorkouts.Count % Settings.Settings.WorkoutsToIncreaseWeight) == 0;
             }
         }
 

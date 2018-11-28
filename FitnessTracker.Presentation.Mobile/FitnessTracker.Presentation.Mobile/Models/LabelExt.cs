@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.Models
+namespace FitnessTracker.Presentation.Mobile.Models
 {
     public class LabelExt : Label
     {

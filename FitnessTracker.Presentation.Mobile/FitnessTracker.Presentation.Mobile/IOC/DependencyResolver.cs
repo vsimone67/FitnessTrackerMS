@@ -1,7 +1,7 @@
 ﻿using SimpleInjector;
 using System;
 
-namespace FitnessTracker.Mobile.IOC
+namespace FitnessTracker.Presentation.Mobile.IOC
 {
     public static class DependencyResolver
     {

@@ -1,16 +1,12 @@
 ﻿using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Common.HTTP;
-using FitnessTracker.Mobile.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-[assembly: Xamarin.Forms.Dependency(typeof(WorkoutService))]
-
-namespace FitnessTracker.Mobile.Services
+namespace FitnessTracker.Presentation.Mobile.Services
 {
     public class WorkoutService : IWorkoutService
     {
-        //TODO:  All classes need to be moved to appropriate area
         protected string _WorkoutURL;
 
         public WorkoutService()

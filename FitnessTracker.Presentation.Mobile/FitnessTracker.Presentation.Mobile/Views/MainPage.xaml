@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:FitnessTracker.Presentation.Mobile.Views"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            BarBackgroundColor="#2196F3"
+            BarTextColor="White"
+            android:TabbedPage.BarItemColor="#66FFFFFF"
+            android:TabbedPage.BarSelectedItemColor="White"
+            x:Class="FitnessTracker.Presentation.Mobile.Views.MainPage">
+    <TabbedPage.Children>
+        <NavigationPage Title="Log Workout" Icon="ic_logworkout.png">
+            <x:Arguments>
+                <views:LogWorkout />
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Settings" Icon="ic_settings.png">
+
+            <x:Arguments>
+                <views:SystemSettings />
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
+</TabbedPage>

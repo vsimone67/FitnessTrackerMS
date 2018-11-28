@@ -1,6 +1,6 @@
 ﻿using Rg.Plugins.Popup.Contracts;
 
-namespace FitnessTracker.Mobile.Services
+namespace FitnessTracker.Presentation.Mobile.Services
 {
     public interface IPopupNavigationService
     {

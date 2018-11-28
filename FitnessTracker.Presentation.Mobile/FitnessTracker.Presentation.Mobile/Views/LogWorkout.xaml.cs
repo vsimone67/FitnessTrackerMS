@@ -1,11 +1,11 @@
 ﻿using FitnessTracker.Application.Model.Workout;
-using FitnessTracker.Mobile.Models;
-using FitnessTracker.Mobile.ViewModels;
+using FitnessTracker.Presentation.Mobile.Models;
+using FitnessTracker.Presentation.Mobile.ViewModels;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace FitnessTracker.Mobile.Views
+namespace FitnessTracker.Presentation.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LogWorkout : BaseView
@@ -34,7 +34,7 @@ namespace FitnessTracker.Mobile.Views
             // Keep Screen on
             viewModel.TurnSleepOffCommand.Execute(null);
 
-            // Reinitialize two viewmodel variables in case we redo or pick another workout mid stream
+            // Reinitialize two view model variables in case we redo or pick another workout mid stream
             viewModel.IsFirstClick = false;
             viewModel.NumberOfClicks = 0;
         }
@@ -152,12 +152,11 @@ namespace FitnessTracker.Mobile.Views
                 viewModel.StartRestTimerCommand.Execute(int.Parse(label.TimeToNextExercise));
             }
 
-            // Workout is over popup the save
+            // Workout is over pop up the save
             if (viewModel.NumberOfClicks == viewModel.MaxExercisesPerWorkout)
             {
                 viewModel.WorkoutEndedCommand.Execute(null);
             }
-
         }
 
         #endregion Grid
@@ -173,7 +172,7 @@ namespace FitnessTracker.Mobile.Views
                 viewModel.GetWorkoutCommand.Execute(workout.WorkoutId);
                 FillGrid();
 
-                if (viewModel.isIncreaseWeight)
+                if (viewModel.IsIncreaseWeight)
                 {
                     DisplayAlert("Workout", "Increase Weight", "OK");
                 }

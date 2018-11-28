@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Mobile.Services
+namespace FitnessTracker.Presentation.Mobile.Services
 {
     public interface IWorkoutService
     {

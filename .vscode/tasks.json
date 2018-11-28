@@ -1,15 +1,30 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "build",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/FitlessTracker.Presentation.SignalRMessageClient/FitlessTracker.Presentation.SignalRMessageClient.csproj"
-            ],
-            "problemMatcher": "$msCompile"
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Workout Service Build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/FitnessTracker.Workout.Service/FitnessTracker.Workout.Service.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Diet Service Build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/FitnessTracker.Diet.Service/FitnessTracker.Diet.Service.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build",
+      "dependsOn": ["Workout Service Build", "Diet Service Build"]
+    }
+  ]
 }
+//

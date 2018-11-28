@@ -1,10 +1,10 @@
-﻿using FitnessTracker.Mobile.IOC;
+﻿using FitnessTracker.Presentation.Mobile.IOC;
 using System;
 using System.Globalization;
 using System.Reflection;
 using Xamarin.Forms;
 
-namespace FitnessTracker.Mobile.ViewModels
+namespace FitnessTracker.Presentation.Mobile.ViewModels
 {
     public static class ViewModelLocator
     {

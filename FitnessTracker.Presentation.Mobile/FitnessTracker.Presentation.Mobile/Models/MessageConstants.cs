@@ -1,4 +1,4 @@
-﻿namespace FitnessTracker.Mobile.Models
+﻿namespace FitnessTracker.Presentation.Mobile.Models
 {
     public static class MessageConstants
     {

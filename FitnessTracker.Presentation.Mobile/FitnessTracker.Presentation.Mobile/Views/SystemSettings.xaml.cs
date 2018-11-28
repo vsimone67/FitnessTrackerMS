@@ -1,7 +1,7 @@
-﻿using FitnessTracker.Mobile.ViewModels;
+﻿using FitnessTracker.Presentation.Mobile.ViewModels;
 using Xamarin.Forms.Xaml;
 
-namespace FitnessTracker.Mobile.Views
+namespace FitnessTracker.Presentation.Mobile.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SystemSettings : BaseView
@@ -21,7 +21,7 @@ namespace FitnessTracker.Mobile.Views
 
             viewModel = (SystemSettingsViewModel)BindingContext;
 
-            // Get Default Values for items pror to view load, this will enable the screen to show the values
+            // Get Default Values for items prior to view load, this will enable the screen to show the values
             viewModel.SetWorkoutInterval.Execute(null);
             viewModel.SetWorkoutWeightNotification.Execute(null);
             viewModel.SetServiceURL.Execute(null);

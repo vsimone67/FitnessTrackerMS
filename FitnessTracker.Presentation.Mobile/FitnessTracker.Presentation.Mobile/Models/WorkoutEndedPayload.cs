@@ -1,7 +1,7 @@
 ﻿using FitnessTracker.Application.Model.Workout;
 using System;
 
-namespace FitnessTracker.Mobile.Models
+namespace FitnessTracker.Presentation.Mobile.Models
 {
     public class WorkoutEndedPayload
     {
