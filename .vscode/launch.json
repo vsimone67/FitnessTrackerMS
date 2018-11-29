@@ -28,7 +28,9 @@
         }
       },
       "env": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "nlogdirectory": "/settings/workoutservice/",
+        "appdirectory": "/settings/workoutservice/"
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"

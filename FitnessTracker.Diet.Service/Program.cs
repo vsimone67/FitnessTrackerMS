@@ -1,8 +1,6 @@
 ﻿using FitnessTracker.Common.Web.StartupConfig;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using NLog.Extensions.Logging;
-using NLog.Web;
 
 namespace FitnessTracker.Diet.Service
 {
@@ -17,8 +15,8 @@ namespace FitnessTracker.Diet.Service
       WebHost.CreateDefaultBuilder(args)
 
           .UseHealthChecks("/hc")    // ADD LINK TO HEALTHCHECKS
-          .ConfigureNLog("/settings/")
-          .ConfigAppConfiguration("/settings/")
+          .ConfigureNLogFromEnvironment()
+          .ConfigAppConfigurationFromEnvironment()
           .UseStartup<Startup>();
     }
 }

@@ -1,3 +1,4 @@
+#use commas to separate images
 Param([Parameter(Mandatory=$true)][string[]]$images)
 
 foreach ($image in $images) {        

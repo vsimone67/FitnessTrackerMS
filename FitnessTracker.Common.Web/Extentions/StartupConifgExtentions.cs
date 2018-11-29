@@ -26,6 +26,7 @@ using SimpleInjector.Lifestyles;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FitnessTracker.Common.ExtentionMethods;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
@@ -241,6 +242,17 @@ namespace FitnessTracker.Common.Web.StartupConfig
             return builder;
         }
 
+        public static IWebHostBuilder ConfigureNLogFromEnvironment(this IWebHostBuilder builder)
+        {
+            var config = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
+                                                               .AddEnvironmentVariables()
+                                                               .Build(); // get variables from environment to pass to config (if exist)
+
+            string basePath = config.GetValue<string>("nlogdirectory").NullToEmpty();
+
+            return ConfigureNLog(builder, basePath);
+        }
+
         public static IWebHostBuilder ConfigAppConfiguration(this IWebHostBuilder builder, string basePath = "")
         {
             builder.ConfigureAppConfiguration((builderContext, config) =>
@@ -258,6 +270,17 @@ namespace FitnessTracker.Common.Web.StartupConfig
             });
 
             return builder;
+        }
+
+        public static IWebHostBuilder ConfigAppConfigurationFromEnvironment(this IWebHostBuilder builder)
+        {
+            var configz = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
+                                                             .AddEnvironmentVariables()
+                                                             .Build(); // get variables from environment to pass to config (if exist)
+
+            string basePath = configz.GetValue<string>("appdirectory").NullToEmpty();
+
+            return ConfigAppConfiguration(builder, basePath);
         }
 
         #endregion WebHostBuilder

@@ -6,6 +6,9 @@ services:
         volumes:
             - './configpath/workoutservice/logs:/logs'
             - './configpath/workoutservice/configfiles:/settings'
+        environment:
+            - nlogdirectory=/settings/
+            - appdirectory=/settings/
     dietservice:
         ports:
             - '4301:80'

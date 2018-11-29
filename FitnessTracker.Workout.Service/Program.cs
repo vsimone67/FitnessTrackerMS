@@ -17,8 +17,8 @@ namespace FitnessTracker.Workout.Service
          WebHost.CreateDefaultBuilder(args)
 
              .UseHealthChecks("/hc")    // ADD LINK TO HEALTHCHECKS
-             .ConfigureNLog("/settings/")
-             .ConfigAppConfiguration("/settings/")
+             .ConfigureNLogFromEnvironment()
+             .ConfigAppConfigurationFromEnvironment()
              .UseStartup<Startup>();
     }
 }
