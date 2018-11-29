@@ -8,7 +8,7 @@ using FitnessTracker.Presentation.Mobile.ViewModels;
 
 namespace FitnessTracker.Presentation.Mobile.Droid
 {
-    [Activity(Label = "FitnessTracker.Presentation.Mobile", Icon = "@drawable/ic_appicon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "FitnessTracker.Presentation.Mobile", Icon = "@drawable/ic_appicon", Theme = "@style/splashscreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -16,7 +16,7 @@ namespace FitnessTracker.Presentation.Mobile.Droid
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
-            //base.SetTheme(Resource.Style.MainTheme); // Set back to main theme and not the splash screen
+            base.SetTheme(Resource.Style.MainTheme); // Set back to main theme and not the splash screen
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);

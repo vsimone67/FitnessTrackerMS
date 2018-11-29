@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using FitnessTracker.Presentation.Mobile.Models;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace FitnessTracker.Presentation.Mobile.Views
@@ -9,6 +10,22 @@ namespace FitnessTracker.Presentation.Mobile.Views
         public MainPage()
         {
             InitializeComponent();
+
+            MessagingCenter.Subscribe<object, string>(this, MessageConstants.ApplicationError, (sender, message) =>
+            {
+                HandleError(message);
+            });
+        }
+
+        protected void HandleError(string message)
+        {
+            DisplayAlert("Error", message, "OK");
+        }
+
+        protected override void OnCurrentPageChanged()
+        {
+            base.OnCurrentPageChanged();
+            Title = CurrentPage?.Title ?? string.Empty;
         }
     }
 }
