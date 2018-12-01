@@ -48,7 +48,7 @@ namespace FitnessTracker.Presentation.WebStatus.BackgroundProcesses
 
                         await Task.Delay(TimeSpan.FromSeconds(_pingSettings.Value.WakeupInterval), cancellationToken);
                     }
-                    catch (Exception ex) { _logger.LogError($"Exception Occured {ex.Message}"); await Task.Delay(TimeSpan.FromSeconds(_pingSettings.Value.WakeupInterval), cancellationToken); }
+                    catch (Exception ex) { _logger.LogError($"Exception Occurred {ex.Message}"); await Task.Delay(TimeSpan.FromSeconds(_pingSettings.Value.WakeupInterval), cancellationToken); }
                 }
 
                 _logger.LogInformation($"Keep ALive Loop Has Ended......");

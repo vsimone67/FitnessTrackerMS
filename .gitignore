@@ -267,3 +267,4 @@ dockerlogs/
 workoutservicelogs.txt
 fitnesstrackerlogs.txt
 configpath/*.*
+build/*.*

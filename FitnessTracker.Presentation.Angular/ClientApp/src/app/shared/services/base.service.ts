@@ -25,7 +25,7 @@ export class BaseService {
       await this._appSettings.LoadConfigData('assets/appsettings/appsettings.json');
     }
     catch (e) {
-      console.log("Eror " + e.message);
+      console.log("Error " + e.message);
     }
   }
   getData(url: string) {
