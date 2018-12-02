@@ -33,3 +33,5 @@ services:
         volumes:
             - './configpath/fitnesstracker/logs:/logs'
             - './configpath/fitnesstracker/dist:/dist'
+        environment:
+            - dist=/dist
