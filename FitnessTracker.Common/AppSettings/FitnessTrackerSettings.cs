@@ -1,4 +1,5 @@
-﻿using RabbitMQWrapper;
+﻿using EventBusAzure;
+using RabbitMQWrapper;
 
 namespace FitnessTracker.Common.AppSettings
 {
@@ -6,8 +7,10 @@ namespace FitnessTracker.Common.AppSettings
     {
         public string ConnectionString { get; set; }
 
-        public ConnectionAtributes ConnectionAtributes { get; set; }
+        public ConnectionAttributes ConnectionAttributes { get; set; }
 
         public bool UseRabbitMQEventBus { get; set; }
+
+        public AzureConnectionSettings AzureConnectionSettings { get; set; }
     }
 }

@@ -27,6 +27,8 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using FitnessTracker.Common.ExtentionMethods;
+using Microsoft.Azure.ServiceBus;
+using EventBusAzure.EventBusServiceBus;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
@@ -101,20 +103,38 @@ namespace FitnessTracker.Common.Web.StartupConfig
                 {
                     var eventBusSubscriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
 
-                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAtributes, eventBusSubscriptionsManager, container);
+                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAttributes, eventBusSubscriptionsManager, container);
 
                     // We do not want multiple listeners on the event queue because the messages will not get through.  If we want to broadcast to multiple queues, set it up via config.  Each process should read from a queue not multiple
                     if (ShouldTurnOnReceiveQueue)
-                        eventBus.TurnOnRecieveQueue();
+                        eventBus.TurnOnReceiveQueue();
 
                     return eventBus;
                 });
 
                 services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
             }
-            else  // mock event bus
+            else  // Azure Service Hub
             {
-                services.AddSingleton<IEventBus, EventBusBlank>();
+                //services.AddSingleton<IEventBus, EventBusBlank>();
+                services.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
+                {
+                    var connectionString = new ServiceBusConnectionStringBuilder(appSettings.Value.AzureConnectionSettings.ConnectionString)
+                    {
+                        EntityPath = appSettings.Value.AzureConnectionSettings.TopicName
+                    };
+                    var azureEventBusSubscriptionManger = new DefaultServiceBusPersisterConnection(connectionString);
+
+                    var eventBusSubcriptionsManager = new InMemoryEventBusSubscriptionsManager();
+                    var eventBus = new EventBusServiceBus(azureEventBusSubscriptionManger, eventBusSubcriptionsManager, null, appSettings.Value.AzureConnectionSettings.SubscriptionClientName);
+
+                    if (ShouldTurnOnReceiveQueue)
+                        eventBus.StartSubscriptionMessageHandler();
+
+                    return eventBus;
+                });
+
+                services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
             }
             return services;
         }
@@ -274,11 +294,11 @@ namespace FitnessTracker.Common.Web.StartupConfig
 
         public static IWebHostBuilder ConfigAppConfigurationFromEnvironment(this IWebHostBuilder builder)
         {
-            var configz = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
+            var config = new Microsoft.Extensions.Configuration.ConfigurationBuilder()
                                                              .AddEnvironmentVariables()
                                                              .Build(); // get variables from environment to pass to config (if exist)
 
-            string basePath = configz.GetValue<string>("appdirectory").NullToEmpty();
+            string basePath = config.GetValue<string>("appdirectory").NullToEmpty();
 
             return ConfigAppConfiguration(builder, basePath);
         }

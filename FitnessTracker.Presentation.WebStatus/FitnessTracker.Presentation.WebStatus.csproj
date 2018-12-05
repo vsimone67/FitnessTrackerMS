@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EventBusRabbitMQ" Version="1.0.26" />
+    <PackageReference Include="EventBusAzure" Version="1.0.1" />
+    <PackageReference Include="EventBusRabbitMQ" Version="1.0.27" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.HealthChecks" Version="1.0.1" />
     <PackageReference Include="Microsoft.Extensions.HealthChecks" Version="1.0.1" />
