@@ -126,7 +126,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
                     var azureEventBusSubscriptionManger = new DefaultServiceBusPersisterConnection(connectionString);
 
                     var eventBusSubcriptionsManager = new InMemoryEventBusSubscriptionsManager();
-                    var eventBus = new EventBusServiceBus(azureEventBusSubscriptionManger, eventBusSubcriptionsManager, null, appSettings.Value.AzureConnectionSettings.SubscriptionClientName);
+                    var eventBus = new EventBusServiceBus(azureEventBusSubscriptionManger, eventBusSubcriptionsManager, container, appSettings.Value.AzureConnectionSettings.SubscriptionClientName);
 
                     if (ShouldTurnOnReceiveQueue)
                         eventBus.StartSubscriptionMessageHandler();
