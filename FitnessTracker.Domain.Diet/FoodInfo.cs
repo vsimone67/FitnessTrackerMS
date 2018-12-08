@@ -16,7 +16,7 @@ namespace FitnessTracker.Domain.Diet
         public double Carbs { get; set; }
         public double Fat { get; set; }
 
-        [ForeignKey("ItemId")]
+        //[ForeignKey("ItemId")]
         public virtual ICollection<FoodDefault> FoodDefault { get; set; }
 
         [ForeignKey("ItemId")]

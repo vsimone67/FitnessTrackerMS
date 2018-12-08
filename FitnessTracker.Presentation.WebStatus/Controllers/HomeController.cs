@@ -1,6 +1,6 @@
 ﻿using FitnessTracker.Presentation.WebStatus.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -9,32 +9,32 @@ namespace FitnessTracker.Presentation.WebStatus.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHealthCheckService _healthCheckSvc;
+        private readonly IHealthCheckPublisher _healthCheckSvc;
         private readonly ILogger _logger;
 
-        public HomeController(IHealthCheckService checkSvc, ILogger<HomeController> logger)
+        public HomeController(IHealthCheckPublisher checkSvc, ILogger<HomeController> logger)
         {
             _healthCheckSvc = checkSvc;
             _logger = logger;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            _logger.LogInformation("Checking Health Status.....");
+        //public async Task<IActionResult> Index()
+        //{
+        //    _logger.LogInformation("Checking Health Status.....");
 
-            var result = await _healthCheckSvc.CheckHealthAsync();
+        //    var result = await _healthCheckSvc..CheckHealthAsync();
 
-            var data = new HealthStatusViewModel(result.CheckStatus);
+        //    var data = new HealthStatusViewModel(result.CheckStatus);
 
-            foreach (var checkResult in result.Results)
-            {
-                data.AddResult(checkResult.Key, checkResult.Value);
-            }
+        //    foreach (var checkResult in result.Results)
+        //    {
+        //        data.AddResult(checkResult.Key, checkResult.Value);
+        //    }
 
-            ViewBag.RefreshSeconds = 60;
+        //    ViewBag.RefreshSeconds = 60;
 
-            return View(data);
-        }
+        //    return View(data);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

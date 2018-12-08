@@ -21,7 +21,7 @@ namespace FitnessTracker.Persistance.Diet
 
         public List<FoodInfo> GetAllFoodData()
         {
-            // Use Fluet API because EF Core does not lazy load
+            // Use Fluent API because EF Core does not lazy load
             return _dbContext.FoodInfo
                 .Include(fd => fd.FoodDefault)
                 .ThenInclude(ni => ni.NutritionInfo)

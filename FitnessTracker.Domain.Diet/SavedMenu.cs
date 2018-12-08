@@ -12,7 +12,7 @@ namespace FitnessTracker.Domain.Diet
         public int ItemId { get; set; }
         public int MealId { get; set; }
 
-        [ForeignKey("ItemId")]
+        //[ForeignKey("ItemId")]
         public virtual FoodInfo FoodInfo { get; set; }
 
         [ForeignKey("MealId")]

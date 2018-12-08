@@ -44,6 +44,7 @@ namespace FitnessTracker.Presentation.Angular
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseHealthChecks("/ready");
 
             app.UseSpa(spa =>
             {

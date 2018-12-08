@@ -11,12 +11,10 @@ namespace FitnessTracker.Presentation.SignalRHub
     public class Startup
     {
         private readonly Container _container = new Container();
-        public static Container DIContainer;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            DIContainer = _container;
         }
 
         public IConfiguration Configuration { get; }
@@ -38,6 +36,7 @@ namespace FitnessTracker.Presentation.SignalRHub
         {
             app.AddCorsConfiguration()
                 .UseRequestTimings()
+                .UseHealthChecks("/ready")
                 .InitializeDIContainer(_container)
                 .ConfigureSignalRHubs()
                 .ConfigureEventBus();

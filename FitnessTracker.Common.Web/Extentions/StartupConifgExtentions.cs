@@ -1,20 +1,21 @@
 ﻿using AutoMapper;
 using EventBus;
 using EventBus.Abstractions;
+using EventBusAzure.EventBusServiceBus;
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Common.Processor;
 using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
-using FitnessTracker.Common.EventBus;
+using FitnessTracker.Common.ExtentionMethods;
 using FitnessTracker.Common.Web.Extentions;
 using FitnessTracker.Common.Web.Filters;
 using FitnessTracker.Common.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
@@ -23,12 +24,7 @@ using NLog.Web;
 using RabbitMQEventBus;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
-using System;
 using System.Linq;
-using System.Threading.Tasks;
-using FitnessTracker.Common.ExtentionMethods;
-using Microsoft.Azure.ServiceBus;
-using EventBusAzure.EventBusServiceBus;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
@@ -45,7 +41,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
             }).AddControllersAsServices()  //Injecting Controllers themselves thru DI
-              .SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
+              .SetCompatibilityVersion(CompatibilityVersion.Version_2_2); ;
 
             services.AddCors(options =>
             {
@@ -63,15 +59,11 @@ namespace FitnessTracker.Common.Web.StartupConfig
         {
             IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
-            services.AddHealthChecks(checks =>
-            {
-                checks.AddValueTaskCheck("HTTP Endpoint", () => new ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")),
-                                         TimeSpan.Zero  //No cache for this HealthCheck, better just for demos
-                                        );
-
-                if (AddDBCheck)
-                    checks.AddSqlCheck("vsazure", appSettings.Value.ConnectionString, TimeSpan.FromMinutes(1));
-            });
+            if (!AddDBCheck)
+                services.AddHealthChecks();
+            else
+                services.AddHealthChecks()
+                        .AddSqlServer(appSettings.Value.ConnectionString);
 
             return services;
         }
@@ -221,10 +213,10 @@ namespace FitnessTracker.Common.Web.StartupConfig
         public static IApplicationBuilder AddSwaggerConfiguration(this IApplicationBuilder app, SwaggerInfo swaggerInfo)
         {
             app.UseSwagger()
-              .UseSwaggerUI(c =>
-              {
-                  c.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerInfo.EndPointDescription);
-              });
+             .UseSwaggerUI(c =>
+             {
+                 c.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerInfo.EndPointDescription);
+             });
 
             return app;
         }
