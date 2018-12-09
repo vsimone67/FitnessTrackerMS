@@ -126,7 +126,7 @@ namespace FitnessTracker.Presentation.Mobile.ViewModels
 
         public void ExecuteTurnOffSleepCommand()
         {
-            //ScreenLock.RequestActive();
+            DeviceDisplay.KeepScreenOn = false;
         }
 
         public async Task ExecuteStartRestTimerCommand(object timeToNextExercise)

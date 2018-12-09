@@ -1,22 +1,19 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Model.Diet.Events;
-using FitnessTracker.Application.Workout.Events;
 using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Web;
-using FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet;
-using FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout;
-using FitnessTracker.Presentation.SignalRHub.Hubs;
+using FitnessTracker.Presentation.Diet.MessageHub.EventHandlers;
+using FitnessTracker.Presentation.Diet.MessageHub.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SimpleInjector;
 
-namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
+namespace FitnessTracker.Presentation.Diet.MessageHub.StartupConfig
 {
     public static class StartupConfigExtentions
     {
-        private const int Workout = 0;
-        private const int Diet = 1;
+        private const int Diet = 0;
         private const int Queue = 0;
 
         public static IServiceCollection AddSignalRServices(this IServiceCollection services)
@@ -28,9 +25,6 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
 
         public static IServiceCollection AddDependencies(this IServiceCollection services)
         {
-            // Experimented with background process to host the event queue, I like the original way better
-            //services.AddSingleton<IHostedService, EventBusHostedService>();
-
             return services;
         }
 
@@ -51,12 +45,6 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
             var appSettings = app.ApplicationServices.GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
-            // Workout
-            eventBus.Subscribe<AddNewWorkoutEvent, AddNewWorkoutEventHandler>(appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].Queue[Queue], appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].ExchangeName);
-            eventBus.Subscribe<BodyInfoSavedEvent, BodyInfoSavedEventHandler>(appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].Queue[Queue], appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].ExchangeName);
-            eventBus.Subscribe<WorkoutCompletedEvent, WorkoutCompletedEventHandler>(appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].Queue[Queue], appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Workout].ExchangeName);
-
-            // Diet
             eventBus.Subscribe<AddNewFoodEvent, AddNewFoodEventHandler>(appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].Queue[Queue], appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].ExchangeName);
             eventBus.Subscribe<DeleteFoodItemEvent, DeleteFoodItemEventHandler>(appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].Queue[Queue], appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].ExchangeName);
             eventBus.Subscribe<EditMetabolicInfo, EditMetabolicInfoEventHandler>(appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].Queue[Queue], appSettings.Value.ConnectionAttributes.RabbitExchangeInfo[Diet].ExchangeName);
@@ -67,7 +55,6 @@ namespace FitnessTracker.Presentation.SignalRHub.StartupConfig
 
         public static IApplicationBuilder ConfigureSignalRHubs(this IApplicationBuilder app)
         {
-            app.UseSignalR(routes => routes.MapHub<WorkoutHub>("/workouthub"));
             app.UseSignalR(routes => routes.MapHub<DietHub>("/diethub"));
 
             return app;

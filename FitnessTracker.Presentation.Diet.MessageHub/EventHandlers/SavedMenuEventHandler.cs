@@ -1,12 +1,12 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Model.Diet.Events;
-using FitnessTracker.Presentation.SignalRHub.Hubs;
+using FitnessTracker.Presentation.Diet.MessageHub.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet
+namespace FitnessTracker.Presentation.Diet.MessageHub.EventHandlers
 {
     public class SavedMenuEventHandler : IIntegrationEventHandler<SaveMenuEvent>
     {

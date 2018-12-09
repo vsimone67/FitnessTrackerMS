@@ -2,9 +2,9 @@
 using System;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Presentation.SignalRHub.Hubs
+namespace FitnessTracker.Presentation.Diet.MessageHub.Hubs
 {
-    public class WorkoutHub : Hub
+    public class DietHub : Hub
     {
         public override async Task OnConnectedAsync()
         {

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Presentation.SignalRHub.Hubs
+namespace FitnessTracker.Presentation.Workout.MessageHub.Hubs
 {
-    public class DietHub : Hub
+    public class WorkoutHub : Hub
     {
         public override async Task OnConnectedAsync()
         {

@@ -1,12 +1,12 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Workout.Events;
-using FitnessTracker.Presentation.SignalRHub.Hubs;
+using FitnessTracker.Presentation.Workout.MessageHub.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout
+namespace FitnessTracker.Presentation.Workout.MessageHub.EventHandlers
 {
     public class AddNewWorkoutEventHandler : IIntegrationEventHandler<AddNewWorkoutEvent>
     {

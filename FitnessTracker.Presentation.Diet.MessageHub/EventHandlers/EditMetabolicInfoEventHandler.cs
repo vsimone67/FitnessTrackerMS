@@ -1,32 +1,32 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Model.Diet.Events;
-using FitnessTracker.Presentation.SignalRHub.Hubs;
+using FitnessTracker.Presentation.Diet.MessageHub.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Diet
+namespace FitnessTracker.Presentation.Diet.MessageHub.EventHandlers
 {
-    public class AddNewFoodEventHandler : IIntegrationEventHandler<AddNewFoodEvent>
+    public class EditMetabolicInfoEventHandler : IIntegrationEventHandler<EditMetabolicInfo>
     {
         private ILogger _logger;
         private readonly IHubContext<DietHub> _hubContext;
 
-        public AddNewFoodEventHandler(IHubContext<DietHub> hubContext, ILogger<AddNewFoodEventHandler> logger)
+        public EditMetabolicInfoEventHandler(IHubContext<DietHub> hubContext, ILogger<EditMetabolicInfoEventHandler> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
         }
 
-        public async Task Handle(AddNewFoodEvent addedFoodItem)
+        public async Task Handle(EditMetabolicInfo metabolicInfo)
         {
-            _logger.LogInformation("Add New Food Event Handled, SignalR Hub");
+            _logger.LogInformation("Edit Metabolic Info Completed Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients
                 .All
-               .SendAsync("AddNewFood", addedFoodItem);
+               .SendAsync("EditMetabolicInfo", metabolicInfo);
         }
     }
 }

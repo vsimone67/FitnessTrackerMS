@@ -1,12 +1,12 @@
 ﻿using FitnessTracker.Common.Web.StartupConfig;
-using FitnessTracker.Presentation.SignalRHub.StartupConfig;
+using FitnessTracker.Presentation.Diet.MessageHub.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleInjector;
 
-namespace FitnessTracker.Presentation.SignalRHub
+namespace FitnessTracker.Presentation.Diet.MessageHub
 {
     public class Startup
     {
@@ -19,13 +19,13 @@ namespace FitnessTracker.Presentation.SignalRHub
 
         public IConfiguration Configuration { get; }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomMvc()
               .AddHealthChecks(Configuration, false)
               .ConfigureDIContainer(_container)
               .RegisterAppSettings(Configuration)
-              .AddDependencies()
               .AddEventBus(Configuration, _container, true)
               .AddSignalRServices()
               .RegisterEventHandlers(_container);

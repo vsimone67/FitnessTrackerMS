@@ -1,32 +1,32 @@
 ﻿using EventBus.Abstractions;
 using FitnessTracker.Application.Workout.Events;
-using FitnessTracker.Presentation.SignalRHub.Hubs;
+using FitnessTracker.Presentation.Workout.MessageHub.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Presentation.SignalRHub.EventHandlers.Workout
+namespace FitnessTracker.Presentation.Workout.MessageHub.EventHandlers
 {
-    public class BodyInfoSavedEventHandler : IIntegrationEventHandler<BodyInfoSavedEvent>
+    public class WorkoutCompletedEventHandler : IIntegrationEventHandler<WorkoutCompletedEvent>
     {
         private ILogger _logger;
         private readonly IHubContext<WorkoutHub> _hubContext;
 
-        public BodyInfoSavedEventHandler(IHubContext<WorkoutHub> hubContext, ILogger<BodyInfoSavedEventHandler> logger)
+        public WorkoutCompletedEventHandler(IHubContext<WorkoutHub> hubContext, ILogger<WorkoutCompletedEventHandler> logger)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _hubContext = hubContext ?? throw new ArgumentNullException(nameof(hubContext));
         }
 
-        public async Task Handle(BodyInfoSavedEvent newBodyInfo)
+        public async Task Handle(WorkoutCompletedEvent completedWorkout)
         {
-            _logger.LogInformation("BodyInfo Saved Event Handled, SignalR Hub");
+            _logger.LogInformation("Workout Completed Event Handled, SignalR Hub");
 
             await _hubContext
                 .Clients
                 .All
-               .SendAsync("BodyInfoSaved", newBodyInfo);
+               .SendAsync("WorkoutCompleted", completedWorkout);
         }
     }
 }

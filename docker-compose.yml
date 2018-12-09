@@ -10,18 +10,11 @@ services:
         build:
             context: .
             dockerfile: FitnessTracker.Diet.Service/Dockerfile
-    signalrhub:
-        image: 'signalrhub:${TAG:-latest}'
-        build:
-            context: .
-            dockerfile: FitnessTracker.Presentation.SignalRHub/Dockerfile
-
     webstatus:
         image: 'webstatus:${TAG:-latest}'
         build:
             context: .
             dockerfile: FitnessTracker.Presentation.WebStatus/Dockerfile
-
     fitnesstracker:
         image: 'fitnesstracker:${TAG:-latest}'
         build:
@@ -30,3 +23,13 @@ services:
         depends_on:
             - workoutservice
             - dietservice
+    workouthub:
+        image: 'workouthub:${TAG:-latest}'
+        build:
+            context: .
+            dockerfile: FitnessTracker.Presentation.Workout.MessageHub/Dockerfile
+    diethub:
+        image: 'diethub:${TAG:-latest}'
+        build:
+            context: .
+            dockerfile: FitnessTracker.Presentation.Diet.MessageHub/Dockerfile

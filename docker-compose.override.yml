@@ -17,16 +17,7 @@ services:
             - './configpath/dietservice/docker/configfiles:/settings'
         environment:
             - nlogdirectory=/settings/
-            - appdirectory=/settings/
-    signalrhub:
-        ports:
-            - '4302:80'
-        volumes:
-            - './configpath/signalrhub/docker/logs:/logs'
-            - './configpath/signalrhub/docker/configfiles:/settings'
-        environment:
-            - nlogdirectory=/settings/
-            - appdirectory=/settings/
+            - appdirectory=/settings/   
     webstatus:
         ports:
             - '4303:80'
@@ -44,3 +35,22 @@ services:
             - './configpath/fitnesstracker/dist:/dist'
         environment:
             - dist=/dist
+
+    workouthub:
+        ports:
+            - '4305:80'
+        volumes:
+            - './configpath/workouthub/docker/logs:/logs'
+            - './configpath/workouthub/docker/configfiles:/settings'
+        environment:
+            - nlogdirectory=/settings/
+            - appdirectory=/settings/
+    diethub:
+        ports:
+            - '4306:80'
+        volumes:
+            - './configpath/diethub/docker/logs:/logs'
+            - './configpath/diethub/docker/configfiles:/settings'
+        environment:
+            - nlogdirectory=/settings/
+            - appdirectory=/settings/

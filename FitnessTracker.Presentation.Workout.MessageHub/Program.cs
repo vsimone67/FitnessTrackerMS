@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace FitnessTracker.Presentation.SignalRHub
+namespace FitnessTracker.Presentation.Workout.MessageHub
 {
     public class Program
     {
@@ -12,9 +12,9 @@ namespace FitnessTracker.Presentation.SignalRHub
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-          WebHost.CreateDefaultBuilder(args)
-              .ConfigureNLogFromEnvironment()
-              .ConfigAppConfigurationFromEnvironment()
-              .UseStartup<Startup>();
+            WebHost.CreateDefaultBuilder(args)
+                .ConfigureNLogFromEnvironment()
+                .ConfigAppConfigurationFromEnvironment()
+                .UseStartup<Startup>();
     }
 }
