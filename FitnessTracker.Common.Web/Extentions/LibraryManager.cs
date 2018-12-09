@@ -7,7 +7,7 @@ namespace FitnessTracker.Common.Web
 {
     public static class LibraryManager
     {
-        public static IEnumerable<System.Reflection.Assembly> GetReferencingAssemblies(string assemblyName)
+        public static IEnumerable<Assembly> GetReferencingAssemblies(string assemblyName)
         {
             var assemblies = new List<Assembly>();
             var dependencies = DependencyContext.Default.RuntimeLibraries;
@@ -20,6 +20,14 @@ namespace FitnessTracker.Common.Web
                 }
             }
             return assemblies;
+        }
+
+        public static Assembly GetAssembly(string assemblyName)
+        {
+            var assemblies = GetReferencingAssemblies(assemblyName);
+            var assembley = assemblies.FirstOrDefault(exp => exp.FullName.StartsWith(assemblyName));
+
+            return assembley;
         }
 
         private static bool IsCandidateLibrary(RuntimeLibrary library, string assemblyName)

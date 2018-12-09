@@ -41,3 +41,9 @@ Remove-Item $zipFile
 # Angular
 #NOTE: Copy the DIST folder to the publish folder (D:\VS2017\FitnessTrackerMS\build\publish) prior to running the command below
 #.\PublishToAzure.ps1 FitnessTracker.Presentation.Angular configpath/fitnesstracker/azure/configfiles FTAngular
+
+#FTWorkoutMessageHub
+#.\PublishToAzure.ps1 FitnessTracker.Presentation.Workout.MessageHub configpath/workouthub/azure/configfiles FTWorkoutMessageHub
+
+#FTDietMessageHub
+#.\PublishToAzure.ps1 FitnessTracker.Presentation.Diet.MessageHub configpath/diethub/azure/configfiles FTDietMessageHub

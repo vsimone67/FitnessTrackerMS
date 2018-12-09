@@ -12,5 +12,7 @@ namespace FitnessTracker.Common.AppSettings
         public bool UseRabbitMQEventBus { get; set; }
 
         public AzureConnectionSettings AzureConnectionSettings { get; set; }
+
+        public EventBusConfig EventBusConfig { get; set; }
     }
 }

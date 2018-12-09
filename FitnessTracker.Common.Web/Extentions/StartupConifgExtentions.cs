@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EventBus;
 using EventBus.Abstractions;
-using EventBusAzure.EventBusServiceBus;
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Common.Processor;
 using FitnessTracker.Common.AppSettings;
@@ -13,7 +12,6 @@ using FitnessTracker.Common.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,7 +19,6 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
-using RabbitMQEventBus;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System.Linq;
@@ -87,47 +84,22 @@ namespace FitnessTracker.Common.Web.StartupConfig
 
         public static IServiceCollection AddEventBus(this IServiceCollection services, IConfiguration configuration, Container container, bool ShouldTurnOnReceiveQueue = false)
         {
-            IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
+            services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
 
-            if (appSettings.Value.UseRabbitMQEventBus)
+            // Create an instance of either RabbitMQ or Azure Event bus, the original code was very messy. The bode below will create an instance of a concrete class designed specifically to create an instance of the event bus it represents
+            services.AddSingleton<IEventBus>(sp =>
             {
-                services.AddSingleton<IEventBus, EventBusRabbitMQIOC>(sp =>
-                {
-                    var eventBusSubscriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
+                IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();  // get the global fitnesstracker settings
+                var assembley = LibraryManager.GetAssembly(appSettings.Value.EventBusConfig.AssembleyName); // get the DLL that holds the event bus creator class
+                var eventBusToCreate = assembley.GetType(appSettings.Value.EventBusConfig.EventBusInstance);  // get the type of the event but creator class so we can create an instance of it
+                var eventBusSubscriptionsManager = sp.GetRequiredService<IEventBusSubscriptionsManager>(); // both RabbitMQ and AzureService bus use a IEventBusSubscriptionManager
 
-                    var eventBus = new EventBusRabbitMQIOC(appSettings.Value.ConnectionAttributes, eventBusSubscriptionsManager, container);
+                // create an instance of the event bus creator class
+                var creatorIntance = (EventBusCreator.IEventBusInstance)System.Activator.CreateInstance(eventBusToCreate, appSettings, container, eventBusSubscriptionsManager, ShouldTurnOnReceiveQueue);
 
-                    // We do not want multiple listeners on the event queue because the messages will not get through.  If we want to broadcast to multiple queues, set it up via config.  Each process should read from a queue not multiple
-                    if (ShouldTurnOnReceiveQueue)
-                        eventBus.TurnOnReceiveQueue();
+                return creatorIntance.GetInstance();  // set the created event bus to use to send/receive messages
+            });
 
-                    return eventBus;
-                });
-
-                services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-            }
-            else  // Azure Service Hub
-            {
-                //services.AddSingleton<IEventBus, EventBusBlank>();
-                services.AddSingleton<IEventBus, EventBusServiceBus>(sp =>
-                {
-                    var connectionString = new ServiceBusConnectionStringBuilder(appSettings.Value.AzureConnectionSettings.ConnectionString)
-                    {
-                        EntityPath = appSettings.Value.AzureConnectionSettings.TopicName
-                    };
-                    var azureEventBusSubscriptionManger = new DefaultServiceBusPersisterConnection(connectionString);
-
-                    var eventBusSubcriptionsManager = new InMemoryEventBusSubscriptionsManager();
-                    var eventBus = new EventBusServiceBus(azureEventBusSubscriptionManger, eventBusSubcriptionsManager, container, appSettings.Value.AzureConnectionSettings.SubscriptionClientName);
-
-                    if (ShouldTurnOnReceiveQueue)
-                        eventBus.StartSubscriptionMessageHandler();
-
-                    return eventBus;
-                });
-
-                services.AddSingleton<IEventBusSubscriptionsManager, InMemoryEventBusSubscriptionsManager>();
-            }
             return services;
         }
 
