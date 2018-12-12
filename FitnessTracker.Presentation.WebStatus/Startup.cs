@@ -30,8 +30,8 @@ namespace FitnessTracker.Presentation.WebStatus
 
             services.AddHealthChecksUI();  // add health check UI
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.Configure<KeepAlive>(Configuration.GetSection("KeepAlive"));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.Configure<KeepAlive>(Configuration.GetSection("KeepAlive"));  // load config settings for keepalive
             // Add background service
             services.AddSingleton<IHostedService, WebStatusHostedService>();
         }
@@ -39,25 +39,9 @@ namespace FitnessTracker.Presentation.WebStatus
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
-
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseHealthChecksUI();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
         }
     }
 }
