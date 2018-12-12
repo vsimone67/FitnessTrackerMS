@@ -3,6 +3,7 @@ using FitnessTracker.Common.Web.StartupConfig;
 using FitnessTracker.Workout.Service.AutoMapper;
 using FitnessTracker.Workout.Service.StartupConfig;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,7 +54,7 @@ namespace FitnessTracker.Workout.Service
                 .UseRequestTimings()
                 .AddMFCConfiguration()
                 .AddSwaggerConfiguration(_swaggerInfo)
-                .UseHealthChecks("/ready")
+                .UseFTHealthChecks()
                 .InitializeDIContainer(_container);
         }
     }

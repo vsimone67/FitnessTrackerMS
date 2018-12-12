@@ -14,7 +14,7 @@ namespace FitnessTracker.Presentation.WebStatus
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
               .ConfigureNLogFromEnvironment()
-             .ConfigAppConfigurationFromEnvironment()
-             .UseStartup<Startup>();
+              .ConfigAppConfigurationFromEnvironment()
+              .UseStartup<Startup>();
     }
 }

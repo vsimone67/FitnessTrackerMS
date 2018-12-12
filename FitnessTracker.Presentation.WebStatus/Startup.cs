@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace FitnessTracker.Presentation.WebStatus
 {
@@ -29,18 +28,7 @@ namespace FitnessTracker.Presentation.WebStatus
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddHealthChecks(checks =>
-            //{
-            //    var minutes = 1;
-            //    if (int.TryParse(Configuration["HealthCheck:Timeout"], out var minutesParsed))
-            //    {
-            //        minutes = minutesParsed;
-            //    }
-            //    checks.AddUrlCheckIfNotNull(Configuration["WorkoutURL"], TimeSpan.FromMinutes(minutes));
-            //    checks.AddUrlCheckIfNotNull(Configuration["DietURL"], TimeSpan.FromMinutes(minutes));
-            //    checks.AddUrlCheckIfNotNull(Configuration["SignalRHubURL"], TimeSpan.FromMinutes(minutes));
-            //    checks.AddUrlCheckIfNotNull(Configuration["FitnessTrackerURL"], TimeSpan.FromMinutes(minutes));
-            //});
+            services.AddHealthChecksUI();  // add health check UI
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<KeepAlive>(Configuration.GetSection("KeepAlive"));
@@ -62,6 +50,7 @@ namespace FitnessTracker.Presentation.WebStatus
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseHealthChecksUI();
 
             app.UseMvc(routes =>
             {

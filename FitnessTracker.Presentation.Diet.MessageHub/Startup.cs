@@ -36,7 +36,7 @@ namespace FitnessTracker.Presentation.Diet.MessageHub
         {
             app.AddCorsConfiguration()
                 .UseRequestTimings()
-                .UseHealthChecks("/ready")
+                .UseFTHealthChecks()
                 .InitializeDIContainer(_container)
                 .ConfigureSignalRHubs()
                 .ConfigureEventBus();

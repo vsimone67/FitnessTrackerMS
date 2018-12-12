@@ -53,7 +53,7 @@ namespace FitnessTracker.Diet.Service
                 .UseRequestTimings()
                 .AddMFCConfiguration()
                 .AddSwaggerConfiguration(_swaggerInfo)
-                .UseHealthChecks("/ready")
+                .UseFTHealthChecks()
                 .InitializeDIContainer(_container);
         }
     }

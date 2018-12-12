@@ -10,6 +10,7 @@ using FitnessTracker.Common.Web.Extentions;
 using FitnessTracker.Common.Web.Filters;
 using FitnessTracker.Common.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -203,6 +204,16 @@ namespace FitnessTracker.Common.Web.StartupConfig
         {
             container.AutoCrossWireAspNetComponents(app);
             container.Verify();
+            return app;
+        }
+
+        public static IApplicationBuilder UseFTHealthChecks(this IApplicationBuilder app)
+        {
+            app.UseHealthChecks("/health", new HealthCheckOptions()
+            {
+                Predicate = _ => true
+            });
+
             return app;
         }
 
