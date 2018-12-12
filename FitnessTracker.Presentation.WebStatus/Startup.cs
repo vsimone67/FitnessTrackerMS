@@ -3,6 +3,7 @@ using FitnessTracker.Presentation.WebStatus.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -42,6 +43,11 @@ namespace FitnessTracker.Presentation.WebStatus
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseHealthChecksUI();
+
+            var options = new RewriteOptions()
+           .AddRedirect("(.*)", "/healthchecks-ui");  // if health check ui path is not specified go to it
+
+            app.UseRewriter(options);
         }
     }
-}
+};
