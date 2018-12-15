@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace FitnessTracker.Serverless.Workout
 {
-    public static class GetWorkouts
+    public static class GetReps
     {
-        [FunctionName("GetWorkouts")]
+        [FunctionName("GetReps")]
         public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req, ILogger log, ExecutionContext context)
         {
             IActionResult retval;
@@ -20,8 +20,8 @@ namespace FitnessTracker.Serverless.Workout
             try
             {
                 EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
-                var queryHanlder = new GetAllWorkoutsQueryHandler(ftEnvironment.WorkoutSerivce, ftEnvironment.Mapper);
-                var results = queryHanlder.Handle(new GetAllWorkoutsQuery());
+                var queryHanlder = new GetRepsQueryHanlder(ftEnvironment.WorkoutSerivce, ftEnvironment.Mapper);
+                var results = queryHanlder.Handle(new GetRepsQuery());
 
                 retval = new OkObjectResult(JsonConvert.SerializeObject(results));
             }

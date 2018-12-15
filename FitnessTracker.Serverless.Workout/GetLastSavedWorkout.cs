@@ -10,19 +10,18 @@ using System.Threading.Tasks;
 
 namespace FitnessTracker.Serverless.Workout
 {
-    public static class GetWorkouts
+    public static class GetLastSavedWorkout
     {
-        [FunctionName("GetWorkouts")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req, ILogger log, ExecutionContext context)
+        [FunctionName("GetLastSavedWorkout")]
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetLastSavedWorkout/{id:int?}")] HttpRequest req, int id, ILogger log, ExecutionContext context)
         {
             IActionResult retval;
 
             try
             {
                 EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
-                var queryHanlder = new GetAllWorkoutsQueryHandler(ftEnvironment.WorkoutSerivce, ftEnvironment.Mapper);
-                var results = queryHanlder.Handle(new GetAllWorkoutsQuery());
-
+                var queryHanlder = new GetLastSavedWorkoutQueryHandler(ftEnvironment.WorkoutSerivce, ftEnvironment.Mapper);
+                var results = queryHanlder.Handle(new GetLastSavedWorkoutQuery() { Id = id });
                 retval = new OkObjectResult(JsonConvert.SerializeObject(results));
             }
             catch (Exception ex)

@@ -59,7 +59,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Presentation
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Presentation.Diet.MessageHub", "FitnessTracker.Presentation.Diet.MessageHub\FitnessTracker.Presentation.Diet.MessageHub.csproj", "{2C558F76-CEFF-4075-8E8E-FC32CFDC621E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessTracker.Serverless.Workout", "FitnessTracker.Serverless.Workout\FitnessTracker.Serverless.Workout.csproj", "{15B67F45-0AC7-437C-8D06-007E2382E26E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Serverless.Workout", "FitnessTracker.Serverless.Workout\FitnessTracker.Serverless.Workout.csproj", "{15B67F45-0AC7-437C-8D06-007E2382E26E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
