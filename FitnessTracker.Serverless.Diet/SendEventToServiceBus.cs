@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Text;
 
-namespace FitnessTracker.Serverless.Workout
+namespace FitnessTracker.Serverless.Diet
 {
     public class SendEventToServiceBus
     {

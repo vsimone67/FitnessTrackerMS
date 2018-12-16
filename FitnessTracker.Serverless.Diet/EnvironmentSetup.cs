@@ -1,23 +1,23 @@
 ﻿using AutoMapper;
 using EventBusAzure;
 using FitnessTracker.Application.MappingProfile;
-using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Common.AppSettings;
-using FitnessTracker.Persistance.Workout;
+using FitnessTracker.Persistance.Diet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using FitnessTracker.Application.Interfaces;
 
-namespace FitnessTracker.Serverless.Workout
+namespace FitnessTracker.Serverless.Diet
 {
     public class EnvironmentSetup
     {
         public IMapper Mapper { get; set; }
-        public IWorkoutService WorkoutSerivce { get; set; }
+        public IDietService DietService { get; set; }
         public IOptions<FitnessTrackerSettings> Settings { get; set; }
 
         public EnvironmentSetup(string appDir)
         {
-            Mapper = WorkoutMapperConfig.GetWorkoutMapperConfig();
+            Mapper = DietMapperConfig.GetDietMapperConfig();
             Settings = Options.Create(new FitnessTrackerSettings());
 
             var config = new ConfigurationBuilder()
@@ -35,26 +35,26 @@ namespace FitnessTracker.Serverless.Workout
                 SubscriptionClientName = config.GetValue<string>("AzureConnectionSettings:SubscriptionClientName")
             };
 
-            WorkoutSerivce = new WorkoutDB(Settings);
+            DietService = new DietDB(Settings);
         }
     }
 
     //TODO:  Move to separate file (common)
-    public class WorkoutMapperConfig
+    public class DietMapperConfig
     {
         public IMapper GetMapperConfiguration()
         {
             MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new WorkoutMappingProfile());
+                cfg.AddProfile(new DietMappingProfile());
             });
 
             return mapperConfig.CreateMapper();
         }
 
-        public static IMapper GetWorkoutMapperConfig()
+        public static IMapper GetDietMapperConfig()
         {
-            return new WorkoutMapperConfig().GetMapperConfiguration();
+            return new DietMapperConfig().GetMapperConfiguration();
         }
     }
 }
