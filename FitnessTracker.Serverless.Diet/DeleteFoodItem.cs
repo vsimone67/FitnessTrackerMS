@@ -1,6 +1,10 @@
 using FitnessTracker.Application.Command;
+using FitnessTracker.Application.Diet.Diet.MappingProfile;
+using FitnessTracker.Application.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Application.Model.Diet.Events;
+using FitnessTracker.Common.Serverless;
+using FitnessTracker.Persistance.Diet;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -22,15 +26,15 @@ namespace FitnessTracker.Serverless.Diet
         [FunctionName("DeleteFoodItemData")]
         public static FoodInfoDTO SaveToDB([ActivityTrigger] FoodInfoDTO foodInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
-            var queryHanlder = new DeleteFoodItemCommandHandler(ftEnvironment.DietService, ftEnvironment.Mapper);
+            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+            var queryHanlder = new DeleteFoodItemCommandHandler(ftEnvironment.Service, ftEnvironment.Mapper);
             return queryHanlder.Handle(new DeleteFoodItemCommand() { FoodInfo = foodInfo });
         }
 
         [FunctionName("DeleteFoodItemToSB")]
         public static FoodInfoDTO SendToSB([ActivityTrigger] FoodInfoDTO foodInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
+            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
 
             var evt = new DeleteFoodItemEvent
             {

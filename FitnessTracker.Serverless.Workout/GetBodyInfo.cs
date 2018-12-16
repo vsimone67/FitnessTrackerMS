@@ -1,4 +1,8 @@
 using FitnessTracker.Application.Queries;
+using FitnessTracker.Application.Workout.Interfaces;
+using FitnessTracker.Application.Workout.Workout.MappingProfile;
+using FitnessTracker.Common.Serverless;
+using FitnessTracker.Persistance.Workout;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -19,8 +23,8 @@ namespace FitnessTracker.Serverless.Workout
 
             try
             {
-                EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
-                var queryHanlder = new GetBodyInfoQueryHandler(ftEnvironment.WorkoutSerivce, ftEnvironment.Mapper);
+                EnvironmentSetup<IWorkoutService, WorkoutDB> ftEnvironment = new EnvironmentSetup<IWorkoutService, WorkoutDB>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
+                var queryHanlder = new GetBodyInfoQueryHandler(ftEnvironment.Service, ftEnvironment.Mapper);
                 var results = queryHanlder.Handle(new GetBodyInfoQuery());
 
                 retval = new OkObjectResult(JsonConvert.SerializeObject(results));

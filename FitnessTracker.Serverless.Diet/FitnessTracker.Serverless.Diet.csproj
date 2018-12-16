@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FitnessTracker.Application.Common\FitnessTracker.Application.Common.csproj" />
     <ProjectReference Include="..\FitnessTracker.Application.Model.Diet\FitnessTracker.Application.Model.Diet.csproj" />
+    <ProjectReference Include="..\FitnessTracker.Common.Serverless\FitnessTracker.Common.Serverless.csproj" />
     <ProjectReference Include="..\FitnessTracker.Common\FitnessTracker.Common.csproj" />
     <ProjectReference Include="..\FitnessTracker.Domain.Diet\FitnessTracker.Domain.Diet.csproj" />
     <ProjectReference Include="..\FitnessTracker.Persistance.Diet\FitnessTracker.Persistance.Diet.csproj" />

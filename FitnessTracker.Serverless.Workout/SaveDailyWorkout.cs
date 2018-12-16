@@ -1,6 +1,10 @@
 using FitnessTracker.Application.Command;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Events;
+using FitnessTracker.Application.Workout.Interfaces;
+using FitnessTracker.Application.Workout.Workout.MappingProfile;
+using FitnessTracker.Common.Serverless;
+using FitnessTracker.Persistance.Workout;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -22,15 +26,15 @@ namespace FitnessTracker.Serverless.Workout
         [FunctionName("SaveDailyWorkoutData")]
         public static DailyWorkoutDTO SaveToDB([ActivityTrigger] WorkoutDisplayDTO savedWorkout, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
-            var commandHanlder = new SaveDailyWorkoutCommandHandler(ftEnvironment.WorkoutSerivce, ftEnvironment.Mapper);
+            EnvironmentSetup<IWorkoutService, WorkoutDB> ftEnvironment = new EnvironmentSetup<IWorkoutService, WorkoutDB>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
+            var commandHanlder = new SaveDailyWorkoutCommandHandler(ftEnvironment.Service, ftEnvironment.Mapper);
             return commandHanlder.Handle(new SaveDailyWorkoutCommand() { Workout = savedWorkout });
         }
 
         [FunctionName("SaveDailyWorkoutToSB")]
         public static DailyWorkoutDTO SendToSB([ActivityTrigger] DailyWorkoutDTO savedWorkout, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
+            EnvironmentSetup<IWorkoutService, WorkoutDB> ftEnvironment = new EnvironmentSetup<IWorkoutService, WorkoutDB>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
 
             var evt = new WorkoutCompletedEvent
             {

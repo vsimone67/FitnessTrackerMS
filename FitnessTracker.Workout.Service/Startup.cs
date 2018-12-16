@@ -1,9 +1,8 @@
-﻿using FitnessTracker.Common.Web.Extentions;
+﻿using FitnessTracker.Application.Workout.Workout.MappingProfile;
+using FitnessTracker.Common.Web.Extentions;
 using FitnessTracker.Common.Web.StartupConfig;
-using FitnessTracker.Workout.Service.AutoMapper;
 using FitnessTracker.Workout.Service.StartupConfig;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

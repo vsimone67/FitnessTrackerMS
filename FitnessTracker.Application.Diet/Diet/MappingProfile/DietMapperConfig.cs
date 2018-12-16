@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.MappingProfile;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace FitnessTracker.Diet.Service.AutoMapper
+namespace FitnessTracker.Application.Diet.Diet.MappingProfile
 {
     public class DietMapperConfig
     {

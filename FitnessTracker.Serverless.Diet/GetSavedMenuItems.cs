@@ -1,4 +1,8 @@
+using FitnessTracker.Application.Diet.Diet.MappingProfile;
+using FitnessTracker.Application.Interfaces;
 using FitnessTracker.Application.Queries;
+using FitnessTracker.Common.Serverless;
+using FitnessTracker.Persistance.Diet;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
@@ -19,8 +23,8 @@ namespace FitnessTracker.Serverless.Diet
 
             try
             {
-                EnvironmentSetup ftEnvironment = new EnvironmentSetup(context.FunctionAppDirectory);
-                var queryHanlder = new GetSavedMenuItemsQueryHandler(ftEnvironment.DietService, ftEnvironment.Mapper);
+                EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+                var queryHanlder = new GetSavedMenuItemsQueryHandler(ftEnvironment.Service, ftEnvironment.Mapper);
                 var results = queryHanlder.Handle(new GetSavedMenuItemsQuery());
 
                 retval = new OkObjectResult(JsonConvert.SerializeObject(results));

@@ -1,23 +1,26 @@
 ﻿using AutoMapper;
 using EventBusAzure;
-using FitnessTracker.Application.MappingProfile;
 using FitnessTracker.Common.AppSettings;
-using FitnessTracker.Persistance.Diet;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using FitnessTracker.Application.Interfaces;
+using System;
 
-namespace FitnessTracker.Serverless.Diet
+namespace FitnessTracker.Common.Serverless
 {
-    public class EnvironmentSetup
+    /// <summary>
+    /// class to emulate the DI environment of FitnessTracker as well as all config settings, etc.  Azure functions do not support DI right now so this is a way to get all the services and helper classes instantiated
+    /// </summary>
+    /// <typeparam name="T">Interface to map to</typeparam>
+    /// <typeparam name="TH">Concrete class to create instance of and map to T</typeparam>
+    public class EnvironmentSetup<T, TH>
     {
         public IMapper Mapper { get; set; }
-        public IDietService DietService { get; set; }
+        public T Service { get; set; }
         public IOptions<FitnessTrackerSettings> Settings { get; set; }
 
-        public EnvironmentSetup(string appDir)
+        public EnvironmentSetup(string appDir, IMapper mapper)
         {
-            Mapper = DietMapperConfig.GetDietMapperConfig();
+            Mapper = mapper;
             Settings = Options.Create(new FitnessTrackerSettings());
 
             var config = new ConfigurationBuilder()
@@ -35,26 +38,7 @@ namespace FitnessTracker.Serverless.Diet
                 SubscriptionClientName = config.GetValue<string>("AzureConnectionSettings:SubscriptionClientName")
             };
 
-            DietService = new DietDB(Settings);
-        }
-    }
-
-    //TODO:  Move to separate file (common)
-    public class DietMapperConfig
-    {
-        public IMapper GetMapperConfiguration()
-        {
-            MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DietMappingProfile());
-            });
-
-            return mapperConfig.CreateMapper();
-        }
-
-        public static IMapper GetDietMapperConfig()
-        {
-            return new DietMapperConfig().GetMapperConfiguration();
+            Service = (T)Activator.CreateInstance(typeof(TH), Settings);  // using activator because there are two different implementations of TH that need constructor arguments (WorkoutDB, DietDB) and new TH() will not work
         }
     }
 }
