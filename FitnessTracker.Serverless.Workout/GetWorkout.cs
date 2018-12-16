@@ -17,7 +17,7 @@ namespace FitnessTracker.Serverless.Workout
     public static class GetWorkout
     {
         [FunctionName("GetWorkoutForDisplay")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetWorkoutForDisplay/{id:int?}")] HttpRequest req, int id, ILogger log, ExecutionContext context)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetWorkoutForDisplay/{id:int?}")] HttpRequest req, int id, ILogger log, ExecutionContext context)
         {
             IActionResult retval;
 

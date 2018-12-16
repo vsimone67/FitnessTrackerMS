@@ -17,7 +17,7 @@ namespace FitnessTracker.Serverless.Diet
     public static class GetMetabolicInfoCalcType
     {
         [FunctionName("GetMetabolicInfoCalcType")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetMetabolicInfoCalcType/{type:alpha}")] HttpRequest req, string type, ILogger log, ExecutionContext context)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetMetabolicInfoCalcType/{type:alpha}")] HttpRequest req, string type, ILogger log, ExecutionContext context)
         {
             IActionResult retval;
 

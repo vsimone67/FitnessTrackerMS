@@ -23,6 +23,7 @@ namespace FitnessTracker.Common.Serverless
             Mapper = mapper;
             Settings = Options.Create(new FitnessTrackerSettings());
 
+            // used only for local settings, azure uses app settings
             var config = new ConfigurationBuilder()
                    .SetBasePath(appDir)
                    .AddJsonFile("local.settings.json", optional: true, reloadOnChange: true)
@@ -33,9 +34,9 @@ namespace FitnessTracker.Common.Serverless
 
             Settings.Value.AzureConnectionSettings = new AzureConnectionSettings
             {
-                ConnectionString = config.GetValue<string>("AzureConnectionSettings:ConnectionString"),
-                TopicName = config.GetValue<string>("AzureConnectionSettings:TopicName"),
-                SubscriptionClientName = config.GetValue<string>("AzureConnectionSettings:SubscriptionClientName")
+                ConnectionString = config.GetValue<string>("ServiceBusConnectionString"),
+                TopicName = config.GetValue<string>("TopicName"),
+                SubscriptionClientName = config.GetValue<string>("SubscriptionClientName")
             };
 
             Service = (T)Activator.CreateInstance(typeof(TH), Settings);  // using activator because there are two different implementations of TH that need constructor arguments (WorkoutDB, DietDB) and new TH() will not work

@@ -17,7 +17,7 @@ namespace FitnessTracker.Serverless.Workout
     public static class GetLastSavedWorkout
     {
         [FunctionName("GetLastSavedWorkout")]
-        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "get", Route = "GetLastSavedWorkout/{id:int?}")] HttpRequest req, int id, ILogger log, ExecutionContext context)
+        public static async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "GetLastSavedWorkout/{id:int?}")] HttpRequest req, int id, ILogger log, ExecutionContext context)
         {
             IActionResult retval;
 
