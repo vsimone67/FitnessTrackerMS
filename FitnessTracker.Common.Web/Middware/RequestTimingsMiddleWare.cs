@@ -22,7 +22,7 @@ namespace FitnessTracker.Common.Web.Middleware
         {
             var s = new Stopwatch();
             s.Start();
-            await _next(context);
+            await _next(context).ConfigureAwait(false);
             s.Stop();
 
             TimeSpan timeSpan = s.Elapsed;

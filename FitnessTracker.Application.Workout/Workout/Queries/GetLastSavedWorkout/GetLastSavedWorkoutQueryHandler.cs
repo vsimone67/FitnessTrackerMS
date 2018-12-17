@@ -5,7 +5,7 @@ using FitnessTracker.Application.Workout.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Workout.Queries
 {
     public class GetLastSavedWorkoutQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetLastSavedWorkoutQuery, List<DailyWorkoutDTO>>
     {
@@ -22,7 +22,7 @@ namespace FitnessTracker.Application.Queries
 
         public async Task<List<DailyWorkoutDTO>> HandleAsync(GetLastSavedWorkoutQuery query)
         {
-            return await Task.FromResult<List<DailyWorkoutDTO>>(Handle(query));
+            return await Task.Run<List<DailyWorkoutDTO>>(() => Handle(query));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace FitnessTracker.Presentation.Mobile.ViewModels
     {
         #region Injected Services
 
-        private IWorkoutService _workoutService;
+        private readonly IWorkoutService _workoutService;
 
         #endregion Injected Services
 

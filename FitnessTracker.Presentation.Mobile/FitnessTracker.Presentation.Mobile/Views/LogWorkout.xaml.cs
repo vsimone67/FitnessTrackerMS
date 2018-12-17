@@ -99,10 +99,7 @@ namespace FitnessTracker.Presentation.Mobile.Views
             gridLabel.TimeToNextExercise = timeToNextExercise;
 
             var tapGestureRecognizer = new TapGestureRecognizer();
-            tapGestureRecognizer.Tapped += (s, e) =>
-            {
-                OnCellTap(s, e);
-            };
+            tapGestureRecognizer.Tapped += (s, e) => OnCellTap(s, e);
             gridLabel.GestureRecognizers.Add(tapGestureRecognizer);
 
             // Add column to workout grid

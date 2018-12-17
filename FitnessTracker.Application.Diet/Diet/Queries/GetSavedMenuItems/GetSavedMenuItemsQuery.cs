@@ -2,7 +2,7 @@
 using FitnessTracker.Application.Model.Diet;
 using System.Collections.Generic;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Diet.Queries
 {
     public class GetSavedMenuItemsQuery : IQuery<List<FoodInfoDTO>>
     {

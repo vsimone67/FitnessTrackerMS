@@ -1,10 +1,8 @@
 ﻿using FitnessTracker.Common.Web.StartupConfig;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using NLog.Extensions.Logging;
-using NLog.Web;
 
-namespace FitnessTracker.Workout.Service
+namespace FitnessTracker.Service.Diet
 {
     public class Program
     {
@@ -14,9 +12,9 @@ namespace FitnessTracker.Workout.Service
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-         WebHost.CreateDefaultBuilder(args)
-             .ConfigureNLogFromEnvironment()
-             .ConfigAppConfigurationFromEnvironment()
-             .UseStartup<Startup>();
+      WebHost.CreateDefaultBuilder(args)
+          .ConfigureNLogFromEnvironment()
+          .ConfigAppConfigurationFromEnvironment()
+          .UseStartup<Startup>();
     }
 }

@@ -32,7 +32,7 @@ namespace FitnessTracker.Common.Web
 
         private static bool IsCandidateLibrary(RuntimeLibrary library, string assemblyName)
         {
-            return library.Name == (assemblyName)
+            return library.Name == assemblyName
                 || library.Dependencies.Any(d => d.Name.StartsWith(assemblyName));
         }
     }

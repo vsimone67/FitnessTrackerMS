@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Workout.Queries
 {
     public class GetSetsQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetSetQuery, List<SetNameDTO>>
     {
@@ -22,7 +22,7 @@ namespace FitnessTracker.Application.Queries
 
         public async Task<List<SetNameDTO>> HandleAsync(GetSetQuery query)
         {
-            return await Task.FromResult<List<SetNameDTO>>(Handle(query));
+            return await Task.Run<List<SetNameDTO>>(() => Handle(query)).ConfigureAwait(false);
         }
     }
 }

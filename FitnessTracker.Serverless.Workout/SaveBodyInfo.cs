@@ -1,4 +1,4 @@
-using FitnessTracker.Application.Command;
+using FitnessTracker.Application.Workout.Command;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Events;
 using FitnessTracker.Application.Workout.Interfaces;

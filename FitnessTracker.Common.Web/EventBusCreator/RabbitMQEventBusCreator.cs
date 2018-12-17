@@ -9,7 +9,7 @@ namespace FitnessTracker.Common.Web.EventBusCreator
 {
     public class RabbitMQEventBusCreator : IEventBusInstance
     {
-        private EventBusRabbitMQIOC _eventBusRabbitMQIOC;
+        private readonly EventBusRabbitMQIOC _eventBusRabbitMQIOC;
 
         public RabbitMQEventBusCreator(IOptions<FitnessTrackerSettings> appSettings, Container container, IEventBusSubscriptionsManager eventBusSubscriptionManager, bool ShouldTurnOnReceiveQueue)
         {

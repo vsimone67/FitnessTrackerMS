@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FitnessTracker.Application.MappingProfile;
+using FitnessTracker.Application.Diet.MappingProfile;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,10 +10,7 @@ namespace FitnessTracker.Application.Diet.Diet.MappingProfile
     {
         public IMapper GetMapperConfiguration()
         {
-            MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new DietMappingProfile());
-            });
+            MapperConfiguration mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new DietMappingProfile()));
 
             return mapperConfig.CreateMapper();
         }

@@ -20,10 +20,7 @@ namespace FitnessTracker.Presentation.Mobile.ViewModels
 
         public TimerPopupViewModel()
         {
-            MessagingCenter.Subscribe<object, int>(this, MessageConstants.PopupTimer, (sender, timeToNextExercise) =>
-            {
-                TimeToNextExercise = timeToNextExercise;
-            });
+            MessagingCenter.Subscribe<object, int>(this, MessageConstants.PopupTimer, (sender, timeToNextExercise) => TimeToNextExercise = timeToNextExercise);
         }
 
         #region Methods

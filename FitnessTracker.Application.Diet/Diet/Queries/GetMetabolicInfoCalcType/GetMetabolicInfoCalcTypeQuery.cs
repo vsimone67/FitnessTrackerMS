@@ -1,7 +1,7 @@
 ﻿using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Diet;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Diet.Queries
 {
     public class GetMetabolicInfoCalcTypeQuery : IQuery<CurrentMacrosDTO>
     {

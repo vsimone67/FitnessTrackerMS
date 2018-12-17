@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using FitnessTracker.Common.Web.StartupConfig;
+﻿using FitnessTracker.Common.Web.StartupConfig;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace FitnessTracker.Presentation.Diet.MessageHub
 {

@@ -2,7 +2,7 @@
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
 
-namespace FitnessTracker.Application.MappingProfile
+namespace FitnessTracker.Application.Diet.MappingProfile
 {
     public class DietMappingProfile : Profile
     {

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Interfaces;
+using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Command
+namespace FitnessTracker.Application.Diet.Command
 {
     public class ProcessItemCommandHandler : HandlerBase<IDietService>, ICommandHandler<ProcessItemCommand, FoodInfoDTO>
     {
@@ -29,7 +29,7 @@ namespace FitnessTracker.Application.Command
 
         public async Task<FoodInfoDTO> HandleAsync(ProcessItemCommand command)
         {
-            return await Task.FromResult<FoodInfoDTO>(Handle(command));
+            return await Task.Run<FoodInfoDTO>(() => Handle(command)).ConfigureAwait(false);
         }
     }
 }

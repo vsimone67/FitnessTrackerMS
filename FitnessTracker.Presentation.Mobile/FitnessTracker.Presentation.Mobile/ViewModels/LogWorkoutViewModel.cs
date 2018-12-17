@@ -16,8 +16,8 @@ namespace FitnessTracker.Presentation.Mobile.ViewModels
     {
         #region Injected Services
 
-        private IWorkoutService _workoutService;
-        private IPopupNavigation _navigation;
+        private readonly IWorkoutService _workoutService;
+        private readonly IPopupNavigation _navigation;
 
         #endregion Injected Services
 

@@ -32,14 +32,8 @@ namespace FitnessTracker.Common.Web.StartupConfig
 
         public static IServiceCollection AddCustomMvc(this IServiceCollection services)
         {
-            services.AddMvc(options =>
-            {
-                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
-            }).AddControllersAsServices().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-            }).AddControllersAsServices()  //Injecting Controllers themselves thru DI
-              .SetCompatibilityVersion(CompatibilityVersion.Version_2_2); ;
+            services.AddMvc(options => options.Filters.Add(typeof(HttpGlobalExceptionFilter))).AddControllersAsServices().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()).AddControllersAsServices()  //Injecting Controllers themselves thru DI
+              .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddCors(options =>
             {
@@ -58,10 +52,14 @@ namespace FitnessTracker.Common.Web.StartupConfig
             IOptions<FitnessTrackerSettings> appSettings = services.BuildServiceProvider().GetRequiredService<IOptions<FitnessTrackerSettings>>();
 
             if (!AddDBCheck)
+            {
                 services.AddHealthChecks();
+            }
             else
+            {
                 services.AddHealthChecks()
-                        .AddSqlServer(appSettings.Value.ConnectionString);
+                       .AddSqlServer(appSettings.Value.ConnectionString);
+            }
 
             return services;
         }
@@ -137,7 +135,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
             var typesWithAutoRegisterAttribute =
                 from t in fitnessTrackerAssemblyDefinedTypes
                 let attributes = t.GetCustomAttributes(typeof(AutoRegisterAttribute), true)
-                where attributes != null && attributes.Any()
+                where attributes?.Length > 0
                 select new { Type = t, Attributes = attributes.Cast<AutoRegisterAttribute>() };
 
             // Loop through types to register with IoC
@@ -186,10 +184,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
         public static IApplicationBuilder AddSwaggerConfiguration(this IApplicationBuilder app, SwaggerInfo swaggerInfo)
         {
             app.UseSwagger()
-             .UseSwaggerUI(c =>
-             {
-                 c.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerInfo.EndPointDescription);
-             });
+             .UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", swaggerInfo.EndPointDescription));
 
             return app;
         }

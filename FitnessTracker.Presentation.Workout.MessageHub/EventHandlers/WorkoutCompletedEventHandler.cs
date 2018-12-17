@@ -10,7 +10,7 @@ namespace FitnessTracker.Presentation.Workout.MessageHub.EventHandlers
 {
     public class WorkoutCompletedEventHandler : IIntegrationEventHandler<WorkoutCompletedEvent>
     {
-        private ILogger _logger;
+        private readonly ILogger _logger;
         private readonly IHubContext<WorkoutHub> _hubContext;
 
         public WorkoutCompletedEventHandler(IHubContext<WorkoutHub> hubContext, ILogger<WorkoutCompletedEventHandler> logger)

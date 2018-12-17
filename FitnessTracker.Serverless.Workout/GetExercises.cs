@@ -1,4 +1,4 @@
-using FitnessTracker.Application.Queries;
+using FitnessTracker.Application.Workout.Queries;
 using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Application.Workout.Workout.MappingProfile;
 using FitnessTracker.Common.Serverless;

@@ -1,6 +1,6 @@
-using FitnessTracker.Application.Command;
+using FitnessTracker.Application.Diet.Command;
 using FitnessTracker.Application.Diet.Diet.MappingProfile;
-using FitnessTracker.Application.Interfaces;
+using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Application.Model.Diet.Events;
 using FitnessTracker.Common.Serverless;

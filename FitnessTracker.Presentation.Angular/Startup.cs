@@ -22,10 +22,7 @@ namespace FitnessTracker.Presentation.Angular
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = GetDistPath();
-            });
+            services.AddSpaStaticFiles(configuration => configuration.RootPath = GetDistPath());
 
             services.AddHealthChecks(Configuration, false);
         }
@@ -46,10 +43,7 @@ namespace FitnessTracker.Presentation.Angular
             app.UseSpaStaticFiles();
             app.UseFTHealthChecks();
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = GetDistPath();
-            });
+            app.UseSpa(spa => spa.Options.SourcePath = GetDistPath());
         }
 
         protected string GetDistPath()

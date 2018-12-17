@@ -10,7 +10,7 @@ namespace FitnessTracker.Presentation.Workout.MessageHub.EventHandlers
 {
     public class BodyInfoSavedEventHandler : IIntegrationEventHandler<BodyInfoSavedEvent>
     {
-        private ILogger _logger;
+        private readonly ILogger _logger;
         private readonly IHubContext<WorkoutHub> _hubContext;
 
         public BodyInfoSavedEventHandler(IHubContext<WorkoutHub> hubContext, ILogger<BodyInfoSavedEventHandler> logger)

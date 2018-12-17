@@ -16,7 +16,7 @@ namespace FitnessTracker.Common.HTTP
             {
                 using (var r = httpClient.GetAsync(new Uri(uri)).Result)
                 {
-                    responseJsonString = await r.Content.ReadAsStringAsync();
+                    responseJsonString = await r.Content.ReadAsStringAsync().ConfigureAwait(false);
                     r.EnsureSuccessStatusCode();
                     T result = JsonConvert.DeserializeObject<T>(responseJsonString);
 
@@ -35,7 +35,7 @@ namespace FitnessTracker.Common.HTTP
 
                 using (var r = httpClient.PostAsync(new Uri(uri), new StringContent(content, Encoding.UTF8, "text/json")).Result)
                 {
-                    responseJsonString = await r.Content.ReadAsStringAsync();
+                    responseJsonString = await r.Content.ReadAsStringAsync().ConfigureAwait(false);
                     r.EnsureSuccessStatusCode();
                     T result = JsonConvert.DeserializeObject<T>(responseJsonString);
 

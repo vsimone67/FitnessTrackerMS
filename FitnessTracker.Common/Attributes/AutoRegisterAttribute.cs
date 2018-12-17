@@ -18,6 +18,6 @@ namespace FitnessTracker.Common.Attributes
         /// Gets the type to use for registration.
         /// </summary>
         /// <value>The type of the register as.</value>
-        public Type RegisterAsType { get; private set; }
+        public Type RegisterAsType { get; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Interfaces;
+using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Diet.Queries
 {
     public class GetMetabolicInfoQueryHandler : HandlerBase<IDietService>, IQueryHandler<GetMetabolicInfoQuery, List<MetabolicInfoDTO>>
     {
@@ -22,7 +22,7 @@ namespace FitnessTracker.Application.Queries
 
         public async Task<List<MetabolicInfoDTO>> HandleAsync(GetMetabolicInfoQuery query)
         {
-            return await Task.FromResult<List<MetabolicInfoDTO>>(Handle(query));
+            return await Task.Run<List<MetabolicInfoDTO>>(() => Handle(query)).ConfigureAwait(false);
         }
     }
 }

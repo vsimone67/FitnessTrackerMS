@@ -1,7 +1,7 @@
 ﻿using FitnessTracker.Domain.Diet;
 using System.Collections.Generic;
 
-namespace FitnessTracker.Application.Interfaces
+namespace FitnessTracker.Application.Diet.Interfaces
 {
     public interface IDietService
     {

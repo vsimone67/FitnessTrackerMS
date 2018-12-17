@@ -10,7 +10,7 @@ namespace FitnessTracker.Presentation.Diet.MessageHub.EventHandlers
 {
     public class SavedMenuEventHandler : IIntegrationEventHandler<SaveMenuEvent>
     {
-        private ILogger _logger;
+        private readonly ILogger _logger;
         private readonly IHubContext<DietHub> _hubContext;
 
         public SavedMenuEventHandler(IHubContext<DietHub> hubContext, ILogger<SavedMenuEventHandler> logger)

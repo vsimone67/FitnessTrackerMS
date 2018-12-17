@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Workout.Queries
 {
     public class GetWorkoutForDisplayQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetWorkoutForDisplayQuery, WorkoutDisplayDTO>
     {
@@ -62,31 +62,31 @@ namespace FitnessTracker.Application.Queries
         {
             int maxReps = GetMaxReps(workout);
 
-            workout.Set.ForEach(set => { if (maxReps > set.DisplayReps.Count()) set.AdditionalSets = maxReps - set.DisplayReps.Count(); });
+            workout.Set.ForEach(set => { if (maxReps > set.DisplayReps.Count) set.AdditionalSets = maxReps - set.DisplayReps.Count; });
         }
 
         private int GetMaxReps(WorkoutDisplayDTO workout)
         {
             int maxReps = 0;
 
-            workout.Set.ForEach(set => maxReps = Math.Max(set.DisplayReps.Count(), maxReps));
+            workout.Set.ForEach(set => maxReps = Math.Max(set.DisplayReps.Count, maxReps));
 
             return maxReps;
         }
 
         public async Task<WorkoutDisplayDTO> HandleAsync(GetWorkoutForDisplayQuery query)
         {
-            return await Task.FromResult<WorkoutDisplayDTO>(Handle(query));
+            return await Task.Run<WorkoutDisplayDTO>(() => Handle(query)).ConfigureAwait(false);
         }
 
         protected int FindWeight(List<DailyWorkout> dailyWorkout, int setId, int exerciseId, int repsId)
         {
             int retVal = 0;
 
-            if (dailyWorkout.Count() > 0)
+            if (dailyWorkout.Count > 0)
             {
                 List<DailyWorkoutInfo> info = dailyWorkout[0].DailyWorkoutInfo.OrderByDescending(x => x.DailyWorkoutId).ToList();
-                var workout = info.Where(exp => exp.ExerciseId == exerciseId && exp.SetId == setId && exp.RepsId == repsId).FirstOrDefault();
+                var workout = info.Find(exp => exp.ExerciseId == exerciseId && exp.SetId == setId && exp.RepsId == repsId);
 
                 retVal = workout.WeightUsed;
             }

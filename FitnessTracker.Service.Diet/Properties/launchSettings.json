@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "FitnessTracker.Diet.Service": {
+    "FitnessTracker.Service.Diet": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",

@@ -12,7 +12,7 @@ namespace FitnessTracker.Persistance.Workout
     [AutoRegister(typeof(IWorkoutService))]
     public class WorkoutDB : IWorkoutService
     {
-        private WorkoutContext _dbContext;
+        private readonly WorkoutContext _dbContext;
 
         public WorkoutDB(IOptions<FitnessTrackerSettings> settings)
         {

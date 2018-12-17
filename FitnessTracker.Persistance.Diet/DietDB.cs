@@ -1,4 +1,4 @@
-﻿using FitnessTracker.Application.Interfaces;
+﻿using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Domain.Diet;
@@ -12,7 +12,7 @@ namespace FitnessTracker.Persistance.Diet
     [AutoRegister(typeof(IDietService))]
     public class DietDB : IDietService
     {
-        private DietContext _dbContext;
+        private readonly DietContext _dbContext;
 
         public DietDB(IOptions<FitnessTrackerSettings> settings)
         {

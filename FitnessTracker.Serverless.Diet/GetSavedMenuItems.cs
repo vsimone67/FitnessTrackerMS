@@ -1,6 +1,6 @@
 using FitnessTracker.Application.Diet.Diet.MappingProfile;
-using FitnessTracker.Application.Interfaces;
-using FitnessTracker.Application.Queries;
+using FitnessTracker.Application.Diet.Interfaces;
+using FitnessTracker.Application.Diet.Queries;
 using FitnessTracker.Common.Serverless;
 using FitnessTracker.Persistance.Diet;
 using Microsoft.AspNetCore.Http;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FitnessTracker.Workout.Service.StartupConfig
+namespace FitnessTracker.Service.Workout.StartupConfig
 {
     public static class StartupConfigExtentions
     {

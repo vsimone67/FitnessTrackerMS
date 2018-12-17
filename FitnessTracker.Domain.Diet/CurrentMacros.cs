@@ -36,11 +36,11 @@ namespace FitnessTracker.Domain.Diet
             dcrFactor = (int)currentMacroList.Find(exp => exp.macro == CurrentMacros.DCR).factor;
             calories = (double)currentMacroList.Find(exp => exp.macro == CurrentMacros.Calories).GetPropertyValue(mode);
             caloriesFactor = (int)currentMacroList.Find(exp => exp.macro == CurrentMacros.Calories).factor;
-            protein = (double)currentMacroList.Find(exp => exp.macro == CurrentMacros.Protein).GetPropertyValue(mode); ;
+            protein = (double)currentMacroList.Find(exp => exp.macro == CurrentMacros.Protein).GetPropertyValue(mode);
             proteinFactor = currentMacroList.Find(exp => exp.macro == CurrentMacros.Protein).factor;
-            carbs = (double)currentMacroList.Find(exp => exp.macro == CurrentMacros.Carbs).GetPropertyValue(mode); ;
+            carbs = (double)currentMacroList.Find(exp => exp.macro == CurrentMacros.Carbs).GetPropertyValue(mode);
             carbsFactor = currentMacroList.Find(exp => exp.macro == CurrentMacros.Carbs).factor;
-            fat = (double)currentMacroList.Find(exp => exp.macro == CurrentMacros.Fat).GetPropertyValue(mode); ;
+            fat = (double)currentMacroList.Find(exp => exp.macro == CurrentMacros.Fat).GetPropertyValue(mode);
             fatFactor = currentMacroList.Find(exp => exp.macro == CurrentMacros.Fat).factor;
         }
     }

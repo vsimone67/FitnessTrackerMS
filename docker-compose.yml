@@ -4,12 +4,12 @@ services:
         image: 'workoutservice:${TAG:-latest}'
         build:
             context: .
-            dockerfile: FitnessTracker.Workout.Service/Dockerfile
+            dockerfile: FitnessTracker.Service.Workout/Dockerfile
     dietservice:
         image: 'dietservice:${TAG:-latest}'
         build:
             context: .
-            dockerfile: FitnessTracker.Diet.Service/Dockerfile
+            dockerfile: FitnessTracker.Service.Diet/Dockerfile
     webstatus:
         image: 'webstatus:${TAG:-latest}'
         build:

@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Interfaces;
+using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Command
+namespace FitnessTracker.Application.Diet.Command
 {
     public class EditMetabolicInfoCommandHandler : HandlerBase<IDietService>, ICommandHandler<EditMetabolicInfoCommand, MetabolicInfoDTO>
     {
@@ -23,7 +23,7 @@ namespace FitnessTracker.Application.Command
 
         public async Task<MetabolicInfoDTO> HandleAsync(EditMetabolicInfoCommand command)
         {
-            return await Task.FromResult<MetabolicInfoDTO>(Handle(command));
+            return await Task.Run<MetabolicInfoDTO>(() => Handle(command)).ConfigureAwait(false);
         }
     }
 }

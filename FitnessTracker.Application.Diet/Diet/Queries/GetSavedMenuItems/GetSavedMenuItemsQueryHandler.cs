@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Interfaces;
+using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Diet.Queries
 {
     public class GetSavedMenuItemsQueryHandler : HandlerBase<IDietService>, IQueryHandler<GetSavedMenuItemsQuery, List<FoodInfoDTO>>
     {
@@ -23,7 +23,7 @@ namespace FitnessTracker.Application.Queries
 
         public async Task<List<FoodInfoDTO>> HandleAsync(GetSavedMenuItemsQuery query)
         {
-            return await Task.FromResult<List<FoodInfoDTO>>(Handle(query));
+            return await Task.Run<List<FoodInfoDTO>>(() => Handle(query)).ConfigureAwait(false);
         }
     }
 }

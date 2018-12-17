@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace FitnessTracker.Workout.Service.Controllers
+namespace FitnessTracker.Service.Workout.Controllers
 {
     public class HomeController : Controller
     {

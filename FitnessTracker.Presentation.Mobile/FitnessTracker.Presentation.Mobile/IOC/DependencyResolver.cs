@@ -5,7 +5,7 @@ namespace FitnessTracker.Presentation.Mobile.IOC
 {
     public static class DependencyResolver
     {
-        private static Container _container = new Container();
+        private static readonly Container _container = new Container();
 
         public static void Register(Type service, Type implementation)
 

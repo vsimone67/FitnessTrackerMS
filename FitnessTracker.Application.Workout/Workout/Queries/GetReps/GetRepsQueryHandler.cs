@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Workout.Queries
 {
     public class GetRepsQueryHanlder : HandlerBase<IWorkoutService>, IQueryHandler<GetRepsQuery, List<RepsNameDTO>>
     {
@@ -23,7 +23,7 @@ namespace FitnessTracker.Application.Queries
 
         public async Task<List<RepsNameDTO>> HandleAsync(GetRepsQuery query)
         {
-            return await Task.FromResult<List<RepsNameDTO>>(Handle(query));
+            return await Task.Run<List<RepsNameDTO>>(() => Handle(query)).ConfigureAwait(false);
         }
     }
 }

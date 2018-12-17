@@ -11,10 +11,7 @@ namespace FitnessTracker.Presentation.Mobile.Views
         {
             InitializeComponent();
 
-            MessagingCenter.Subscribe<object, string>(this, MessageConstants.ApplicationError, (sender, message) =>
-            {
-                HandleError(message);
-            });
+            MessagingCenter.Subscribe<object, string>(this, MessageConstants.ApplicationError, (sender, message) => HandleError(message));
         }
 
         protected void HandleError(string message)

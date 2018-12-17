@@ -10,7 +10,7 @@ namespace FitnessTracker.Presentation.Diet.MessageHub.EventHandlers
 {
     public class DeleteFoodItemEventHandler : IIntegrationEventHandler<DeleteFoodItemEvent>
     {
-        private ILogger _logger;
+        private readonly ILogger _logger;
         private readonly IHubContext<DietHub> _hubContext;
 
         public DeleteFoodItemEventHandler(IHubContext<DietHub> hubContext, ILogger<DeleteFoodItemEventHandler> logger)

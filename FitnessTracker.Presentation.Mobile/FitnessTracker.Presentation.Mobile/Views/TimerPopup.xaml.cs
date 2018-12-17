@@ -17,10 +17,7 @@ namespace FitnessTracker.Presentation.Mobile.Views
         {
             InitializeComponent();
 
-            MessagingCenter.Subscribe<object, string>(this, MessageConstants.TimeExpired, (sender, message) =>
-            {
-                OnClose();
-            });
+            MessagingCenter.Subscribe<object, string>(this, MessageConstants.TimeExpired, (sender, message) => OnClose());
         }
 
         protected override void OnAppearing()

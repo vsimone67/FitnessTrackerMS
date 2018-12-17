@@ -2,7 +2,7 @@
 using FitnessTracker.Application.Model.Workout;
 using System.Collections.Generic;
 
-namespace FitnessTracker.Application.Queries
+namespace FitnessTracker.Application.Workout.Queries
 {
     public class GetAllWorkoutsQuery : IQuery<List<WorkoutDTO>>
     {

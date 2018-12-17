@@ -2,7 +2,7 @@
 using FitnessTracker.Application.Model.Diet;
 using System.Collections.Generic;
 
-namespace FitnessTracker.Application.Command
+namespace FitnessTracker.Application.Diet.Command
 {
     public class SaveMenuCommand : ICommand
     {

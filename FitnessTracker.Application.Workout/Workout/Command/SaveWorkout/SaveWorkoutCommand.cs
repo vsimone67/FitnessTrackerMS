@@ -1,7 +1,7 @@
 ﻿using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 
-namespace FitnessTracker.Application.Command
+namespace FitnessTracker.Application.Workout.Command
 {
     public class SaveWorkoutCommand : ICommand
     {

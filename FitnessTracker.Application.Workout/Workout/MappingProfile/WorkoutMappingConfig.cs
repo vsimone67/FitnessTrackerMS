@@ -10,10 +10,7 @@ namespace FitnessTracker.Application.Workout.Workout.MappingProfile
     {
         public IMapper GetMapperConfiguration()
         {
-            MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile(new WorkoutMappingProfile());
-            });
+            MapperConfiguration mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile(new WorkoutMappingProfile()));
 
             return mapperConfig.CreateMapper();
         }

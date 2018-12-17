@@ -6,7 +6,7 @@ using FitnessTracker.Domain.Workout;
 using System;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Command
+namespace FitnessTracker.Application.Workout.Command
 {
     public class SaveDailyWorkoutCommandHandler : HandlerBase<IWorkoutService>, ICommandHandler<SaveDailyWorkoutCommand, DailyWorkoutDTO>
     {
@@ -43,7 +43,7 @@ namespace FitnessTracker.Application.Command
 
         public async Task<DailyWorkoutDTO> HandleAsync(SaveDailyWorkoutCommand command)
         {
-            return await Task.FromResult<DailyWorkoutDTO>(Handle(command));
+            return await Task.Run<DailyWorkoutDTO>(() => Handle(command));
         }
     }
 }

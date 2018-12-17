@@ -4,7 +4,7 @@ using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
 using System.Threading.Tasks;
 
-namespace FitnessTracker.Application.Command
+namespace FitnessTracker.Application.Workout.Command
 {
     public class SaveWorkoutCommandHandler : HandlerBase<IWorkoutService>, ICommandHandler<SaveWorkoutCommand, WorkoutDTO>
     {
@@ -21,7 +21,7 @@ namespace FitnessTracker.Application.Command
 
         public async Task<WorkoutDTO> HandleAsync(SaveWorkoutCommand command)
         {
-            return await Task.FromResult<WorkoutDTO>(Handle(command));
+            return await Task.Run<WorkoutDTO>(() => Handle(command)).ConfigureAwait(false);
         }
     }
 }
