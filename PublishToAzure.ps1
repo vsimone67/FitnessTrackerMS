@@ -30,10 +30,10 @@ Remove-Item $zipFile
 #*****EXAMPLES*******
 
 # WORKOUT SERVICE
-#.\PublishToAzure.ps1 FitnessTracker.Workout.Service configpath/workoutservice/azure/configfiles FTWorkoutAPI
+#.\PublishToAzure.ps1 FitnessTracker.Service.Workout configpath/workoutservice/azure/configfiles FTWorkoutAPI
 
 # DIET SERVICE
-#.\PublishToAzure.ps1 FitnessTracker.Diet.Service configpath/dietservice/azure/configfiles FTDietAPI
+#.\PublishToAzure.ps1 FitnessTracker.Service.Diet configpath/dietservice/azure/configfiles FTDietAPI
 
 # WEB STATUS
 #.\PublishToAzure.ps1 FitnessTracker.Presentation.WebStatus configpath/webstatus/azure/configfiles FTWebStatus
