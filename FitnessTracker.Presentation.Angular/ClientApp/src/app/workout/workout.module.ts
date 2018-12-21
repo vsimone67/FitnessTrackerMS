@@ -15,13 +15,15 @@ import { HttpModule } from '@angular/http';
 import { AddSetComponent } from './components/add-set/add-set.component'
 import { BodyInfoState } from '../workout/state/body-info.state'
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { EditExerciseComponent } from '../workout/components/grid/edit-exercise/edit-exercise.component';
+import { RepsDropDownComponent } from '../workout/components/grid/reps-drop-down/reps-drop-down.component';
 @NgModule({
   imports: [CommonModule, SharedModule.forRoot(), HttpModule, HttpClientModule, FormsModule, AgGridModule.withComponents([AddSetComponent,
-    DeleteExerciseComponent, SetFieldComponent, NgxsModule.forRoot([WorkoutState, BodyInfoState])])],
+    DeleteExerciseComponent, EditExerciseComponent, RepsDropDownComponent, SetFieldComponent, NgxsModule.forRoot([WorkoutState, BodyInfoState])])],
   exports: [AddSetComponent, CommonModule],
   declarations: [LogWorkoutComponent, AddBodyInfoComponent, AddWorkoutComponent, AddSetComponent,
-    RepsFieldComponent, DeleteExerciseComponent, SetFieldComponent, AddSetComponent],
+    RepsFieldComponent, DeleteExerciseComponent, SetFieldComponent, AddSetComponent, EditExerciseComponent, RepsDropDownComponent],
   providers: [WorkoutService],
   entryComponents: [RepsFieldComponent]
 })

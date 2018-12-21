@@ -1,61 +1,59 @@
 <dialog class="mdl-dialog addWorkout-dialog">
-	<div class="mdl-dialog__content" style="height:89%">
+  <div class="mdl-dialog__content" style="height:89%">
 
-		<div class="mdl-grid--no-spacing">
-			<div class="mdl-cell mdl-cell--3-col">
-				<dropdownMDL displayField="Name" [items]="sets" (itemSelected)="setSelected($event)" defaultText="Set Type..." [model]="selectedSet"></dropdownMDL>
-			</div>
-		</div>
+    <div class="mdl-grid--no-spacing">
+      <div class="mdl-cell mdl-cell--3-col">
+        <dropdownMDL displayField="Name" [items]="sets" (itemSelected)="setSelected($event)" defaultText="Set Type..."
+                     [model]="currentSet"></dropdownMDL>
+      </div>
+    </div>
 
-		<div class="mdl-grid--no-spacing">
-			<div class="mdl-cell mdl-cell--12-col addSet-gridHeight">
+    <div class="mdl-grid--no-spacing">
+      <div class="mdl-cell mdl-cell--12-col addSet-gridHeight">
 
-				<ag-grid-angular #agGrid class="ag-theme-blue ag-table-addSet" [gridOptions]="gridOptions" (cellClicked)="onCellClicked($event)">
-				</ag-grid-angular>
-			</div>
-		</div>
+        <ag-grid-angular #agGrid class="ag-theme-blue ag-table-addSet" [gridOptions]="gridOptions" (cellClicked)="onCellClicked($event)">
+        </ag-grid-angular>
+      </div>
+    </div>
 
-		<div class="mdl-grid--no-spacing">
-			<div class="mdl-cell mdl-cell--12-col">
+    <div class="mdl-grid--no-spacing">
+      <div class="mdl-cell mdl-cell--12-col">
 
-				<button class="mdl-button mdl-js-button mdl-button--accent align-right" (click)="onAddExercise()" [disabled]="reps?.length == 0">Add Exercise</button>
-			</div>
-		</div>
+        <button class="mdl-button mdl-js-button mdl-button--accent align-right" (click)="onAddExercise()" [disabled]="reps?.length == 0">
+          Add
+          Exercise
+        </button>
+      </div>
+    </div>
 
-		<div class="mdl-grid">
-			<div class="mdl-cell--middle mdl-cell--6-col">
-				<dropdownMDL displayField="Name" [items]="exercises" (itemSelected)="exerciseSelected($event)" defaultText="Exercise..."
-					[model]="selectedExercise"></dropdownMDL>
-			</div>
-			<div class="mdl-cell--middle mdl-cell--2-col">
-				<dropdownMDL displayField="displayName" [items]="measure" (itemSelected)="measureSelected($event)" defaultText="Measure..."
-					[model]="selectedMeasure"></dropdownMDL>
-			</div>
-			<div class="mdl-cell mdl-cell--1-col">
-				<button (click)="onAddReps()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored align-right"
-					id="addreps" [disabled]="selectedSet?.Name.length == 0">
-              <i class="material-icons">add</i>
-            </button>
-				<div class="mdl-tooltip" data-mdl-for="addreps">Add Reps</div>
-			</div>
-		</div>
+    <div class="mdl-grid">
+      <div class="mdl-cell--middle mdl-cell--6-col">
+        <dropdownMDL displayField="Name" [items]="exercises" (itemSelected)="exerciseSelected($event)" defaultText="Exercise..."
+                     [model]="currentExercise"></dropdownMDL>
+      </div>
+      <div class="mdl-cell--middle mdl-cell--2-col">
+        <dropdownMDL displayField="displayName" [items]="measure" (itemSelected)="measureSelected($event)" defaultText="Measure..."
+                     [model]="currentMeasure"></dropdownMDL>
+      </div>
+      <div class="mdl-cell mdl-cell--1-col">
+        <button (click)="onAddReps()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored align-right"
+                id="addreps" [disabled]="selectedSet?.Name.length == 0">
+          <i class="material-icons">add</i>
+        </button>
+        <div class="mdl-tooltip" data-mdl-for="addreps">Add Reps</div>
+      </div>
+    </div>
 
-		<div class="mdl-grid" *ngFor="let rep of reps">
-			<div class="mdl-cell mdl-cell--4-col">
-				<div>
-					<dropdownMDL displayField="Name" [items]="repNames" defaultText="Rep..." (itemSelected)="repSelected($event)" ></dropdownMDL>
-				</div>
-			</div>
-			<div class="mdl-cell mdl-cell--4-col">
-				<div class="mdl-textfield mdl-js-textfield">
-					<input class="mdl-textfield__input" type="text" id="timeToTextExercise" [(ngModel)]="timeToNextExercise">
-					<label class="mdl-textfield__label" for="timeToTextExercise">Rest Time after exercise...</label>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="mdl-dialog__actions">
-		<button type="button" class="mdl-button" (click)="onSaveSet()" [disabled]="selectedSet?.Name.length == 0  || reps?.length == 0">Save</button>
-		<button type="button" class="mdl-button close" (click)="onClose()">Close</button>
-	</div>
+    <div class="mdl-grid--no-spacing">
+      <div class="mdl-cell mdl-cell--12-col addSet-gridHeight">
+
+        <ag-grid-angular #agGrid class="ag-theme-blue ag-table-addSet" [gridOptions]="repsGridOptions">
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+  <div class="mdl-dialog__actions">
+    <button type="button" class="mdl-button" (click)="onSaveSet()" [disabled]="selectedSet?.Name.length == 0  || reps?.length == 0">Save</button>
+    <button type="button" class="mdl-button close" (click)="onClose()">Close</button>
+  </div>
 </dialog>

@@ -3,7 +3,7 @@
   <div title class="full-width">
 
     <div class="mdl-grid mdl-cell mdl-cell--12-col">
-      <div class="mdl-card__title-text mdl-cell mdl-cell--3-col">Add Workout</div>
+      <div class="mdl-card__title-text mdl-cell mdl-cell--3-col">Add/Edit Workout</div>
       <div class="mdl-cell mdl-cell--9-col">
       </div>
     </div>
@@ -15,15 +15,18 @@
 
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--3-col">
+          <dropdownMDL displayField="Name" [items]="workouts" (itemSelected)="workoutSelectedForEdit($event)"
+            defaultText="Workouts..." [model]="currentExercise"></dropdownMDL>
           <div class="mdl-textfield mdl-js-textfield">
             <input class="mdl-textfield__input" type="text" id="name" [(ngModel)]="workout.Name">
             <label class="mdl-textfield__label" for="name">Workout Name...</label>
           </div>
         </div>
         <div class="mdl-cell mdl-cell--9-col">
-          <button (click)="onAddSet()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored align-right" id="addset" [disabled]="workout?.Name.length == 0">
-              <i class="material-icons">add</i>
-            </button>
+          <button (click)="onAddSet()" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--mini-fab mdl-button--colored align-right"
+            id="addset" [disabled]="workout?.Name.length == 0">
+            <i class="material-icons">add</i>
+          </button>
           <div class="mdl-tooltip" data-mdl-for="addset">Add Set</div>
         </div>
       </div>
@@ -31,15 +34,15 @@
       <div class="mdl-grid">
         <div class="mdl-cell mdl-cell--12-col addWorkout-gridheight">
 
-           <ag-grid-angular #agGrid class="ag-theme-blue ag-table-addWorkout"
-                     [gridOptions]="gridOptions" (cellClicked)="onCellClicked($event)">
-           </ag-grid-angular>
+          <ag-grid-angular #agGrid class="ag-theme-blue ag-table-addWorkout" [gridOptions]="gridOptions" (cellClicked)="onCellClicked($event)">
+          </ag-grid-angular>
         </div>
       </div>
     </section>
 
-  <div actions class="mdl-card__actions mdl-card--border">
-      <button class="mdl-button mdl-js-button mdl-button--accent" type="submit" (click)="saveWorkout()" [disabled]="workout.Set?.length == 0">Save Workout</button>
+    <div actions class="mdl-card__actions mdl-card--border">
+      <button class="mdl-button mdl-js-button mdl-button--accent" type="submit" (click)="saveWorkout()" [disabled]="workout.Set?.length == 0">Save
+        Workout</button>
     </div>
   </div>
 </baseLayout>

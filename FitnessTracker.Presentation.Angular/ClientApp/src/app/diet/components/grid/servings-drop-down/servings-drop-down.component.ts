@@ -8,9 +8,9 @@ import { SavedMenu } from "../../../models";
     <select
       (change)="servingSelected($event.target.selectedIndex)"
       [(ngModel)]="currentSelection"
-      materialize="material_select"
-    >
-      <option *ngFor="let serving of servings" [value]="serving">{{
+      materialize="material_select">
+
+      <option *ngFor="let serving of servings" [ngValue]="serving">{{
         serving
       }}</option>
     </select>

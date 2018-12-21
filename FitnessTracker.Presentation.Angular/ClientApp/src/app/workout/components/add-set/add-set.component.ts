@@ -4,7 +4,7 @@ import { GridOptions } from 'ag-grid-community';
 import { EventService } from '../../../shared/services';
 import { WorkoutService } from '../../services/workout.service';
 import { BaseComponent } from '../../../shared/components';
-import { RepsFieldComponent, DeleteExerciseComponent } from '../../components';
+import { RepsFieldComponent, DeleteExerciseComponent, EditExerciseComponent, RepsDropDownComponent } from '../../components';
 import { Workout, set, ExerciseName, RepsName, Exercise, Reps, SetName } from '../../models';
 import { DropDownModel, events } from '../../../shared/models';
 
@@ -17,6 +17,9 @@ export class AddSetComponent extends BaseComponent implements OnInit {
   private _set: set;
   dialog: any;
   exercises: Array<ExerciseName>;
+  currentExercise: ExerciseName;
+  currentMeasure: DropDownModel;
+  currentSet: SetName;
   measure: Array<DropDownModel>;
   private selectedMeasure: DropDownModel;
   private selectedExercise: Exercise;
@@ -27,6 +30,7 @@ export class AddSetComponent extends BaseComponent implements OnInit {
   timeToNextExercise: string;
   selectedRep: RepsName;
   gridOptions: GridOptions;
+  repsGridOptions: GridOptions;
 
   constructor(private _el: ElementRef, private _workoutService: WorkoutService, public _eventService: EventService) {
     super(_eventService);
@@ -60,6 +64,18 @@ export class AddSetComponent extends BaseComponent implements OnInit {
     this.gridOptions.columnDefs = this.createColumnDefs();
     this.gridOptions.rowData = this._set.Exercise;
     this.gridOptions.rowHeight = 30;
+
+    this.repsGridOptions = <GridOptions>{};
+    this.repsGridOptions.columnDefs = [
+
+      {
+        headerName: 'Reps', field: 'Name',
+        cellRendererFramework: RepsDropDownComponent, width: 120
+      },
+      { headerName: 'Time To Next Exercise', field: 'TimeToNextExercise', width: 180, editable: true },
+    ];
+    this.repsGridOptions.rowData = this.reps;
+    this.repsGridOptions.rowHeight = 30;
   }
   createColumnDefs() {
     return [
@@ -68,6 +84,10 @@ export class AddSetComponent extends BaseComponent implements OnInit {
       {
         headerName: 'Reps', field: 'Reps',
         cellRendererFramework: RepsFieldComponent, width: 610
+      },
+      {
+        headerName: 'Edit', field: 'Reps',
+        cellRendererFramework: EditExerciseComponent, width: 90
       },
       {
         headerName: 'Remove', field: 'Reps',
@@ -97,9 +117,22 @@ export class AddSetComponent extends BaseComponent implements OnInit {
 
     this.dialog.showModal();
   }
+
+  showDialogForEdit(set: set) {
+    this._set = set;
+    this.selectedSet = set;
+    this.currentSet = this.sets.find(exp => exp.Name === this._set.Name);
+    this.gridOptions.api.setRowData(this._set.Exercise);
+    this.dialog = this._el.nativeElement.querySelector('dialog');
+
+    if (!this.dialog.showModal) {
+      this.dialog.dialogPolyfill.registerDialog(this.dialog);
+    }
+
+    this.dialog.showModal();
+  }
   onAddExercise() {
     if (this.reps.length > 0) {
-      this.onSaveRep();
       this.selectedExercise.Measure = this.selectedMeasure.value;
       this.selectedExercise.Reps = this.reps;
       this.selectedExercise.ExerciseOrder = this._set.Exercise.length + 1
@@ -113,20 +146,22 @@ export class AddSetComponent extends BaseComponent implements OnInit {
       this._set.Exercise.splice($event.rowIndex, 1);
       this.gridOptions.api.setRowData(this._set.Exercise);
     }
+    else if ($event.colDef.headerName === 'Edit') {
+      this.selectedExercise = $event.data;
+      this.currentExercise = this.exercises.find(exp => exp.Name === this.selectedExercise.Name);
+      this.currentMeasure = this.measure.find(exp => exp.value === this.selectedExercise.Measure);
+
+      this.reps = this.selectedExercise.Reps;
+
+      this.repsGridOptions.api.setRowData(this.reps);
+    }
   }
   onAddReps() {
-    if (this.reps.length > 0) {
-      this.onSaveRep();
-    }
     this.reps.push(new Reps());
+    this.repsGridOptions.api.setRowData(this.reps);
   }
-  onSaveRep() {
-    this.reps[this.reps.length - 1].TimeToNextExercise = this.timeToNextExercise;
-    this.reps[this.reps.length - 1].RepsNameId = this.selectedRep.RepsNameId;
-    this.reps[this.reps.length - 1].Name = this.selectedRep.Name;
-  }
+
   onSaveSet() {
-    this.onSaveRep();
     this.onAddExercise();
     this._set.SetOrder = this.workout.Set.length + 1;
     this.workout.Set.push(this._set);
