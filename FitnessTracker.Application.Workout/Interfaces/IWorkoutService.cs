@@ -25,6 +25,8 @@ namespace FitnessTracker.Application.Workout.Interfaces
 
         FitnessTracker.Domain.Workout.Workout SaveWorkout(FitnessTracker.Domain.Workout.Workout workout);
 
+        FitnessTracker.Domain.Workout.Workout UpdateWorkout(FitnessTracker.Domain.Workout.Workout workout);
+
         List<DailyWorkout> GetSavedWorkout(int id);
     }
 }

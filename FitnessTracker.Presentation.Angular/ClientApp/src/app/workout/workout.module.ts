@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { EditExerciseComponent } from '../workout/components/grid/edit-exercise/edit-exercise.component';
 import { RepsDropDownComponent } from '../workout/components/grid/reps-drop-down/reps-drop-down.component';
+import { DeleteImageComponent } from '../shared/components/delete-image/delete-image.component'
 @NgModule({
   imports: [CommonModule, SharedModule.forRoot(), HttpModule, HttpClientModule, FormsModule, AgGridModule.withComponents([AddSetComponent,
     DeleteExerciseComponent, EditExerciseComponent, RepsDropDownComponent, SetFieldComponent, NgxsModule.forRoot([WorkoutState, BodyInfoState])])],
@@ -25,7 +26,7 @@ import { RepsDropDownComponent } from '../workout/components/grid/reps-drop-down
   declarations: [LogWorkoutComponent, AddBodyInfoComponent, AddWorkoutComponent, AddSetComponent,
     RepsFieldComponent, DeleteExerciseComponent, SetFieldComponent, AddSetComponent, EditExerciseComponent, RepsDropDownComponent],
   providers: [WorkoutService],
-  entryComponents: [RepsFieldComponent]
+  entryComponents: [RepsFieldComponent, DeleteImageComponent]
 })
 
 export class WorkoutModule { }

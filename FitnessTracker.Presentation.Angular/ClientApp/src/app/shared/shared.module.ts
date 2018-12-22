@@ -12,6 +12,7 @@ import { EventService } from "../shared/services";
 import { BaseLayoutComponent } from "../layout";
 import { AppsettingsService } from "./services/app-settings.service";
 import { HttpClientModule } from "@angular/common/http";
+import { DeleteImageComponent } from '../shared/components/delete-image/delete-image.component'
 
 @NgModule({
   imports: [FormsModule, CommonModule, HttpClientModule],
@@ -21,7 +22,8 @@ import { HttpClientModule } from "@angular/common/http";
     DropDownComponentMDL,
     SpinnerComponent,
     ToastComponent,
-    BaseLayoutComponent
+    BaseLayoutComponent,
+    DeleteImageComponent
   ],
   exports: [
     MDL,
@@ -31,7 +33,8 @@ import { HttpClientModule } from "@angular/common/http";
     ToastComponent,
     BaseLayoutComponent,
     CommonModule,
-    FormsModule
+    FormsModule,
+    DeleteImageComponent
   ],
   providers: [EventService, AppsettingsService]
 })

@@ -7,5 +7,8 @@
         public string Name { get; set; }
         public string TimeToNextExercise { get; set; }
         public int RepOrder { get; set; }
+        public int ExerciseId { get; set; }
+        public int SetId { get; set; }
+        public int RepsNameId { get; set; }
     }
 }

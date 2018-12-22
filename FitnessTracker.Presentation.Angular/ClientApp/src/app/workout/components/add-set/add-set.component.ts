@@ -7,7 +7,8 @@ import { BaseComponent } from '../../../shared/components';
 import { RepsFieldComponent, DeleteExerciseComponent, EditExerciseComponent, RepsDropDownComponent } from '../../components';
 import { Workout, set, ExerciseName, RepsName, Exercise, Reps, SetName } from '../../models';
 import { DropDownModel, events } from '../../../shared/models';
-
+import { DeleteImageComponent } from '../../../shared/components/delete-image/delete-image.component'
+import { fail } from 'assert';
 @Component({
   selector: 'addSet',
   templateUrl: 'add-set.component.html'
@@ -27,7 +28,7 @@ export class AddSetComponent extends BaseComponent implements OnInit {
   private reps: Array<Reps>;
   private sets: Array<SetName>;
   private repNames: Array<RepsName>;
-  timeToNextExercise: string;
+  private isExerciseAdded: boolean;
   selectedRep: RepsName;
   gridOptions: GridOptions;
   repsGridOptions: GridOptions;
@@ -47,6 +48,8 @@ export class AddSetComponent extends BaseComponent implements OnInit {
       { displayName: 'Sec', value: 'Sec' },
       { displayName: 'C', value: 'C' }
     ];
+
+    this.isExerciseAdded = false;
   }
 
   ngOnInit() {
@@ -73,6 +76,10 @@ export class AddSetComponent extends BaseComponent implements OnInit {
         cellRendererFramework: RepsDropDownComponent, width: 120
       },
       { headerName: 'Time To Next Exercise', field: 'TimeToNextExercise', width: 180, editable: true },
+      {
+        headerName: 'Remove', field: 'Name',
+        cellRendererFramework: DeleteImageComponent, width: 120
+      }
     ];
     this.repsGridOptions.rowData = this.reps;
     this.repsGridOptions.rowHeight = 30;
@@ -100,21 +107,22 @@ export class AddSetComponent extends BaseComponent implements OnInit {
   InitExercise() {
     this.selectedExercise = new Exercise();
     this.reps = new Array<Reps>();
+
     this.selectedRep = new RepsName();
     this.selectedMeasure = new DropDownModel('', '');
-    this.timeToNextExercise = '';
   }
   showDialog() {
     this._set = new set();
     this.selectedSet = new set();
     this.InitExercise();
     this.gridOptions.api.setRowData(this._set.Exercise);
+
     this.dialog = this._el.nativeElement.querySelector('dialog');
 
     if (!this.dialog.showModal) {
       this.dialog.dialogPolyfill.registerDialog(this.dialog);
     }
-
+    this.isExerciseAdded = false;
     this.dialog.showModal();
   }
 
@@ -124,7 +132,7 @@ export class AddSetComponent extends BaseComponent implements OnInit {
     this.currentSet = this.sets.find(exp => exp.Name === this._set.Name);
     this.gridOptions.api.setRowData(this._set.Exercise);
     this.dialog = this._el.nativeElement.querySelector('dialog');
-
+    this.isExerciseAdded = false;
     if (!this.dialog.showModal) {
       this.dialog.dialogPolyfill.registerDialog(this.dialog);
     }
@@ -132,14 +140,16 @@ export class AddSetComponent extends BaseComponent implements OnInit {
     this.dialog.showModal();
   }
   onAddExercise() {
+    this.isExerciseAdded = true;
     if (this.reps.length > 0) {
       this.selectedExercise.Measure = this.selectedMeasure.value;
       this.selectedExercise.Reps = this.reps;
       this.selectedExercise.ExerciseOrder = this._set.Exercise.length + 1
       this._set.Exercise.push(this.selectedExercise);
     }
-    this.InitExercise();
+
     this.gridOptions.api.setRowData(this._set.Exercise);
+    this.clearControls();
   }
   onCellClicked($event: any) {
     if ($event.colDef.headerName === 'Remove') {
@@ -156,17 +166,33 @@ export class AddSetComponent extends BaseComponent implements OnInit {
       this.repsGridOptions.api.setRowData(this.reps);
     }
   }
+  onRepsCellClicked($event: any) {
+    if ($event.colDef.headerName === 'Remove') {
+      this.reps.splice($event.rowIndex, 1);
+      this.repsGridOptions.api.setRowData(this.reps);
+    }
+  }
   onAddReps() {
     this.reps.push(new Reps());
     this.repsGridOptions.api.setRowData(this.reps);
   }
 
   onSaveSet() {
-    this.onAddExercise();
-    this._set.SetOrder = this.workout.Set.length + 1;
-    this.workout.Set.push(this._set);
+    if (this.isExerciseAdded) {
+      this.onAddExercise();
+      this._set.SetOrder = this.workout.Set.length + 1;
+      this.workout.Set.push(this._set);
+    }
     this.onClose();
     this._eventService.sendEvent(events.addSetEvent, this._set);
+    this.clearControls();
+  }
+  clearControls() {
+    this.reps = new Array<Reps>();
+    this.selectedExercise = new Exercise();
+    this.selectedRep = new RepsName();
+    this.selectedMeasure = new DropDownModel('', '');
+    this.repsGridOptions.api.setRowData(this.reps);
   }
   onClose() {
     this.dialog.close();

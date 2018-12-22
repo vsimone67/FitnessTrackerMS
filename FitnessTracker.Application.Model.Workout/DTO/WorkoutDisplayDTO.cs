@@ -9,5 +9,6 @@ namespace FitnessTracker.Application.Model.Workout
         public List<SetDisplayDTO> Set { get; set; }
         public string Phase { get; set; }
         public int Duration { get; set; }
+        public bool isActive { get; set; }
     }
 }

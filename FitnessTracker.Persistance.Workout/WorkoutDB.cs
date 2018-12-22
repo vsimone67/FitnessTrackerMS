@@ -114,5 +114,13 @@ namespace FitnessTracker.Persistance.Workout
         {
             return _dbContext.SaveChanges();
         }
+
+        public Domain.Workout.Workout UpdateWorkout(Domain.Workout.Workout workout)
+        {
+            _dbContext.Workout.Update(workout);
+            _dbContext.SaveChanges();
+
+            return workout;
+        }
     }
 }

@@ -34,6 +34,8 @@ export class RepsDropDownComponent implements AgRendererComponent {
 
   repsSelected(item: any) {
     this.currentSelection = this.repNames[item];
+    this.cell.RepsNameId = this.currentSelection.RepsNameId;
+    this.cell.Name = this.currentSelection.Name;
   }
 
   refresh(params: any): boolean {

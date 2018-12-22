@@ -19,7 +19,7 @@
     <div class="mdl-grid--no-spacing">
       <div class="mdl-cell mdl-cell--12-col">
 
-        <button class="mdl-button mdl-js-button mdl-button--accent align-right" (click)="onAddExercise()" [disabled]="reps?.length == 0">
+        <button class="mdl-button mdl-js-button mdl-button--accent align-right" (click)="onAddExercise()">
           Add
           Exercise
         </button>
@@ -47,13 +47,13 @@
     <div class="mdl-grid--no-spacing">
       <div class="mdl-cell mdl-cell--12-col addSet-gridHeight">
 
-        <ag-grid-angular #agGrid class="ag-theme-blue ag-table-addSet" [gridOptions]="repsGridOptions">
+        <ag-grid-angular #agGrid class="ag-theme-blue ag-table-addSet" [gridOptions]="repsGridOptions" (cellClicked)="onRepsCellClicked($event)">
         </ag-grid-angular>
       </div>
     </div>
   </div>
   <div class="mdl-dialog__actions">
-    <button type="button" class="mdl-button" (click)="onSaveSet()" [disabled]="selectedSet?.Name.length == 0  || reps?.length == 0">Save</button>
+    <button type="button" class="mdl-button" (click)="onSaveSet()" [disabled]="_set.Exercise.length == 0">Save</button>
     <button type="button" class="mdl-button close" (click)="onClose()">Close</button>
   </div>
 </dialog>

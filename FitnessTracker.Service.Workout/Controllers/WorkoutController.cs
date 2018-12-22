@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FitnessTracker.Application.Workout.Workout.Command;
 
 namespace FitnessTracker.Service.Controllers
 {
@@ -123,6 +124,22 @@ namespace FitnessTracker.Service.Controllers
         public async Task<IActionResult> SaveWorkout([FromBody] WorkoutDTO item)
         {
             WorkoutDTO savedWorkout = await _commandProcessor.ProcessAsync<WorkoutDTO>(new SaveWorkoutCommand() { Workout = item });
+
+            // write to event bus a new workout as been added
+            var evt = new AddNewWorkoutEvent
+            {
+                AddedWorkout = savedWorkout
+            };
+            _eventBus.Publish(evt);
+
+            return Ok(savedWorkout);
+        }
+
+        [HttpPost]
+        [Route("UpdateWorkout")]
+        public async Task<IActionResult> UpdateWorkout([FromBody] WorkoutDTO item)
+        {
+            WorkoutDTO savedWorkout = await _commandProcessor.ProcessAsync<WorkoutDTO>(new UpdateWorkoutCommand() { Workout = item });
 
             // write to event bus a new workout as been added
             var evt = new AddNewWorkoutEvent

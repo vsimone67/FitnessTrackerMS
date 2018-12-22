@@ -23,6 +23,10 @@ export class WorkoutService extends BaseService {
     await this.loadConfiguration('workoutServiceURL');
     return this.putDataWithSpinner(this.serviceURL + 'SaveWorkout', workout, callback);
   }
+  async updateWorkout(workout: Workout, callback: any) {
+    await this.loadConfiguration('workoutServiceURL');
+    return this.putDataWithSpinner(this.serviceURL + 'UpdateWorkout', workout, callback);
+  }
   async saveBodyInfo(bodyInfo: BodyInfo, callback: any) {
     await this.loadConfiguration('workoutServiceURL');
     return this.putDataWithSpinner(this.serviceURL + 'SaveBodyInfo', bodyInfo, callback);

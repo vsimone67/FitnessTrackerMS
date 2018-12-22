@@ -23,22 +23,32 @@ namespace FitnessTracker.Application.Workout.Queries
                 WorkoutId = workout.WorkoutId,
                 Name = workout.Name,
                 Phase = string.Empty,
+                isActive = workout.isActive,
 
-                // No AutoMapper conversion here becuase there is special logic here (e.g. display repos and weight
+                // No AutoMapper conversion here because there is special logic here (e.g. display repos and weight
                 Set = workout.Set.OrderBy(set => set.SetOrder).Select(x => new SetDisplayDTO
                 {
                     Name = x.SetName.Name,
                     SetId = x.SetId,
+                    SetOrder = x.SetOrder,
+                    WorkoutId = x.WorkoutId,
+                    SetNameId = x.SetNameId,
+
                     DisplayReps = x.Exercise.First().Reps.OrderBy(ord => ord.RepsName.RepOrder).Select(rep => new RepsDisplayDTO
                     {
                         RepsId = rep.RepsId,
                         Name = rep.RepsName.Name,
-                        RepOrder = rep.RepsName.RepOrder
+                        RepOrder = rep.RepsName.RepOrder,
+                        ExerciseId = rep.ExerciseId,
+                        SetId = rep.SetId,
+                        RepsNameId = rep.RepsNameId,
                     }).Distinct().ToList(),
                     Exercise = x.Exercise.OrderBy(exp => exp.ExerciseOrder).Select(ex => new ExerciseDisplayDTO
                     {
                         ExerciseId = ex.ExerciseId,
                         Name = ex.ExerciseName.Name,
+                        ExerciseNameId = ex.ExerciseNameId,
+                        ExerciseOrder = ex.ExerciseOrder,
                         Measure = ex.Measure,
 
                         SetId = x.SetId,
@@ -48,7 +58,10 @@ namespace FitnessTracker.Application.Workout.Queries
                             Weight = FindWeight(workout.DailyWorkout.OrderByDescending(date => date.WorkoutDate).ToList(), x.SetId, ex.ExerciseId, rep.RepsId),
                             Name = rep.RepsName.Name,
                             TimeToNextExercise = rep.TimeToNextExercise,
-                            RepOrder = rep.RepsName.RepOrder
+                            RepOrder = rep.RepsName.RepOrder,
+                            ExerciseId = rep.ExerciseId,
+                            RepsNameId = rep.RepsNameId,
+                            SetId = rep.SetId
                         }).ToList()
                     }).ToList()
                 }).ToList()

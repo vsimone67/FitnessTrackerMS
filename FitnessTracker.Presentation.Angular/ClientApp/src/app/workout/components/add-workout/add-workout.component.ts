@@ -1,16 +1,20 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { GridOptions } from 'ag-grid-community';
-import { DeleteExerciseComponent, SetFieldComponent, EditExerciseComponent } from '../../components'
-import { AddSetComponent } from '../add-set/add-set.component'
-import { BaseComponent } from '../../../shared/components';
-import { EventService } from '../../../shared/services';
-import { WorkoutService } from '../../services/workout.service';
-import { Workout } from '../../models';
-import { events } from '../../../shared/models';
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import { GridOptions } from "ag-grid-community";
+import {
+  DeleteExerciseComponent,
+  SetFieldComponent,
+  EditExerciseComponent
+} from "../../components";
+import { AddSetComponent } from "../add-set/add-set.component";
+import { BaseComponent } from "../../../shared/components";
+import { EventService } from "../../../shared/services";
+import { WorkoutService } from "../../services/workout.service";
+import { Workout } from "../../models";
+import { events } from "../../../shared/models";
 
 @Component({
-  selector: 'addWorkout',
-  templateUrl: 'add-workout.component.html'
+  selector: "addWorkout",
+  templateUrl: "add-workout.component.html"
 })
 export class AddWorkoutComponent extends BaseComponent implements OnInit {
   @ViewChild(AddSetComponent) addSet: AddSetComponent;
@@ -19,16 +23,18 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
   isEdit: boolean;
   gridOptions: GridOptions;
 
-  constructor(private _workoutService: WorkoutService, public _eventService: EventService,
-    private _el: ElementRef) {
+  constructor(
+    private _workoutService: WorkoutService,
+    public _eventService: EventService,
+    private _el: ElementRef
+  ) {
     super(_eventService);
 
     this.workout = new Workout();
     // get event from addset that the aet has been successfully added
-    _eventService.getEvent(events.addSetEvent).subscribe(
-      () => {
-        this.onSetAdded();
-      });
+    _eventService.getEvent(events.addSetEvent).subscribe(() => {
+      this.onSetAdded();
+    });
 
     this.setGridOptions();
     this.isEdit = false;
@@ -37,7 +43,6 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this._workoutService.getWorkouts((workouts: Array<Workout>) => {
       this.workouts = workouts;
-
     });
   }
   onSetAdded() {
@@ -52,20 +57,25 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
   }
   createColumnDefs() {
     return [
-      { headerName: 'Set', field: 'Name', width: 215 },
+      { headerName: "Set", field: "Name", width: 215 },
       {
-        headerName: 'Exercise', field: 'Exercise',
-        cellRendererFramework: SetFieldComponent, width: 610
+        headerName: "Exercise",
+        field: "Exercise",
+        cellRendererFramework: SetFieldComponent,
+        width: 610
       },
       {
-        headerName: 'Edit', field: 'Exercise',
-        cellRendererFramework: EditExerciseComponent, width: 90
+        headerName: "Edit",
+        field: "Exercise",
+        cellRendererFramework: EditExerciseComponent,
+        width: 90
       },
       {
-        headerName: 'Remove', field: 'Exercise',
-        cellRendererFramework: DeleteExerciseComponent, width: 90
+        headerName: "Remove",
+        field: "Exercise",
+        cellRendererFramework: DeleteExerciseComponent,
+        width: 90
       }
-
     ];
   }
 
@@ -73,11 +83,10 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
     this.addSet.showDialog();
   }
   onCellClicked($event: any) {
-    if ($event.colDef.headerName === 'Remove') {
+    if ($event.colDef.headerName === "Remove") {
       this.workout.Set.splice($event.rowIndex, 1);
       this.gridOptions.api.setRowData(this.workout.Set);
-    }
-    else if ($event.colDef.headerName === 'Edit') {
+    } else if ($event.colDef.headerName === "Edit") {
       this.addSet.showDialogForEdit($event.data);
     }
   }
@@ -89,6 +98,16 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
     });
   }
   saveWorkout() {
-    this._workoutService.saveWorkout(this.workout, () => this.showMessage('Workout Saved'));
+    if (!this.isEdit) {
+      this._workoutService.saveWorkout(this.workout, () =>
+        this.showMessage("Workout Saved")
+      );
+    } else {
+      this._workoutService.updateWorkout(this.workout, () =>
+        this.showMessage("Workout Updated")
+      );
+    }
+
+    this.isEdit = false;
   }
 }
