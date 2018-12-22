@@ -185,7 +185,6 @@ export class AddSetComponent extends BaseComponent implements OnInit {
     }
     this.onClose();
     this._eventService.sendEvent(events.addSetEvent, this._set);
-    this.clearControls();
   }
   clearControls() {
     this.reps = new Array<Reps>();
@@ -193,8 +192,12 @@ export class AddSetComponent extends BaseComponent implements OnInit {
     this.selectedRep = new RepsName();
     this.selectedMeasure = new DropDownModel('', '');
     this.repsGridOptions.api.setRowData(this.reps);
+    this.currentExercise = new ExerciseName();
+    this.currentMeasure = new DropDownModel('', '');
+    this.currentSet = new SetName();
   }
   onClose() {
+    this.clearControls();
     this.dialog.close();
   }
   exerciseSelected(item: any) {
