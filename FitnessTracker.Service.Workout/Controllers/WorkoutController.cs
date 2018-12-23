@@ -1,5 +1,4 @@
-﻿using EventBus.Abstractions;
-using FitnessTracker.Application.Model.Workout;
+﻿using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Command;
 using FitnessTracker.Application.Workout.Queries;
 using FitnessTracker.Application.Workout.Workout.Command;
@@ -15,15 +14,13 @@ namespace FitnessTracker.Service.Controllers
     [Route("api/v1/[controller]")]
     public class WorkoutController : Controller
     {
-        private readonly ILogger<WorkoutController> _logger;
-        private readonly IEventBus _eventBus;
         private readonly IMediator _mediator;
+        private readonly ILogger<WorkoutController> _logger;
 
-        public WorkoutController(IMediator mediator, ILogger<WorkoutController> logger, IEventBus eventBus)
+        public WorkoutController(IMediator mediator, ILogger<WorkoutController> logger)
         {
-            _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         [HttpGet]

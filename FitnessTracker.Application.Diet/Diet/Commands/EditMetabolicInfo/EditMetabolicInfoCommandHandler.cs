@@ -3,27 +3,24 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
+using MediatR;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Diet.Command
 {
-    public class EditMetabolicInfoCommandHandler : HandlerBase<IDietService>, ICommandHandler<EditMetabolicInfoCommand, MetabolicInfoDTO>
+    public class EditMetabolicInfoCommandHandler : HandlerBase<IDietRepository>, IRequestHandler<EditMetabolicInfoCommand, MetabolicInfoDTO>
     {
-        public EditMetabolicInfoCommandHandler(IDietService service, IMapper mapper) : base(service, mapper)
+        public EditMetabolicInfoCommandHandler(IDietRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public MetabolicInfoDTO Handle(EditMetabolicInfoCommand command)
+        public async Task<MetabolicInfoDTO> Handle(EditMetabolicInfoCommand request, CancellationToken cancellationToken)
         {
-            var metabolicInfo = _mapper.Map<MetabolicInfo>(command.MetabolicInfo);
-            var editRecord = _service.EditMetabolicInfo(metabolicInfo);
+            var metabolicInfo = _mapper.Map<MetabolicInfo>(request.MetabolicInfo);
+            var editRecord = await _repository.EditMetabolicInfoAsync(metabolicInfo);
 
             return _mapper.Map<MetabolicInfoDTO>(editRecord);
-        }
-
-        public async Task<MetabolicInfoDTO> HandleAsync(EditMetabolicInfoCommand command)
-        {
-            return await Task.Run<MetabolicInfoDTO>(() => Handle(command)).ConfigureAwait(false);
         }
     }
 }

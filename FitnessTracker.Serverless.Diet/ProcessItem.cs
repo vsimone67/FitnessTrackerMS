@@ -24,17 +24,18 @@ namespace FitnessTracker.Serverless.Diet
         }
 
         [FunctionName("ProcessItemData")]
-        public static FoodInfoDTO SaveToDB([ActivityTrigger] FoodInfoDTO foodInfo, ILogger log, ExecutionContext context)
+        public static async Task<FoodInfoDTO> SaveToDB([ActivityTrigger] FoodInfoDTO foodInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+            EnvironmentSetup<IDietRepository, DietRepository> ftEnvironment = new EnvironmentSetup<IDietRepository, DietRepository>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+
             var queryHanlder = new ProcessItemCommandHandler(ftEnvironment.Service, ftEnvironment.Mapper);
-            return queryHanlder.Handle(new ProcessItemCommand() { FoodInfo = foodInfo });
+            return await queryHanlder.Handle(new ProcessItemCommand() { FoodInfo = foodInfo }, new System.Threading.CancellationToken());
         }
 
         [FunctionName("ProcessItemToSB")]
         public static FoodInfoDTO SendToSB([ActivityTrigger] FoodInfoDTO foodInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+            EnvironmentSetup<IDietRepository, DietRepository> ftEnvironment = new EnvironmentSetup<IDietRepository, DietRepository>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
 
             var evt = new AddNewFoodEvent
             {

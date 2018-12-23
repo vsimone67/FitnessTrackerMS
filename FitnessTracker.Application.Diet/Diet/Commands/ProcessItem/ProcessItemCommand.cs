@@ -1,9 +1,9 @@
-﻿using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Model.Diet;
+﻿using FitnessTracker.Application.Model.Diet;
+using MediatR;
 
 namespace FitnessTracker.Application.Diet.Command
 {
-    public class ProcessItemCommand : ICommand
+    public class ProcessItemCommand : IRequest<FoodInfoDTO>
     {
         public FoodInfoDTO FoodInfo { get; set; }
     }

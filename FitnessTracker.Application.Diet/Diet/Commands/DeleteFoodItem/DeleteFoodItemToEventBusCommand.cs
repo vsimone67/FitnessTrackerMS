@@ -1,9 +1,9 @@
 ﻿using FitnessTracker.Application.Model.Diet;
 using MediatR;
 
-namespace FitnessTracker.Application.Diet.Command
+namespace FitnessTracker.Application.Diet.Diet.Commands
 {
-    public class DeleteFoodItemCommand : IRequest<FoodInfoDTO>
+    public class DeleteFoodItemToEventBusCommand : IRequest
     {
         public FoodInfoDTO FoodInfo { get; set; }
     }

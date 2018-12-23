@@ -24,11 +24,11 @@ namespace FitnessTracker.Serverless.Diet
         }
 
         [FunctionName("DeleteFoodItemData")]
-        public static FoodInfoDTO SaveToDB([ActivityTrigger] FoodInfoDTO foodInfo, ILogger log, ExecutionContext context)
+        public async static Task<FoodInfoDTO> SaveToDB([ActivityTrigger] FoodInfoDTO foodInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+            EnvironmentSetup<IDietRepository, DietRepository> ftEnvironment = new EnvironmentSetup<IDietRepository, DietRepository>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
             var queryHanlder = new DeleteFoodItemCommandHandler(ftEnvironment.Service, ftEnvironment.Mapper);
-            return queryHanlder.Handle(new DeleteFoodItemCommand() { FoodInfo = foodInfo });
+            return await queryHanlder.Handle(new DeleteFoodItemCommand() { FoodInfo = foodInfo }, new System.Threading.CancellationToken());
         }
 
         [FunctionName("DeleteFoodItemToSB")]

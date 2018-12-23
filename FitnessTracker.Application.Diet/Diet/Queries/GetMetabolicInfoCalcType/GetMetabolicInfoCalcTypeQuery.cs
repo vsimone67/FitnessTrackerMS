@@ -1,9 +1,9 @@
-﻿using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Model.Diet;
+﻿using FitnessTracker.Application.Model.Diet;
+using MediatR;
 
 namespace FitnessTracker.Application.Diet.Queries
 {
-    public class GetMetabolicInfoCalcTypeQuery : IQuery<CurrentMacrosDTO>
+    public class GetMetabolicInfoCalcTypeQuery : IRequest<CurrentMacrosDTO>
     {
         public string Id { get; set; }
     }

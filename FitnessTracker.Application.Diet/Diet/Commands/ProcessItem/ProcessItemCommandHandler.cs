@@ -3,33 +3,30 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
+using MediatR;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Diet.Command
 {
-    public class ProcessItemCommandHandler : HandlerBase<IDietService>, ICommandHandler<ProcessItemCommand, FoodInfoDTO>
+    public class ProcessItemCommandHandler : HandlerBase<IDietRepository>, IRequestHandler<ProcessItemCommand, FoodInfoDTO>
     {
-        public ProcessItemCommandHandler(IDietService service, IMapper mapper) : base(service, mapper)
+        public ProcessItemCommandHandler(IDietRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public FoodInfoDTO Handle(ProcessItemCommand command)
+        public async Task<FoodInfoDTO> Handle(ProcessItemCommand request, CancellationToken cancellationToken)
         {
             FoodInfo newItem;
 
-            var foodInfoCommandInput = _mapper.Map<FoodInfo>(command.FoodInfo);
+            var foodInfoCommandInput = _mapper.Map<FoodInfo>(request.FoodInfo);
 
-            if (command.FoodInfo.ItemId == 0)
-                newItem = _service.AddFood(foodInfoCommandInput);
+            if (request.FoodInfo.ItemId == 0)
+                newItem = await _repository.AddFoodAsync(foodInfoCommandInput);
             else
-                newItem = _service.EditFood(foodInfoCommandInput);
+                newItem = await _repository.EditFoodAsync(foodInfoCommandInput);
 
             return _mapper.Map<FoodInfoDTO>(newItem);
-        }
-
-        public async Task<FoodInfoDTO> HandleAsync(ProcessItemCommand command)
-        {
-            return await Task.Run<FoodInfoDTO>(() => Handle(command)).ConfigureAwait(false);
         }
     }
 }

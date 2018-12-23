@@ -23,9 +23,9 @@ namespace FitnessTracker.Serverless.Diet
 
             try
             {
-                EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+                EnvironmentSetup<IDietRepository, DietRepository> ftEnvironment = new EnvironmentSetup<IDietRepository, DietRepository>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
                 var queryHanlder = new GetMetabolicInfoQueryHandler(ftEnvironment.Service, ftEnvironment.Mapper);
-                var results = queryHanlder.Handle(new GetMetabolicInfoQuery());
+                var results = queryHanlder.Handle(new GetMetabolicInfoQuery(), new System.Threading.CancellationToken());
 
                 retval = new OkObjectResult(JsonConvert.SerializeObject(results));
             }

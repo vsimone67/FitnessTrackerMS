@@ -1,10 +1,10 @@
-﻿using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Model.Diet;
+﻿using FitnessTracker.Application.Model.Diet;
+using MediatR;
 using System.Collections.Generic;
 
 namespace FitnessTracker.Application.Diet.Queries
 {
-    public class GetMetabolicInfoQuery : IQuery<List<MetabolicInfoDTO>>
+    public class GetMetabolicInfoQuery : IRequest<List<MetabolicInfoDTO>>
     {
     }
 }

@@ -3,34 +3,31 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
 using FitnessTracker.Domain.Diet;
+using MediatR;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Diet.Command
 {
-    public class SaveMenuCommandHandler : HandlerBase<IDietService>, ICommandHandler<SaveMenuCommand, List<NutritionInfoDTO>>
+    public class SaveMenuCommandHandler : HandlerBase<IDietRepository>, IRequestHandler<SaveMenuCommand, List<NutritionInfoDTO>>
     {
-        public SaveMenuCommandHandler(IDietService service, IMapper mapper) : base(service, mapper)
+        public SaveMenuCommandHandler(IDietRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public List<NutritionInfoDTO> Handle(SaveMenuCommand command)
+        public async Task<List<NutritionInfoDTO>> Handle(SaveMenuCommand request, CancellationToken cancellationToken)
         {
-            _service.ClearSavedMenu();
+            await _repository.ClearSavedMenuAsync();
 
-            var saveMenuCommandItem = _mapper.Map<List<NutritionInfo>>(command.Menu);
-            saveMenuCommandItem.ForEach(item =>
+            var saveMenuCommandItem = _mapper.Map<List<NutritionInfo>>(request.Menu);
+            saveMenuCommandItem.ForEach(async item =>
             {
                 if (item.item.Count > 0)
-                    _service.SaveMenu(item);
+                    await _repository.SaveMenuAsync(item);
             });
 
-            return command.Menu;
-        }
-
-        public async Task<List<NutritionInfoDTO>> HandleAsync(SaveMenuCommand command)
-        {
-            return await Task.Run<List<NutritionInfoDTO>>(() => Handle(command)).ConfigureAwait(false);
+            return request.Menu;
         }
     }
 }

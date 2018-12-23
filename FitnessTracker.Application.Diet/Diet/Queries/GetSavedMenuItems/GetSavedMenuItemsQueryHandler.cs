@@ -2,28 +2,25 @@
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
+using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Diet.Queries
 {
-    public class GetSavedMenuItemsQueryHandler : HandlerBase<IDietService>, IQueryHandler<GetSavedMenuItemsQuery, List<FoodInfoDTO>>
+    public class GetSavedMenuItemsQueryHandler : HandlerBase<IDietRepository>, IRequestHandler<GetSavedMenuItemsQuery, List<FoodInfoDTO>>
     {
-        public GetSavedMenuItemsQueryHandler(IDietService service, IMapper mapper) : base(service, mapper)
+        public GetSavedMenuItemsQueryHandler(IDietRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public List<FoodInfoDTO> Handle(GetSavedMenuItemsQuery query)
+        public async Task<List<FoodInfoDTO>> Handle(GetSavedMenuItemsQuery request, CancellationToken cancellationToken)
         {
-            var foodList = _service.GetAllFoodData().OrderBy(exp => exp.Item).ToList();
+            var foodList = await _repository.GetAllFoodDataAsync();
 
-            return _mapper.Map<List<FoodInfoDTO>>(foodList);
-        }
-
-        public async Task<List<FoodInfoDTO>> HandleAsync(GetSavedMenuItemsQuery query)
-        {
-            return await Task.Run<List<FoodInfoDTO>>(() => Handle(query)).ConfigureAwait(false);
+            return _mapper.Map<List<FoodInfoDTO>>(foodList.OrderBy(exp => exp.Item).ToList());
         }
     }
 }

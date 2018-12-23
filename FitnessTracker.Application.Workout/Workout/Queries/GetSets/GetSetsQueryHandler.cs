@@ -18,7 +18,7 @@ namespace FitnessTracker.Application.Workout.Queries
 
         public async Task<List<SetNameDTO>> Handle(GetSetQuery request, CancellationToken cancellationToken)
         {
-            var setNames = await _service.GetSetsAsync();
+            var setNames = await _repository.GetSetsAsync();
             return _mapper.Map<List<SetNameDTO>>(setNames.OrderBy(exp => exp.Name).ToList());
         }
     }

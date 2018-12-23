@@ -24,11 +24,11 @@ namespace FitnessTracker.Serverless.Diet
         }
 
         [FunctionName("EditMetabolicInfoData")]
-        public static MetabolicInfoDTO SaveToDB([ActivityTrigger] MetabolicInfoDTO metabolicInfo, ILogger log, ExecutionContext context)
+        public async static Task<MetabolicInfoDTO> SaveToDB([ActivityTrigger] MetabolicInfoDTO metabolicInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+            EnvironmentSetup<IDietRepository, DietRepository> ftEnvironment = new EnvironmentSetup<IDietRepository, DietRepository>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
             var queryHanlder = new EditMetabolicInfoCommandHandler(ftEnvironment.Service, ftEnvironment.Mapper);
-            return queryHanlder.Handle(new EditMetabolicInfoCommand() { MetabolicInfo = metabolicInfo });
+            return await queryHanlder.Handle(new EditMetabolicInfoCommand() { MetabolicInfo = metabolicInfo }, new System.Threading.CancellationToken());
         }
 
         [FunctionName("EditMetabolicInfoToSB")]

@@ -25,17 +25,18 @@ namespace FitnessTracker.Serverless.Diet
         }
 
         [FunctionName("SaveMenuData")]
-        public static List<NutritionInfoDTO> SaveToDB([ActivityTrigger] List<NutritionInfoDTO> nutritionInfo, ILogger log, ExecutionContext context)
+        public async static Task<List<NutritionInfoDTO>> SaveToDB([ActivityTrigger] List<NutritionInfoDTO> nutritionInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+            EnvironmentSetup<IDietRepository, DietRepository> ftEnvironment = new EnvironmentSetup<IDietRepository, DietRepository>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+
             var queryHanlder = new SaveMenuCommandHandler(ftEnvironment.Service, ftEnvironment.Mapper);
-            return queryHanlder.Handle(new SaveMenuCommand() { Menu = nutritionInfo });
+            return await queryHanlder.Handle(new SaveMenuCommand() { Menu = nutritionInfo }, new System.Threading.CancellationToken());
         }
 
         [FunctionName("SaveMenuToSB")]
         public static List<NutritionInfoDTO> SendToSB([ActivityTrigger] List<NutritionInfoDTO> nutritionInfo, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IDietService, DietDB> ftEnvironment = new EnvironmentSetup<IDietService, DietDB>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
+            EnvironmentSetup<IDietRepository, DietRepository> ftEnvironment = new EnvironmentSetup<IDietRepository, DietRepository>(context.FunctionAppDirectory, DietMapperConfig.GetDietMapperConfig());
 
             var evt = new SaveMenuEvent
             {

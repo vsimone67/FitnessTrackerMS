@@ -2,27 +2,24 @@
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Diet.Interfaces;
 using FitnessTracker.Application.Model.Diet;
+using MediatR;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Diet.Queries
 {
-    public class GetMetabolicInfoQueryHandler : HandlerBase<IDietService>, IQueryHandler<GetMetabolicInfoQuery, List<MetabolicInfoDTO>>
+    public class GetMetabolicInfoQueryHandler : HandlerBase<IDietRepository>, IRequestHandler<GetMetabolicInfoQuery, List<MetabolicInfoDTO>>
     {
-        public GetMetabolicInfoQueryHandler(IDietService service, IMapper mapper) : base(service, mapper)
+        public GetMetabolicInfoQueryHandler(IDietRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public List<MetabolicInfoDTO> Handle(GetMetabolicInfoQuery query)
+        public async Task<List<MetabolicInfoDTO>> Handle(GetMetabolicInfoQuery request, CancellationToken cancellationToken)
         {
-            var metabolicInfo = _service.GetMetabolicInfo();
+            var metabolicInfo = await _repository.GetMetabolicInfoAsync();
 
             return _mapper.Map<List<MetabolicInfoDTO>>(metabolicInfo);
-        }
-
-        public async Task<List<MetabolicInfoDTO>> HandleAsync(GetMetabolicInfoQuery query)
-        {
-            return await Task.Run<List<MetabolicInfoDTO>>(() => Handle(query)).ConfigureAwait(false);
         }
     }
 }
