@@ -9,12 +9,15 @@ using FitnessTracker.Common.ExtentionMethods;
 using FitnessTracker.Common.Web.Extentions;
 using FitnessTracker.Common.Web.Filters;
 using FitnessTracker.Common.Web.Middleware;
+using MediatR;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
@@ -23,6 +26,7 @@ using NLog.Web;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System.Linq;
+using System.Reflection;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
@@ -114,14 +118,9 @@ namespace FitnessTracker.Common.Web.StartupConfig
         {
             var fitnessTrackerAssemblies = LibraryManager.GetReferencingAssemblies("FitnessTracker");
 
-            // Look in all assemblies and register all implementations of ICommandHandler<in TCommand>
-            container.Register(typeof(ICommandHandler<,>), fitnessTrackerAssemblies);
-            // Look in all assemblies and register all implementations of IQueryHandler<in TQuery, TResult>
-            container.Register(typeof(IQueryHandler<,>), fitnessTrackerAssemblies);
+            services.AddMediatR();  // we are using MetiatR as our mediator for the command/query handlers
 
-            //TODO: NOTE:  No idea why we have to use services.addsingleton instead of container.Register.  container.register does not work
-            services.AddSingleton<ICommandProcessor>((p) => new CommandProcessor(container.GetInstance));
-            services.AddSingleton<IQueryProcessor>((p) => new QueryProcessor(container.GetInstance));
+            container.Register(typeof(IRequestHandler<,>), fitnessTrackerAssemblies);
 
             return services;
         }
@@ -143,7 +142,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
             {
                 foreach (var attribute in typeToRegister.Attributes)
                 {
-                    container.Register(attribute.RegisterAsType, typeToRegister.Type.AsType());
+                    services.AddSingleton(attribute.RegisterAsType, typeToRegister.Type.AsType());
                 }
             }
 
@@ -159,8 +158,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
 
         public static IServiceCollection RegisterMappingEngine(this IServiceCollection services, Container container, IMapper mapperConfig)
         {
-            container.Register<IMapper>(() => mapperConfig, Lifestyle.Singleton);  // Register automapper config and mappings
-
+            services.AddSingleton<IMapper>((p) => mapperConfig); // Register automapper config and mappings
             return services;
         }
 

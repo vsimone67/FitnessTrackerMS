@@ -24,17 +24,17 @@ namespace FitnessTracker.Serverless.Workout
         }
 
         [FunctionName("SaveDailyWorkoutData")]
-        public static DailyWorkoutDTO SaveToDB([ActivityTrigger] WorkoutDisplayDTO savedWorkout, ILogger log, ExecutionContext context)
+        public async static Task<DailyWorkoutDTO> SaveToDB([ActivityTrigger] WorkoutDisplayDTO savedWorkout, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IWorkoutService, WorkoutDB> ftEnvironment = new EnvironmentSetup<IWorkoutService, WorkoutDB>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
+            EnvironmentSetup<IWorkoutRepository, WorkoutRepository> ftEnvironment = new EnvironmentSetup<IWorkoutRepository, WorkoutRepository>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
             var commandHanlder = new SaveDailyWorkoutCommandHandler(ftEnvironment.Service, ftEnvironment.Mapper);
-            return commandHanlder.Handle(new SaveDailyWorkoutCommand() { Workout = savedWorkout });
+            return await commandHanlder.Handle(new SaveDailyWorkoutCommand() { Workout = savedWorkout }, new System.Threading.CancellationToken());
         }
 
         [FunctionName("SaveDailyWorkoutToSB")]
         public static DailyWorkoutDTO SendToSB([ActivityTrigger] DailyWorkoutDTO savedWorkout, ILogger log, ExecutionContext context)
         {
-            EnvironmentSetup<IWorkoutService, WorkoutDB> ftEnvironment = new EnvironmentSetup<IWorkoutService, WorkoutDB>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
+            EnvironmentSetup<IWorkoutRepository, WorkoutRepository> ftEnvironment = new EnvironmentSetup<IWorkoutRepository, WorkoutRepository>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
 
             var evt = new WorkoutCompletedEvent
             {

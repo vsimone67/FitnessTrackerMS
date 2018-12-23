@@ -4,12 +4,14 @@ namespace FitnessTracker.Application.Common
 {
     public class HandlerBase<TResult>
     {
-        protected TResult _service;
+        protected TResult _service; //TODO: REMOVE
         protected IMapper _mapper;
+        protected TResult _repository;
 
-        public HandlerBase(TResult service, IMapper mapper)
+        public HandlerBase(TResult repository, IMapper mapper)
         {
-            _service = service;
+            _service = repository;
+            _repository = repository;
             _mapper = mapper;
         }
     }

@@ -3,22 +3,23 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Domain.Workout;
+using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Workout.Queries
 {
-    public class GetBodyInfoQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetBodyInfoQuery, List<BodyInfoDTO>>
+    public class GetBodyInfoQueryHandler : HandlerBase<IWorkoutRepository>, IRequestHandler<GetBodyInfoQuery, List<BodyInfoDTO>>
     {
-        public GetBodyInfoQueryHandler(IWorkoutService service, IMapper mapper) : base(service, mapper)
+        public GetBodyInfoQueryHandler(IWorkoutRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public List<BodyInfoDTO> Handle(GetBodyInfoQuery query)
+        public async Task<List<BodyInfoDTO>> Handle(GetBodyInfoQuery request, CancellationToken cancellationToken)
         {
-            // put logic here
-            List<BodyInfo> bodyInfo = _service.GetBodyInfo();
+            List<BodyInfo> bodyInfo = await _repository.GetBodyInfoAsync();
 
             //make all false to start, initialize logic for GUI
             bodyInfo.ForEach(info =>
@@ -31,11 +32,6 @@ namespace FitnessTracker.Application.Workout.Queries
             bodyInfo.OrderBy(info => info.BodyFat).First().isBestBodyFat = true;
 
             return _mapper.Map<List<BodyInfoDTO>>(bodyInfo);
-        }
-
-        public async Task<List<BodyInfoDTO>> HandleAsync(GetBodyInfoQuery query)
-        {
-            return await Task.Run<List<BodyInfoDTO>>(() => Handle(query)).ConfigureAwait(false);
         }
     }
 }

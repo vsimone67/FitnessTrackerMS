@@ -2,28 +2,25 @@
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
+using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Workout.Queries
 {
-    public class GetExercisesQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetExercisesQuery, List<ExerciseNameDTO>>
+    public class GetExercisesQueryHandler : HandlerBase<IWorkoutRepository>, IRequestHandler<GetExercisesQuery, List<ExerciseNameDTO>>
     {
-        public GetExercisesQueryHandler(IWorkoutService service, IMapper mapper) : base(service, mapper)
+        public GetExercisesQueryHandler(IWorkoutRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public List<ExerciseNameDTO> Handle(GetExercisesQuery query)
+        public async Task<List<ExerciseNameDTO>> Handle(GetExercisesQuery request, CancellationToken cancellationToken)
         {
-            var exercises = _service.GetExercises().OrderBy(exp => exp.Name).ToList();
+            var exercises = await _repository.GetExercisesAsync();
 
-            return _mapper.Map<List<ExerciseNameDTO>>(exercises);
-        }
-
-        public async Task<List<ExerciseNameDTO>> HandleAsync(GetExercisesQuery query)
-        {
-            return await Task.Run<List<ExerciseNameDTO>>(() => Handle(query));
+            return _mapper.Map<List<ExerciseNameDTO>>(exercises.OrderBy(exp => exp.Name).ToList());
         }
     }
 }

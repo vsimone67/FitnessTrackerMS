@@ -3,21 +3,23 @@ using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Domain.Workout;
+using MediatR;
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Workout.Command
 {
-    public class SaveDailyWorkoutCommandHandler : HandlerBase<IWorkoutService>, ICommandHandler<SaveDailyWorkoutCommand, DailyWorkoutDTO>
+    public class SaveDailyWorkoutCommandHandler : HandlerBase<IWorkoutRepository>, IRequestHandler<SaveDailyWorkoutCommand, DailyWorkoutDTO>
     {
-        public SaveDailyWorkoutCommandHandler(IWorkoutService service, IMapper mapper) : base(service, mapper)
+        public SaveDailyWorkoutCommandHandler(IWorkoutRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public DailyWorkoutDTO Handle(SaveDailyWorkoutCommand command)
+        public async Task<DailyWorkoutDTO> Handle(SaveDailyWorkoutCommand request, CancellationToken cancellationToken)
         {
             DailyWorkout dailyWorkout = new DailyWorkout();
-            WorkoutDisplayDTO workout = command.Workout;
+            WorkoutDisplayDTO workout = request.Workout;
 
             dailyWorkout.Phase = workout.Phase;
             dailyWorkout.WorkoutDate = DateTime.Now;
@@ -36,14 +38,9 @@ namespace FitnessTracker.Application.Workout.Command
                 })));
             }
 
-            DailyWorkout savedWorkout = _service.SaveDailyWorkout(dailyWorkout);
+            DailyWorkout savedWorkout = await _repository.SaveDailyWorkoutAsync(dailyWorkout);
 
             return _mapper.Map<DailyWorkoutDTO>(savedWorkout);
-        }
-
-        public async Task<DailyWorkoutDTO> HandleAsync(SaveDailyWorkoutCommand command)
-        {
-            return await Task.Run<DailyWorkoutDTO>(() => Handle(command));
         }
     }
 }

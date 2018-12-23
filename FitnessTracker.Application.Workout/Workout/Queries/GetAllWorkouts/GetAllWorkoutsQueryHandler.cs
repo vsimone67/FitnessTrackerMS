@@ -2,28 +2,32 @@
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
+using MediatR;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Workout.Queries
 {
-    public class GetAllWorkoutsQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetAllWorkoutsQuery, List<WorkoutDTO>>
+    public class GetAllWorkoutsQueryHandler : HandlerBase<IWorkoutRepository>, IRequestHandler<GetAllWorkoutsQuery, List<WorkoutDTO>>
     {
-        public GetAllWorkoutsQueryHandler(IWorkoutService workoutService, IMapper mapper) : base(workoutService, mapper)
+        public GetAllWorkoutsQueryHandler(IWorkoutRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public List<WorkoutDTO> Handle(GetAllWorkoutsQuery query)
+        public async Task<List<WorkoutDTO>> Handle(GetAllWorkoutsQuery request, CancellationToken cancellationToken)
         {
-            var workouts = _service.GetAllWorkouts().Where(exp => exp.isActive).OrderBy(exp => exp.Name).ToList();
+            var workouts = await _repository.GetAllWorkoutsAsync();
 
-            return _mapper.Map<List<WorkoutDTO>>(workouts);
-        }
+            List<WorkoutDTO> retval;
 
-        public async Task<List<WorkoutDTO>> HandleAsync(GetAllWorkoutsQuery query)
-        {
-            return await Task.Run<List<WorkoutDTO>>(() => Handle(query));
+            if (request.IsAll)
+                retval = _mapper.Map<List<WorkoutDTO>>(workouts.Where(exp => exp.isActive).OrderBy(exp => exp.Name).ToList()); // only return active
+            else
+                retval = _mapper.Map<List<WorkoutDTO>>(workouts);  // return all
+
+            return retval;
         }
     }
 }

@@ -37,10 +37,10 @@ namespace FitnessTracker.Service.Workout
             services.AddCustomMvc()
              .AddCustomSwagger(_swaggerInfo)
              .ConfigureDIContainer(_container)
+             .RegisterCommandAndQueryHandlers(_container)
              .RegisterAppSettings(Configuration)
              .AddDependencies(Configuration)
              .RegisterFitnessTrackerDependencies(_container)
-             .RegisterCommandAndQueryHandlers(_container)
              .RegisterMappingEngine(_container, WorkoutMapperConfig.GetWorkoutMapperConfig())
              .AddHealthChecks(Configuration)
              .AddEventBus(Configuration, _container);

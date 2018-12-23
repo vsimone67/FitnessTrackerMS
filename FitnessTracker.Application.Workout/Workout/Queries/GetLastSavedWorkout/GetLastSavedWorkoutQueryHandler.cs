@@ -2,27 +2,24 @@
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
+using MediatR;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Workout.Queries
 {
-    public class GetLastSavedWorkoutQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetLastSavedWorkoutQuery, List<DailyWorkoutDTO>>
+    public class GetLastSavedWorkoutQueryHandler : HandlerBase<IWorkoutRepository>, IRequestHandler<GetLastSavedWorkoutQuery, List<DailyWorkoutDTO>>
     {
-        public GetLastSavedWorkoutQueryHandler(IWorkoutService service, IMapper mapper) : base(service, mapper)
+        public GetLastSavedWorkoutQueryHandler(IWorkoutRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public List<DailyWorkoutDTO> Handle(GetLastSavedWorkoutQuery query)
+        public async Task<List<DailyWorkoutDTO>> Handle(GetLastSavedWorkoutQuery request, CancellationToken cancellationToken)
         {
-            var savedWorkout = _service.GetSavedWorkout(query.Id);
+            var savedWorkout = await _repository.GetSavedWorkoutAsync(request.Id);
 
             return _mapper.Map<List<DailyWorkoutDTO>>(savedWorkout);
-        }
-
-        public async Task<List<DailyWorkoutDTO>> HandleAsync(GetLastSavedWorkoutQuery query)
-        {
-            return await Task.Run<List<DailyWorkoutDTO>>(() => Handle(query));
         }
     }
 }

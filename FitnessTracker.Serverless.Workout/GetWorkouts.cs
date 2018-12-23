@@ -23,9 +23,9 @@ namespace FitnessTracker.Serverless.Workout
 
             try
             {
-                EnvironmentSetup<IWorkoutService, WorkoutDB> ftEnvironment = new EnvironmentSetup<IWorkoutService, WorkoutDB>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
+                EnvironmentSetup<IWorkoutRepository, WorkoutRepository> ftEnvironment = new EnvironmentSetup<IWorkoutRepository, WorkoutRepository>(context.FunctionAppDirectory, WorkoutMapperConfig.GetWorkoutMapperConfig());
                 var queryHanlder = new GetAllWorkoutsQueryHandler(ftEnvironment.Service, ftEnvironment.Mapper);
-                var results = queryHanlder.Handle(new GetAllWorkoutsQuery());
+                var results = await queryHanlder.Handle(new GetAllWorkoutsQuery(), new System.Threading.CancellationToken());
 
                 retval = new OkObjectResult(JsonConvert.SerializeObject(results));
             }

@@ -2,26 +2,23 @@
 using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
+using MediatR;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Workout.Command
 {
-    public class SaveWorkoutCommandHandler : HandlerBase<IWorkoutService>, ICommandHandler<SaveWorkoutCommand, WorkoutDTO>
+    public class SaveWorkoutCommandHandler : HandlerBase<IWorkoutRepository>, IRequestHandler<SaveWorkoutCommand, WorkoutDTO>
     {
-        public SaveWorkoutCommandHandler(IWorkoutService service, IMapper mapper) : base(service, mapper)
+        public SaveWorkoutCommandHandler(IWorkoutRepository repository, IMapper mapper) : base(repository, mapper)
         {
         }
 
-        public WorkoutDTO Handle(SaveWorkoutCommand command)
+        public async Task<WorkoutDTO> Handle(SaveWorkoutCommand request, CancellationToken cancellationToken)
         {
-            var workoutDTO = _mapper.Map<FitnessTracker.Domain.Workout.Workout>(command.Workout);
-            var workout = _service.SaveWorkout(workoutDTO);
+            var workoutDTO = _mapper.Map<FitnessTracker.Domain.Workout.Workout>(request.Workout);
+            var workout = await _repository.SaveWorkoutAsync(workoutDTO);
             return _mapper.Map<WorkoutDTO>(workout);
-        }
-
-        public async Task<WorkoutDTO> HandleAsync(SaveWorkoutCommand command)
-        {
-            return await Task.Run<WorkoutDTO>(() => Handle(command)).ConfigureAwait(false);
         }
     }
 }

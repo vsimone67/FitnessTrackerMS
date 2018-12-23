@@ -2,21 +2,23 @@
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
 using FitnessTracker.Domain.Workout;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FitnessTracker.Application.Workout.Queries
 {
-    public class GetWorkoutForDisplayQueryHandler : HandlerBase<IWorkoutService>, IQueryHandler<GetWorkoutForDisplayQuery, WorkoutDisplayDTO>
+    public class GetWorkoutForDisplayQueryHandler : HandlerBase<IWorkoutRepository>, IRequestHandler<GetWorkoutForDisplayQuery, WorkoutDisplayDTO>
     {
         // no automapper is needed so pass null
-        public GetWorkoutForDisplayQueryHandler(IWorkoutService service) : base(service, null) { }
+        public GetWorkoutForDisplayQueryHandler(IWorkoutRepository repository) : base(repository, null) { }
 
-        public WorkoutDisplayDTO Handle(GetWorkoutForDisplayQuery query)
+        public async Task<WorkoutDisplayDTO> Handle(GetWorkoutForDisplayQuery request, CancellationToken cancellationToken)
         {
-            FitnessTracker.Domain.Workout.Workout workout = _service.GetWorkoutForDisplay(query.Id);
+            FitnessTracker.Domain.Workout.Workout workout = await _repository.GetWorkoutForDisplayAsync(request.Id);
 
             WorkoutDisplayDTO retval = new WorkoutDisplayDTO
             {
@@ -85,11 +87,6 @@ namespace FitnessTracker.Application.Workout.Queries
             workout.Set.ForEach(set => maxReps = Math.Max(set.DisplayReps.Count, maxReps));
 
             return maxReps;
-        }
-
-        public async Task<WorkoutDisplayDTO> HandleAsync(GetWorkoutForDisplayQuery query)
-        {
-            return await Task.Run<WorkoutDisplayDTO>(() => Handle(query)).ConfigureAwait(false);
         }
 
         protected int FindWeight(List<DailyWorkout> dailyWorkout, int setId, int exerciseId, int repsId)

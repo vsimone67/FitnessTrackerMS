@@ -1,10 +1,10 @@
-﻿using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Model.Workout;
+﻿using FitnessTracker.Application.Model.Workout;
+using MediatR;
 using System.Collections.Generic;
 
 namespace FitnessTracker.Application.Workout.Queries
 {
-    public class GetBodyInfoQuery : IQuery<List<BodyInfoDTO>>
+    public class GetBodyInfoQuery : IRequest<List<BodyInfoDTO>>
     {
     }
 }

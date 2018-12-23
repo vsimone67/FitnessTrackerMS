@@ -1,10 +1,10 @@
-﻿using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Model.Workout;
+﻿using FitnessTracker.Application.Model.Workout;
+using MediatR;
 using System.Collections.Generic;
 
 namespace FitnessTracker.Application.Workout.Queries
 {
-    public class GetRepsQuery : IQuery<List<RepsNameDTO>>
+    public class GetRepsQuery : IRequest<List<RepsNameDTO>>
     {
     }
 }

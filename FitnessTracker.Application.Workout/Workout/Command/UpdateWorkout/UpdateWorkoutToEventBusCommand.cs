@@ -1,9 +1,9 @@
 ﻿using FitnessTracker.Application.Model.Workout;
 using MediatR;
 
-namespace FitnessTracker.Application.Workout.Command
+namespace FitnessTracker.Application.Workout.Workout.Command
 {
-    public class SaveWorkoutCommand : IRequest<WorkoutDTO>
+    public class UpdateWorkoutToEventBusCommand : IRequest
     {
         public WorkoutDTO Workout { get; set; }
     }
