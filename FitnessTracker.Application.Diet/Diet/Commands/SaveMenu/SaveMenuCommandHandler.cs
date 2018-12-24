@@ -21,11 +21,17 @@ namespace FitnessTracker.Application.Diet.Command
             await _repository.ClearSavedMenuAsync();
 
             var saveMenuCommandItem = _mapper.Map<List<NutritionInfo>>(request.Menu);
-            saveMenuCommandItem.ForEach(async item =>
+
+            foreach (var item in saveMenuCommandItem)
             {
                 if (item.item.Count > 0)
                     await _repository.SaveMenuAsync(item);
-            });
+            }
+            //saveMenuCommandItem.ForEach(async item =>
+            //{
+            //    if (item.item.Count > 0)
+            //        await _repository.SaveMenuAsync(item);
+            //});
 
             return request.Menu;
         }

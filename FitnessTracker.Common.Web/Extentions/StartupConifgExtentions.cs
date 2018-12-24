@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using EventBus;
 using EventBus.Abstractions;
-using FitnessTracker.Application.Common;
-using FitnessTracker.Application.Common.Processor;
 using FitnessTracker.Common.AppSettings;
 using FitnessTracker.Common.Attributes;
 using FitnessTracker.Common.ExtentionMethods;
@@ -10,14 +8,12 @@ using FitnessTracker.Common.Web.Extentions;
 using FitnessTracker.Common.Web.Filters;
 using FitnessTracker.Common.Web.Middleware;
 using MediatR;
-using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
@@ -26,7 +22,6 @@ using NLog.Web;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System.Linq;
-using System.Reflection;
 
 namespace FitnessTracker.Common.Web.StartupConfig
 {
@@ -110,6 +105,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
         {
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
             services.EnableSimpleInjectorCrossWiring(container);
+            services.AddSingleton<Microsoft.AspNetCore.Http.IHttpContextAccessor, Microsoft.AspNetCore.Http.HttpContextAccessor>();  // this needed to be added because we are using scoped types for all components when we register them
 
             return services;
         }
@@ -142,7 +138,7 @@ namespace FitnessTracker.Common.Web.StartupConfig
             {
                 foreach (var attribute in typeToRegister.Attributes)
                 {
-                    services.AddSingleton(attribute.RegisterAsType, typeToRegister.Type.AsType());
+                    services.AddScoped(attribute.RegisterAsType, typeToRegister.Type.AsType());
                 }
             }
 

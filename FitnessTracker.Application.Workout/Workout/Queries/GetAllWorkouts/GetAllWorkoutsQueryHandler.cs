@@ -22,7 +22,7 @@ namespace FitnessTracker.Application.Workout.Queries
 
             List<WorkoutDTO> retval;
 
-            if (request.IsAll)
+            if (request.IsActive)
                 retval = _mapper.Map<List<WorkoutDTO>>(workouts.Where(exp => exp.isActive).OrderBy(exp => exp.Name).ToList()); // only return active
             else
                 retval = _mapper.Map<List<WorkoutDTO>>(workouts);  // return all
