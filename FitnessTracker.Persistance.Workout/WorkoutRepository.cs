@@ -52,7 +52,7 @@ namespace FitnessTracker.Persistance.Workout
 
         public async Task<Domain.Workout.Workout> GetWorkoutAsync(int id)
         {
-            var workout = await _dbContext.Workout
+            return await _dbContext.Workout
               .Include(set => set.Set)
               .ThenInclude(setName => setName.SetName)
               .Include(set => set.Set).ThenInclude(ex => ex.Exercise).ThenInclude(exName => exName.ExerciseName)
@@ -65,8 +65,6 @@ namespace FitnessTracker.Persistance.Workout
               .ThenInclude(ex => ex.Exercise)
               .ThenInclude(rep => rep.Reps)
               .Where(exp => exp.WorkoutId == id).FirstAsync<Domain.Workout.Workout>();
-
-            return workout;
         }
 
         public async Task<Domain.Workout.Workout> GetWorkoutForDisplayAsync(int id)
