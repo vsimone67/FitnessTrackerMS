@@ -29,12 +29,9 @@ services:
             - appdirectory=/settings/
     fitnesstracker:
         ports:
-            - '4304:80'
-        volumes:
-            - './configpath/fitnesstracker/docker/logs:/logs'
-            - './configpath/fitnesstracker/dist:/dist'
+            - '4304:80'       
         environment:
-            - dist=/dist
+            - dist=wwwroot
 
     workouthub:
         ports:
