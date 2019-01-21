@@ -4,7 +4,7 @@ import { DropDownModel } from "../../../shared/models";
 import { DietService } from "../../service/diet.service";
 import { Store, Select } from "@ngxs/store";
 import { SetMeals } from "../../actions/diet.actions";
-import { Observable } from "rxjs/observable";
+import { Observable } from "rxjs/Observable";
 import { DietState } from "../../state/diet.state";
 
 @Component({

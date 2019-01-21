@@ -16,7 +16,7 @@ import {
 } from "../../actions/diet.actions";
 import { FoodInfo, Columns, NutritionInfo } from "../../models";
 import { Store, Select } from "@ngxs/store";
-import { Observable } from "rxjs/observable";
+import { Observable } from "rxjs/Observable";
 import { DietState } from "../../state/diet.state";
 
 @Component({

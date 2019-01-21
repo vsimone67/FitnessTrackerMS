@@ -4,7 +4,7 @@ import { BaseComponent } from "../../../shared/components";
 import { MeatabolicInfoConstants } from "../../models";
 import { MeatabolicInfo } from "../../models/metabolic-info.model";
 import { Store, Select } from "@ngxs/store";
-import { Observable } from "rxjs/observable";
+import { Observable } from "rxjs/Observable";
 import {
   GetMetabolicInfo,
   SaveMetabolicInfo

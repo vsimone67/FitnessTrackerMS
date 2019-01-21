@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { AgRendererComponent } from "ag-grid-angular";
 import { NutritionInfo, CurrentMenu } from "../../../models";
 import { Select, Store } from "@ngxs/store";
-import { Observable } from "rxjs/observable";
+import { Observable } from "rxjs/Observable";
 import { DietState } from "../../../state/diet.state";
 import { SetMeals } from "../../../actions/diet.actions";
 

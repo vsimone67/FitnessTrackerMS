@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
 import { Store, Select } from '@ngxs/store';
-import { Observable } from 'rxjs/observable'
+import { Observable } from 'rxjs/Observable'
 import { GetBodyInfo, SaveBodyInfo } from '../../actions/body-info.actions'
 import { BaseComponent } from '../../../shared/components';
 import { EventService } from '../../../shared/services';

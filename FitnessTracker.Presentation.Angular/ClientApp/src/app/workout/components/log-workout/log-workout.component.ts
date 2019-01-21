@@ -6,7 +6,7 @@ import { Workout } from '../../models';
 import { DropDownModel } from '../../../shared/models';
 import { GetAllWorkouts, GetWorkout, SaveWorkout } from '../../actions/workout.actions'
 import { WorkoutState } from '../../state/workout.state'
-import { Observable } from 'rxjs/observable'
+import { Observable } from 'rxjs/Observable'
 
 @Component({
   templateUrl: './log-workout.component.html'

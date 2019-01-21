@@ -4,7 +4,7 @@ import { EventService } from "../../../shared/services";
 import { MeatabolicInfo } from "../../models/metabolic-info.model";
 import { BaseComponent } from "../../../shared/components";
 import { Store, Select } from "@ngxs/store";
-import { Observable } from "rxjs/observable";
+import { Observable } from "rxjs/Observable";
 import {
   GetMetabolicInfo,
   SaveMetabolicInfo
