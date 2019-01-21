@@ -672,7 +672,7 @@ th {
 }
 
 .addWorkout-gridheight {
-  height: calc(100vh - (390px));
+  height: calc(100vh - (190px));
 }
 
 .logWorkout-tableheight {

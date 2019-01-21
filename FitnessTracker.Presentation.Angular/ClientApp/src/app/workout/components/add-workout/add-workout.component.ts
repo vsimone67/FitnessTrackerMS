@@ -1,10 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { GridOptions } from "ag-grid-community";
-import {
-  DeleteExerciseComponent,
-  SetFieldComponent,
-  EditExerciseComponent
-} from "../../components";
+import { DeleteExerciseComponent, SetFieldComponent, EditExerciseComponent} from "../../components";
 import { AddSetComponent } from "../add-set/add-set.component";
 import { BaseComponent } from "../../../shared/components";
 import { EventService } from "../../../shared/services";
@@ -58,6 +54,7 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
   createColumnDefs() {
     return [
       { headerName: "Set", field: "Name", width: 215 },
+      { headerName: "Order", field: "SetOrder", width: 100, editable: true },      
       {
         headerName: "Exercise",
         field: "Exercise",

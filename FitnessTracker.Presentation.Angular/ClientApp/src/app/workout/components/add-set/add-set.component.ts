@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
-
 import { EventService } from '../../../shared/services';
 import { WorkoutService } from '../../services/workout.service';
 import { BaseComponent } from '../../../shared/components';
@@ -74,7 +73,7 @@ export class AddSetComponent extends BaseComponent implements OnInit {
       {
         headerName: 'Reps', field: 'Name',
         cellRendererFramework: RepsDropDownComponent, width: 120
-      },
+      },      
       { headerName: 'Time To Next Exercise', field: 'TimeToNextExercise', width: 180, editable: true },
       {
         headerName: 'Remove', field: 'Name',
@@ -87,6 +86,7 @@ export class AddSetComponent extends BaseComponent implements OnInit {
   createColumnDefs() {
     return [
       { headerName: 'Exercise', field: 'Name', width: 215 },
+      { headerName: "Order", field: "ExerciseOrder", width: 100, editable: true },
       { headerName: 'Measure', field: 'Measure', width: 70 },
       {
         headerName: 'Reps', field: 'Reps',

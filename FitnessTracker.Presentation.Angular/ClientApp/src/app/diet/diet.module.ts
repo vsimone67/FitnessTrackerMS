@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { CreateDietComponent } from "./components/create-diet/create-diet.component";
 import { EditMetabolicInfoComponent } from "./components/edit-metabolic-info/edit-metabolic-info.component";
-import { DeleteImageComponent } from "./components/grid/delete-image/delete-image.component";
+import { DeleteImageComponent } from '../shared/components/delete-image/delete-image.component'
 import { EditImageComponent } from "./components/grid/edit-image/edit-image.component";
 import { MealCheckBoxComponent } from "./components/grid/meal-check-box/meal-check-box.component";
 import { ServingDropDownComponent } from "./components/grid/servings-drop-down/servings-drop-down.component";
@@ -22,15 +22,13 @@ import { MetabolicInfoState } from "../../app/diet/state/metabolic-info.state";
     AgGridModule.withComponents([
       ServingDropDownComponent,
       MealCheckBoxComponent,
-      EditImageComponent,
-      DeleteImageComponent
+      EditImageComponent      
     ]),
     NgxsModule.forRoot([DietState, MetabolicInfoState])
   ],
   declarations: [
     CreateDietComponent,
     EditMetabolicInfoComponent,
-    DeleteImageComponent,
     EditImageComponent,
     MealCheckBoxComponent,
     ServingDropDownComponent,
@@ -39,14 +37,14 @@ import { MetabolicInfoState } from "../../app/diet/state/metabolic-info.state";
   ],
   exports: [
     CreateDietComponent,
-    EditMetabolicInfoComponent,
-    DeleteImageComponent,
+    EditMetabolicInfoComponent,    
     EditImageComponent,
     MealCheckBoxComponent,
     ServingDropDownComponent,
     MacroCalculatorComponent,
     MetabolicCounterComponent
   ],
-  providers: [DietService]
+  providers: [DietService],
+  entryComponents: [DeleteImageComponent]
 })
 export class DietModule { }
