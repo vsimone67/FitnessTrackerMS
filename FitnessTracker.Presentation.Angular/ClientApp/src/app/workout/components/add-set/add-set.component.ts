@@ -73,7 +73,7 @@ export class AddSetComponent extends BaseComponent implements OnInit {
       {
         headerName: 'Reps', field: 'Name',
         cellRendererFramework: RepsDropDownComponent, width: 120
-      },      
+      },
       { headerName: 'Time To Next Exercise', field: 'TimeToNextExercise', width: 180, editable: true },
       {
         headerName: 'Remove', field: 'Name',
@@ -87,10 +87,10 @@ export class AddSetComponent extends BaseComponent implements OnInit {
     return [
       { headerName: 'Exercise', field: 'Name', width: 215 },
       { headerName: "Order", field: "ExerciseOrder", width: 100, editable: true },
-      { headerName: 'Measure', field: 'Measure', width: 70 },
+      { headerName: 'Measure', field: 'Measure', width: 100 },
       {
         headerName: 'Reps', field: 'Reps',
-        cellRendererFramework: RepsFieldComponent, width: 610
+        cellRendererFramework: RepsFieldComponent, width: 390
       },
       {
         headerName: 'Edit', field: 'Reps',
