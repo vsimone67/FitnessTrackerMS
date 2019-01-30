@@ -35,6 +35,11 @@ export class WorkoutService extends BaseService {
     await this.loadConfiguration('workoutServiceURL');
     this.getDataWithSpinner(this.serviceURL + 'GetWorkouts', callback);
   }
+
+  async getAllWorkouts(callback: any) {
+    await this.loadConfiguration('workoutServiceURL');
+    this.getDataWithSpinner(this.serviceURL + 'GetWorkouts?activeOnly=false', callback);
+  }
   async getWorkout(id: number, callback: any) {
     await this.loadConfiguration('workoutServiceURL');
     return this.getDataWithSpinner(this.serviceURL + 'GetWorkoutForDisplay/' + id.toString(), callback);

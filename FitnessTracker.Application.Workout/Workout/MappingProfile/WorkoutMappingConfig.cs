@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using FitnessTracker.Application.MappingProfile;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FitnessTracker.Application.Workout.Workout.MappingProfile
 {

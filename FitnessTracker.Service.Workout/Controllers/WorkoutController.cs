@@ -25,11 +25,18 @@ namespace FitnessTracker.Service.Controllers
 
         [HttpGet]
         [Route("GetWorkouts")]
-        public async Task<IActionResult> GetWorkouts()
+        public async Task<IActionResult> GetWorkouts(string activeOnly)
         {
             _logger.LogInformation("Getting Workouts.....");
 
-            List<WorkoutDTO> workout = await _mediator.Send<List<WorkoutDTO>>(new GetAllWorkoutsQuery());
+            var query = new GetAllWorkoutsQuery();
+
+            if (!string.IsNullOrEmpty(activeOnly))  // true or null active only, false = get all
+            {
+                query.IsActive = bool.Parse(activeOnly);
+            }
+
+            List<WorkoutDTO> workout = await _mediator.Send<List<WorkoutDTO>>(query);
             return Ok(workout);
         }
 

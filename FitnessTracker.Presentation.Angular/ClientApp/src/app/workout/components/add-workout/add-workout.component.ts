@@ -1,6 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 import { GridOptions } from "ag-grid-community";
-import { DeleteExerciseComponent, SetFieldComponent, EditExerciseComponent} from "../../components";
+import { DeleteExerciseComponent, SetFieldComponent, EditExerciseComponent } from "../../components";
 import { AddSetComponent } from "../add-set/add-set.component";
 import { BaseComponent } from "../../../shared/components";
 import { EventService } from "../../../shared/services";
@@ -17,7 +17,15 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
   workout: Workout;
   workouts: Array<Workout>;
   isEdit: boolean;
+  isClone: boolean;
   gridOptions: GridOptions;
+
+  get isActive(): boolean {
+    return this.workout.isActive;
+  }
+  set isActive(isActive: boolean) {
+    this.workout.isActive = isActive;
+  }
 
   constructor(
     private _workoutService: WorkoutService,
@@ -34,10 +42,11 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
 
     this.setGridOptions();
     this.isEdit = false;
+    this.isClone = false;
   }
 
   ngOnInit() {
-    this._workoutService.getWorkouts((workouts: Array<Workout>) => {
+    this._workoutService.getAllWorkouts((workouts: Array<Workout>) => {
       this.workouts = workouts;
     });
   }
@@ -54,7 +63,7 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
   createColumnDefs() {
     return [
       { headerName: "Set", field: "Name", width: 215 },
-      { headerName: "Order", field: "SetOrder", width: 100, editable: true },      
+      { headerName: "Order", field: "SetOrder", width: 100, editable: true },
       {
         headerName: "Exercise",
         field: "Exercise",
@@ -95,7 +104,10 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
     });
   }
   saveWorkout() {
-    if (!this.isEdit) {
+    if (!this.isEdit || this.isClone) {
+      if (this.isClone) {
+        this.ClearIds();
+      }
       this._workoutService.saveWorkout(this.workout, () =>
         this.showMessage("Workout Saved")
       );
@@ -106,5 +118,13 @@ export class AddWorkoutComponent extends BaseComponent implements OnInit {
     }
 
     this.isEdit = false;
+  }
+
+  ClearIds() {
+    this.workout.Set.forEach(set => {
+      set.SetId = 0; set.Exercise.forEach(exercise => {
+        exercise.ExerciseId = 0; exercise.Reps.forEach(rep => rep.RepsId = 0)
+      })
+    });
   }
 }

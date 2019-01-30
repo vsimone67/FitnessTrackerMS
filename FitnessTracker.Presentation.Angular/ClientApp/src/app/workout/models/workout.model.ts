@@ -6,6 +6,7 @@ export class Workout {
   public Set: Array<set>;
   public Phase: string;
   public Duration: number;
+  public isActive: boolean;
 
   constructor() {
     this.Set = new Array<set>();
