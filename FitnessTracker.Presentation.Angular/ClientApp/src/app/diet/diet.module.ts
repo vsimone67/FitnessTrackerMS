@@ -22,7 +22,7 @@ import { MetabolicInfoState } from "../../app/diet/state/metabolic-info.state";
     AgGridModule.withComponents([
       ServingDropDownComponent,
       MealCheckBoxComponent,
-      EditImageComponent      
+      EditImageComponent
     ]),
     NgxsModule.forRoot([DietState, MetabolicInfoState])
   ],
@@ -37,7 +37,7 @@ import { MetabolicInfoState } from "../../app/diet/state/metabolic-info.state";
   ],
   exports: [
     CreateDietComponent,
-    EditMetabolicInfoComponent,    
+    EditMetabolicInfoComponent,
     EditImageComponent,
     MealCheckBoxComponent,
     ServingDropDownComponent,

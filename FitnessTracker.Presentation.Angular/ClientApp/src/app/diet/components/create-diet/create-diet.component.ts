@@ -4,7 +4,7 @@ import { BaseComponent } from "../../../shared/components";
 import { MacroCalculatorComponent } from "../../components/macro-calculator/macro-calculator.component";
 import { MealCheckBoxComponent } from "../../components/grid/meal-check-box/meal-check-box.component";
 import { EditImageComponent } from "../../components/grid/edit-image/edit-image.component";
-import { DeleteImageComponent } from "../../components/grid/delete-image/delete-image.component";
+import { DeleteImageComponent } from '../../../shared/components/delete-image/delete-image.component'
 import { ServingDropDownComponent } from "../../components/grid/servings-drop-down/servings-drop-down.component";
 import { EventService } from "../../../shared/services";
 import {
@@ -184,16 +184,16 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
       popupWin.window.focus();
       popupWin.document.write(
         "<!DOCTYPE html><html><head>" +
-          '<link rel="stylesheet" type="text/css" href="content/css/style.css" />' +
-          '</head><body onload="window.print()"><div class="reward-body">' +
-          printContents +
-          "</div></html>"
+        '<link rel="stylesheet" type="text/css" href="content/css/style.css" />' +
+        '</head><body onload="window.print()"><div class="reward-body">' +
+        printContents +
+        "</div></html>"
       );
-      popupWin.onbeforeunload = function(event) {
+      popupWin.onbeforeunload = function (event) {
         popupWin.document.close();
         return ".\n";
       };
-      popupWin.onabort = function(event) {
+      popupWin.onabort = function (event) {
         popupWin.document.close();
         popupWin.close();
       };
@@ -202,8 +202,8 @@ export class CreateDietComponent extends BaseComponent implements OnInit {
       popupWin.document.open();
       popupWin.document.write(
         '<html><head><link rel="stylesheet" type="text/css" href="content/css/style.css" /></head><body onload="window.print()">' +
-          printContents +
-          "</html>"
+        printContents +
+        "</html>"
       );
       popupWin.document.close();
     }
