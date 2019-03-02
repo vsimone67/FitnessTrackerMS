@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2026
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28621.142
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessTracker.Presentation.Mobile.Android", "FitnessTracker.Presentation.Mobile\FitnessTracker.Presentation.Mobile.Android\FitnessTracker.Presentation.Mobile.Android.csproj", "{F9A4C1E8-6777-42C2-BC54-FC683E5B97FD}"
 EndProject
@@ -64,6 +64,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Service.Diet", "FitnessTracker.Service.Diet\FitnessTracker.Service.Diet.csproj", "{1FE128D3-455E-4110-AF7F-77A191A3636E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessTracker.Service.Workout", "FitnessTracker.Service.Workout\FitnessTracker.Service.Workout.csproj", "{6019A71C-C69D-4541-AB0F-1B46584481F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87404E66-3BD0-4B28-BF11-BE5E0F3E58E5}"
+	ProjectSection(SolutionItems) = preProject
+		Build.ps1 = Build.ps1
+		PublishToAzure.ps1 = PublishToAzure.ps1
+		PushImage.ps1 = PushImage.ps1
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
