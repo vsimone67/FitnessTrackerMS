@@ -25,7 +25,7 @@ namespace FitnessTracker.Service.Workout
                 Version = "v1",
                 Description = "Application to track my workouts and learn new technologies",
                 TermsOfService = "Terms of Service",
-                EndPointDescription = "Workout Micro Service V1"
+                EndPointDescription = "Workout Micro Service V1.1"
             };
         }
 

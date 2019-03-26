@@ -15,6 +15,12 @@ namespace FitnessTracker.Service.Workout
          WebHost.CreateDefaultBuilder(args)
              .ConfigureNLogFromEnvironment()
              .ConfigAppConfigurationFromEnvironment()
+             .UseKestrel(o =>
+             {
+                 o.Limits.KeepAliveTimeout = System.TimeSpan.FromMinutes(5);
+                 o.Limits.RequestHeadersTimeout = System.TimeSpan.FromMinutes(5);
+             })
+             .UseLinuxTransport()
              .UseStartup<Startup>();
     }
 }
