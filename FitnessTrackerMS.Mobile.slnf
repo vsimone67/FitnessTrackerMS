@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "FitnessTrackerMS.sln",
+    "projects": [
+      "FitnessTracker.Common\\FitnessTracker.Common.csproj",
+      "FitnessTracker.Presentation.Mobile\\FitnessTracker.Presentation.Mobile.Android\\FitnessTracker.Presentation.Mobile.Android.csproj",
+      "FitnessTracker.Presentation.Mobile\\FitnessTracker.Presentation.Mobile\\FitnessTracker.Presentation.Mobile.csproj"
+    ]
+  }
+}

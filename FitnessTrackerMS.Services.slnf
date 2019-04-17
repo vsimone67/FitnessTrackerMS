@@ -1,0 +1,24 @@
+{
+  "solution": {
+    "path": "FitnessTrackerMS.sln",
+    "projects": [
+      "FitnessTracker.Application.Common\\FitnessTracker.Application.Common.csproj",
+      "FitnessTracker.Application.Diet\\FitnessTracker.Application.Diet.csproj",
+      "FitnessTracker.Application.Model.Diet\\FitnessTracker.Application.Model.Diet.csproj",
+      "FitnessTracker.Application.Model.Workout\\FitnessTracker.Application.Model.Workout.csproj",
+      "FitnessTracker.Application.Workout\\FitnessTracker.Application.Workout.csproj",
+      "FitnessTracker.Common.Serverless\\FitnessTracker.Common.Serverless.csproj",
+      "FitnessTracker.Common.Web\\FitnessTracker.Common.Web.csproj",
+      "FitnessTracker.Common\\FitnessTracker.Common.csproj",
+      "FitnessTracker.Domain.Diet\\FitnessTracker.Domain.Diet.csproj",
+      "FitnessTracker.Domain.Workout\\FitnessTracker.Domain.Workout.csproj",
+      "FitnessTracker.Infrastructure\\FitnessTracker.Infrastructure.csproj",
+      "FitnessTracker.Persistance.Diet\\FitnessTracker.Persistance.Diet.csproj",
+      "FitnessTracker.Persistance.Workout\\FitnessTracker.Persistance.Workout.csproj",
+      "FitnessTracker.Serverless.Diet\\FitnessTracker.Serverless.Diet.csproj",
+      "FitnessTracker.Serverless.Workout\\FitnessTracker.Serverless.Workout.csproj",
+      "FitnessTracker.Service.Diet\\FitnessTracker.Service.Diet.csproj",
+      "FitnessTracker.Service.Workout\\FitnessTracker.Service.Workout.csproj"
+    ]
+  }
+}

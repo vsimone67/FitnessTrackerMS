@@ -1,0 +1,12 @@
+{
+  "solution": {
+    "path": "FitnessTrackerMS.sln",
+    "projects": [
+      "FitnessTracker.Common\\FitnessTracker.Common.csproj",
+      "FitnessTracker.Presentation.Angular\\FitnessTracker.Presentation.Angular.csproj",
+      "FitnessTracker.Presentation.Diet.MessageHub\\FitnessTracker.Presentation.Diet.MessageHub.csproj",
+      "FitnessTracker.Presentation.WebStatus\\FitnessTracker.Presentation.WebStatus.csproj",
+      "FitnessTracker.Presentation.Workout.MessageHub\\FitnessTracker.Presentation.Workout.MessageHub.csproj"
+    ]
+  }
+}

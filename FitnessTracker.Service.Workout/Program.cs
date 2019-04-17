@@ -20,7 +20,7 @@ namespace FitnessTracker.Service.Workout
                  o.Limits.KeepAliveTimeout = System.TimeSpan.FromMinutes(5);
                  o.Limits.RequestHeadersTimeout = System.TimeSpan.FromMinutes(5);
              })
-             .UseLinuxTransport()
+             //.UseLinuxTransport()
              .UseStartup<Startup>();
     }
 }
