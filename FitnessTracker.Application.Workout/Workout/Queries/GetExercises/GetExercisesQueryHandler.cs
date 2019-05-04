@@ -18,9 +18,9 @@ namespace FitnessTracker.Application.Workout.Queries
 
         public async Task<List<ExerciseNameDTO>> Handle(GetExercisesQuery request, CancellationToken cancellationToken)
         {
-            var exercises = await _repository.GetExercisesAsync();
+            var exercises = await _repository.GetExercisesAsync().ConfigureAwait(false);
 
-            return _mapper.Map<List<ExerciseNameDTO>>(exercises.OrderBy(exp => exp.Name).ToList());
+            return _mapper.Map<List<ExerciseNameDTO>>(exercises.OrderBy(exp => exp.Name));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace FitnessTracker.Application.Workout.Queries
 
         public async Task<List<DailyWorkoutDTO>> Handle(GetLastSavedWorkoutQuery request, CancellationToken cancellationToken)
         {
-            var savedWorkout = await _repository.GetSavedWorkoutAsync(request.Id);
+            var savedWorkout = await _repository.GetSavedWorkoutAsync(request.Id).ConfigureAwait(false);
 
             return _mapper.Map<List<DailyWorkoutDTO>>(savedWorkout);
         }

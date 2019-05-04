@@ -18,12 +18,12 @@ namespace FitnessTracker.Application.Workout.Queries
 
         public async Task<List<WorkoutDTO>> Handle(GetAllWorkoutsQuery request, CancellationToken cancellationToken)
         {
-            var workouts = await _repository.GetAllWorkoutsAsync();
+            var workouts = await _repository.GetAllWorkoutsAsync().ConfigureAwait(false);
 
             List<WorkoutDTO> retval;
 
             if (request.IsActive)
-                retval = _mapper.Map<List<WorkoutDTO>>(workouts.Where(exp => exp.isActive).OrderBy(exp => exp.Name).ToList()); // only return active
+                retval = _mapper.Map<List<WorkoutDTO>>(workouts.Where(exp => exp.isActive).OrderBy(exp => exp.Name)); // only return active
             else
                 retval = _mapper.Map<List<WorkoutDTO>>(workouts);  // return all
 

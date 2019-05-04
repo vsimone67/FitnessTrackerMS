@@ -1,10 +1,10 @@
 ﻿using FitnessTracker.Application.Common;
 using FitnessTracker.Application.Model.Workout;
 using FitnessTracker.Application.Workout.Interfaces;
+using FitnessTracker.Common.Async;
 using FitnessTracker.Domain.Workout;
 using MediatR;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,8 +18,13 @@ namespace FitnessTracker.Application.Workout.Queries
 
         public async Task<WorkoutDisplayDTO> Handle(GetWorkoutForDisplayQuery request, CancellationToken cancellationToken)
         {
-            FitnessTracker.Domain.Workout.Workout workout = await _repository.GetWorkoutForDisplayAsync(request.Id);
+            FitnessTracker.Domain.Workout.Workout workout = await _repository.GetWorkoutForDisplayAsync(request.Id).ConfigureAwait(false);
 
+            return AsyncHelper.RunSync<WorkoutDisplayDTO>(() => MakeWorkoutDTO(workout));
+        }
+
+        private Task<WorkoutDisplayDTO> MakeWorkoutDTO(Domain.Workout.Workout workout)
+        {
             WorkoutDisplayDTO retval = new WorkoutDisplayDTO
             {
                 WorkoutId = workout.WorkoutId,
@@ -57,7 +62,7 @@ namespace FitnessTracker.Application.Workout.Queries
                         Reps = ex.Reps.OrderBy(ord => ord.RepsName.RepOrder).Select(rep => new RepsDisplayDTO
                         {
                             RepsId = rep.RepsId,
-                            Weight = FindWeight(workout.DailyWorkout.OrderByDescending(date => date.WorkoutDate).ToList(), x.SetId, ex.ExerciseId, rep.RepsId),
+                            Weight = FindWeight(workout.DailyWorkout.OrderByDescending(date => date.WorkoutDate), x.SetId, ex.ExerciseId, rep.RepsId),
                             Name = rep.RepsName.Name,
                             TimeToNextExercise = rep.TimeToNextExercise,
                             RepOrder = rep.RepsName.RepOrder,
@@ -70,7 +75,7 @@ namespace FitnessTracker.Application.Workout.Queries
             };
 
             CheckSetCount(retval);
-            return retval;
+            return Task.FromResult(retval);
         }
 
         private void CheckSetCount(WorkoutDisplayDTO workout)
@@ -89,16 +94,17 @@ namespace FitnessTracker.Application.Workout.Queries
             return maxReps;
         }
 
-        protected int FindWeight(List<DailyWorkout> dailyWorkout, int setId, int exerciseId, int repsId)
+        protected int FindWeight(IOrderedEnumerable<DailyWorkout> dailyWorkout, int setId, int exerciseId, int repsId)
         {
             int retVal = 0;
 
-            if (dailyWorkout.Count > 0)
+            if (dailyWorkout.Count() > 0)
             {
-                List<DailyWorkoutInfo> info = dailyWorkout[0].DailyWorkoutInfo.OrderByDescending(x => x.DailyWorkoutId).ToList();
-                var workout = info.Find(exp => exp.ExerciseId == exerciseId && exp.SetId == setId && exp.RepsId == repsId);
+                var info = dailyWorkout.First().DailyWorkoutInfo.OrderByDescending(x => x.DailyWorkoutId);
+                var workout = info.Where(exp => exp.ExerciseId == exerciseId && exp.SetId == setId && exp.RepsId == repsId);
 
-                retVal = workout.WeightUsed;
+                if (workout.Any())
+                    retVal = workout.First().WeightUsed;
             }
             return retVal;
         }

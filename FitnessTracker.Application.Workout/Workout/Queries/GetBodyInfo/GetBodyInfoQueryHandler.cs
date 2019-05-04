@@ -26,7 +26,6 @@ namespace FitnessTracker.Application.Workout.Queries
             // run this code in a separate thread so we do not block the main thread to allow better performance (this code will run sync on the new thread)
             AsyncHelper.RunSync(() => UpdateWeightParameters(bodyInfo));
 
-
             return _mapper.Map<List<BodyInfoDTO>>(bodyInfo);
         }
 
@@ -36,6 +35,7 @@ namespace FitnessTracker.Application.Workout.Queries
             bodyInfo.OrderByDescending(info => info.BodyFat).First().isWorstBodyFat = true;
             bodyInfo.OrderBy(info => info.Weight).First().isBestWeight = true;
             bodyInfo.OrderBy(info => info.BodyFat).First().isBestBodyFat = true;
+
             return Task.FromResult(1);
         }
     }

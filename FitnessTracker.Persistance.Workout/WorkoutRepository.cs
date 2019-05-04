@@ -66,6 +66,7 @@ namespace FitnessTracker.Persistance.Workout
               .ThenInclude(ex => ex.Exercise)
               .ThenInclude(rep => rep.Reps)
               .Where(exp => exp.WorkoutId == id)
+              
               .AsNoTracking()
               .FirstAsync<Domain.Workout.Workout>();
         }
