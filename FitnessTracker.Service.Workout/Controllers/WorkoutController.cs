@@ -103,7 +103,7 @@ namespace FitnessTracker.Service.Controllers
         public async Task<IActionResult> SaveDailyWorkout([FromBody] WorkoutDisplayDTO item)
         {
             DailyWorkoutDTO savedWorkout = await _mediator.Send<DailyWorkoutDTO>(new SaveDailyWorkoutCommand() { Workout = item });
-            await _mediator.Send<Unit>(new SaveDailyWorkoutToEventBusCommand() { Workout = savedWorkout });  // send to event bus
+            ///await _mediator.Send<Unit>(new SaveDailyWorkoutToEventBusCommand() { Workout = savedWorkout });  // send to event bus
 
             return Ok(savedWorkout);
         }

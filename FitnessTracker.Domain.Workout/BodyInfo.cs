@@ -5,6 +5,13 @@ namespace FitnessTracker.Domain.Workout
 {
     public partial class BodyInfo
     {
+        public BodyInfo()
+        {
+            isBestBodyFat = false;
+            isBestWeight = false;
+            isWorstBodyFat = false; 
+            isWorstWeight = false;
+        }
         public int Id { get; set; }
         public string Phase { get; set; }
         public DateTime Date { get; set; }
