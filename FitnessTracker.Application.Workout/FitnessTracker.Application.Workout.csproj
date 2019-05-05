@@ -8,6 +8,7 @@
     <PackageReference Include="AutoMapper" Version="8.0.0" />
     <PackageReference Include="EventBus" Version="1.0.8" />
     <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

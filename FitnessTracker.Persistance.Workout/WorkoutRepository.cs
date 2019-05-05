@@ -60,13 +60,9 @@ namespace FitnessTracker.Persistance.Workout
               .ThenInclude(ex => ex.Exercise)
               .ThenInclude(rep => rep.Reps)
               .ThenInclude(repName => repName.RepsName)
-              .Include(daily => daily.DailyWorkout)
-              .ThenInclude(dailyInfo => dailyInfo.DailyWorkoutInfo)
-              .ThenInclude(set => set.Set)
-              .ThenInclude(ex => ex.Exercise)
-              .ThenInclude(rep => rep.Reps)
+              //.Include(daily => daily.DailyWorkout)
+              //.ThenInclude(dailyInfo => dailyInfo.DailyWorkoutInfo)
               .Where(exp => exp.WorkoutId == id)
-              
               .AsNoTracking()
               .FirstAsync<Domain.Workout.Workout>();
         }
@@ -74,6 +70,15 @@ namespace FitnessTracker.Persistance.Workout
         public async Task<Domain.Workout.Workout> GetWorkoutForDisplayAsync(int id)
         {
             return await GetWorkoutAsync(id);
+        }
+
+        public async Task<DailyWorkout> GetLastSavedWorkout(int id)
+        {
+            return await _dbContext.DailyWorkout
+                .Include(info => info.DailyWorkoutInfo)
+                .Where(workout => workout.WorkoutId == id)
+                .OrderByDescending(order => order.DailyWorkoutId)
+                .FirstOrDefaultAsync();
         }
 
         public async Task<BodyInfo> SaveBodyInfoAsync(BodyInfo bodyInfo)

@@ -12,8 +12,10 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/v1/workout/getworkoutfordisplay/17",
       "environmentVariables": {
+        "appdirectory": "\\\\UNRAIDNAS\\Public\\Programming\\KubernetesSandBox\\workoutdeploy\\",
+        "nlogdirectory": "\\\\UNRAIDNAS\\Public\\Programming\\KubernetesSandBox\\workoutdeploy\\",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

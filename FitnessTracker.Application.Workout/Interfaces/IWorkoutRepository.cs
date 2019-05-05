@@ -29,5 +29,7 @@ namespace FitnessTracker.Application.Workout.Interfaces
         Task<FitnessTracker.Domain.Workout.Workout> UpdateWorkoutAsync(FitnessTracker.Domain.Workout.Workout workout);
 
         Task<List<DailyWorkout>> GetSavedWorkoutAsync(int id);
+
+        Task<DailyWorkout> GetLastSavedWorkout(int id);
     }
 }

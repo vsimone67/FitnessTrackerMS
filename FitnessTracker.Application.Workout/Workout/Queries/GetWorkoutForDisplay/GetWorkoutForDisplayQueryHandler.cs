@@ -5,6 +5,7 @@ using FitnessTracker.Common.Async;
 using FitnessTracker.Domain.Workout;
 using MediatR;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,9 @@ namespace FitnessTracker.Application.Workout.Queries
         public async Task<WorkoutDisplayDTO> Handle(GetWorkoutForDisplayQuery request, CancellationToken cancellationToken)
         {
             FitnessTracker.Domain.Workout.Workout workout = await _repository.GetWorkoutForDisplayAsync(request.Id).ConfigureAwait(false);
+
+            var lastSavedWorkout = await _repository.GetLastSavedWorkout(request.Id).ConfigureAwait(false);
+            workout.DailyWorkout.Add(lastSavedWorkout);
 
             return AsyncHelper.RunSync<WorkoutDisplayDTO>(() => MakeWorkoutDTO(workout));
         }
@@ -62,7 +66,7 @@ namespace FitnessTracker.Application.Workout.Queries
                         Reps = ex.Reps.OrderBy(ord => ord.RepsName.RepOrder).Select(rep => new RepsDisplayDTO
                         {
                             RepsId = rep.RepsId,
-                            Weight = FindWeight(workout.DailyWorkout.OrderByDescending(date => date.WorkoutDate), x.SetId, ex.ExerciseId, rep.RepsId),
+                            Weight = FindWeight(workout.DailyWorkout, x.SetId, ex.ExerciseId, rep.RepsId),
                             Name = rep.RepsName.Name,
                             TimeToNextExercise = rep.TimeToNextExercise,
                             RepOrder = rep.RepsName.RepOrder,
@@ -94,17 +98,19 @@ namespace FitnessTracker.Application.Workout.Queries
             return maxReps;
         }
 
-        protected int FindWeight(IOrderedEnumerable<DailyWorkout> dailyWorkout, int setId, int exerciseId, int repsId)
+        protected int FindWeight(ICollection<DailyWorkout> dailyWorkout, int setId, int exerciseId, int repsId)
         {
             int retVal = 0;
 
             if (dailyWorkout.Count() > 0)
             {
-                var info = dailyWorkout.First().DailyWorkoutInfo.OrderByDescending(x => x.DailyWorkoutId);
-                var workout = info.Where(exp => exp.ExerciseId == exerciseId && exp.SetId == setId && exp.RepsId == repsId);
+                //var info = dailyWorkout.First().DailyWorkoutInfo.OrderByDescending(x => x.DailyWorkoutId);
+                var workout = dailyWorkout.First().DailyWorkoutInfo.Where(exp => exp.ExerciseId == exerciseId && exp.SetId == setId && exp.RepsId == repsId);
 
                 if (workout.Any())
+                {
                     retVal = workout.First().WeightUsed;
+                }
             }
             return retVal;
         }
